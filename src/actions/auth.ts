@@ -1,9 +1,10 @@
 import { AUTH_TYPES } from './types';
 import axios from 'axios';
-//import { setAlert } from './alert';
+import { setAlert } from './alerts';
 import setAuthToken from '../general/setAuthToken';
 import { Dispatch } from 'redux';
 import { IAuthAction } from '../reducers/auth';
+import { AlertTypes } from '../reducers/alerts';
 //import { getCurrentProfile, createProfile } from './profile';
 
 type AuthDispatch = Dispatch<IAuthAction | any>;
@@ -32,10 +33,13 @@ export const register =
    dispatch(loadUser());
    //dispatch(createProfile({ dateOfBirth }, true));
    const msg = 'User registered successfully';
-   //dispatch(setAlert(msg, 'success'));
+   dispatch(setAlert(msg, AlertTypes.SUCCESS));
   } catch (err) {
    const errs = err.response ? err.response.data.errors : [err];
-   //if (errs) errs.forEach((e) => {dispatch(setAlert(e.msg, 'danger'))});
+   if (errs)
+    errs.forEach((e: any) => {
+     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+    });
    dispatch({
     type: AUTH_TYPES.REGISTER_FAIL,
    });
@@ -85,12 +89,15 @@ export const login =
     payload: res.data,
    });
 
-   //dispatch(setAlert("User logged in Successfully", 'success'));
+   dispatch(setAlert('User logged in Successfully', AlertTypes.SUCCESS));
    dispatch(loadUser());
    //dispatch(getCurrentProfile());
   } catch (err) {
    const errs = err.response.data.errors;
-   //  if (errs) errs.forEach((e) => {}dispatch(setAlert(e.msg, 'danger')));
+   if (errs)
+    errs.forEach((e: any) => {
+     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+    });
    dispatch({
     type: AUTH_TYPES.LOGIN_FAIL,
    });

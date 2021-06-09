@@ -3,11 +3,10 @@ import axios from 'axios';
 //import { setAlert } from './alert';
 import setAuthToken from '../general/setAuthToken';
 import { Dispatch } from 'redux';
+import { IAuthAction } from '../reducers/auth';
 //import { getCurrentProfile, createProfile } from './profile';
 
-type AuthDispatch =
- | Dispatch<{ type: AUTH_TYPES; payload?: any }>
- | ((...args: any[]) => any);
+type AuthDispatch = Dispatch<IAuthAction | any>;
 
 //* Register User
 interface IRegister {

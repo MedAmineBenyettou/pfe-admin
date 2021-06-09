@@ -14,3 +14,10 @@ export enum AUTH_TYPES {
  ACCOUNT_DELETED = 'ACCOUNT_DELETED',
  //?===================================================================
 }
+
+export enum ALERT_TYPES {
+ //? ALERT       =========================================================
+ SET_ALERT = 'SET_ALERT',
+ REMOVE_ALERT = 'REMOVE_ALERT',
+ //?===================================================================
+}

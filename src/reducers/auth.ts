@@ -10,7 +10,7 @@ interface IState {
  token: string | null;
 }
 
-interface IAction {
+export interface IAuthAction {
  type: AUTH_TYPES;
  payload?: Partial<IState>;
 }
@@ -22,7 +22,7 @@ const initialState: IState = {
  token: localStorage.getItem('token'),
 };
 
-export default function (state = initialState, action: IAction) {
+export default function (state = initialState, action: IAuthAction) {
  const { type, payload } = action;
  switch (type) {
   case AUTH_TYPES.REGISTER_FAIL:

@@ -14,5 +14,7 @@ const store = createStore(
 );
 
 export type AppDispatch = typeof store.dispatch;
+const state = store.getState();
+export type AppState = typeof state;
 
 export default store;

@@ -2,12 +2,10 @@ import { AUTH_TYPES } from './types';
 import axios from 'axios';
 import { setAlert } from './alerts';
 import setAuthToken from '../general/setAuthToken';
-import { Dispatch } from 'redux';
-import { IAuthAction } from '../reducers/auth';
 import { AlertTypes } from '../reducers/alerts';
+import { IAuthAction } from '../reducers/auth';
+import { ThunkDispatch } from 'redux-thunk';
 //import { getCurrentProfile, createProfile } from './profile';
-
-type AuthDispatch = Dispatch<IAuthAction | any>;
 
 //* Register User
 interface IRegister {
@@ -16,7 +14,7 @@ interface IRegister {
 }
 export const register =
  ({ username, password }: IRegister) =>
- async (dispatch: AuthDispatch) => {
+ async (dispatch: ThunkDispatch<{}, {}, IAuthAction>) => {
   const config = {
    headers: {
     'Content-Type': 'application/json',
@@ -47,25 +45,26 @@ export const register =
  };
 
 //* Load User
-export const loadUser = () => async (dispatch: AuthDispatch) => {
- const token = localStorage.getItem('token');
- if (token) {
-  setAuthToken(token);
- }
+export const loadUser =
+ () => async (dispatch: ThunkDispatch<{}, {}, IAuthAction>) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+   setAuthToken(token);
+  }
 
- try {
-  const res = await axios.get('/api/auth');
-  if (!res.data) throw new Error();
-  dispatch({
-   type: AUTH_TYPES.USER_LOADED,
-   payload: res.data,
-  });
- } catch (err) {
-  dispatch({
-   type: AUTH_TYPES.AUTH_ERROR,
-  });
- }
-};
+  try {
+   const res = await axios.get('/api/auth');
+   if (!res.data) throw new Error();
+   dispatch({
+    type: AUTH_TYPES.USER_LOADED,
+    payload: res.data,
+   });
+  } catch (err) {
+   dispatch({
+    type: AUTH_TYPES.AUTH_ERROR,
+   });
+  }
+ };
 
 //* Login User
 interface ILogin {
@@ -74,7 +73,7 @@ interface ILogin {
 }
 export const login =
  ({ username, password }: ILogin) =>
- async (dispatch: AuthDispatch) => {
+ async (dispatch: ThunkDispatch<{}, {}, IAuthAction>) => {
   const config = {
    headers: {
     'Content-Type': 'application/json',
@@ -105,6 +104,7 @@ export const login =
  };
 
 //* Logout
-export const logout = () => async (dispatch: AuthDispatch) => {
- dispatch({ type: AUTH_TYPES.LOGOUT });
-};
+export const logout =
+ () => async (dispatch: ThunkDispatch<{}, {}, IAuthAction>) => {
+  dispatch({ type: AUTH_TYPES.LOGOUT });
+ };

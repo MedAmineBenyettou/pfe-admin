@@ -1,12 +1,11 @@
 import { ALERT_TYPES } from './types';
 import { AlertTypes, IAlertAction } from '../reducers/alerts';
-import { Dispatch } from 'redux';
 import uuid from 'uuid';
-
-type AlertDispatch = Dispatch<IAlertAction | any>;
+import { ThunkDispatch } from 'redux-thunk';
 
 export const setAlert =
- (msg: string, alertType: AlertTypes) => (dispatch: AlertDispatch) => {
+ (msg: string, alertType: AlertTypes) =>
+ (dispatch: ThunkDispatch<{}, {}, IAlertAction>) => {
   const id = uuid.v4();
   dispatch({
    type: ALERT_TYPES.SET_ALERT,

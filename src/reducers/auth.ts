@@ -22,7 +22,7 @@ const initialState: IState = {
  token: localStorage.getItem('token'),
 };
 
-export default function (state = initialState, action: IAuthAction) {
+export default function authReducer(state = initialState, action: IAuthAction) {
  const { type, payload } = action;
  switch (type) {
   case AUTH_TYPES.REGISTER_FAIL:

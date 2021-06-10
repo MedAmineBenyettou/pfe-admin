@@ -21,7 +21,10 @@ export type AlertState = IAlert[];
 
 const initialState: AlertState = [];
 
-export default function (state = initialState, action: IAlertAction) {
+export default function alertsReducer(
+ state = initialState,
+ action: IAlertAction
+) {
  const { type, payload } = action;
  switch (type) {
   case ALERT_TYPES.SET_ALERT:

@@ -10,7 +10,7 @@ import { ThunkDispatch } from 'redux-thunk';
 export const getCurrentProfile =
  () => async (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
   try {
-   const res = await axios.get('/api/profile/me');
+   const res = await axios.get('/api/admin/profile/me');
    dispatch({
     type: PROFILE_TYPES.GET_PROFILE,
     payload: res.data,
@@ -37,7 +37,7 @@ export const createProfile =
  (formData: IProfileFormData) =>
  async (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
   try {
-   const res = await axios.post('/api/profile', formData, CONFIG);
+   const res = await axios.post('/api/admin/profile', formData, CONFIG);
    dispatch({
     type: PROFILE_TYPES.PROFILE_CREATION_SUCCESS,
     payload: res.data,
@@ -62,12 +62,12 @@ export const updateProfile =
  (formData: Partial<IProfileFormData>) =>
  async (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
   try {
-   const res = await axios.put('/api/profile', formData, CONFIG);
+   const res = await axios.put('/api/admin/profile', formData, CONFIG);
    dispatch({
     type: PROFILE_TYPES.PROFILE_UPDATE_SUCCESS,
     payload: res.data,
    });
-   dispatch(setAlert('4', AlertTypes.SUCCESS));
+   dispatch(setAlert('Profil mis à jour', AlertTypes.SUCCESS));
   } catch (err) {
    const errors = err.response.data.errors;
    if (errors) {
@@ -87,11 +87,11 @@ export const updateProfile =
 export const deleteAccount =
  () => async (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
   try {
-   await axios.delete('/api/profile');
+   await axios.delete('/api/admin/profile');
    dispatch({ type: PROFILE_TYPES.CLEAR_PROFILE });
    dispatch({ type: PROFILE_TYPES.ACCOUNT_DELETED });
 
-   dispatch(setAlert('6', AlertTypes.SUCCESS));
+   dispatch(setAlert('Votre compte a été supprimé !', AlertTypes.SUCCESS));
   } catch (err) {
    dispatch({
     type: PROFILE_TYPES.PROFILE_ERROR,
@@ -107,10 +107,10 @@ export const getAllProfiles =
    dispatch({
     type: PROFILE_TYPES.GETTING_PROFILES,
    });
-   const res = await axios.get('/api/profile');
+   const res = await axios.get('/api/admin/profile');
    dispatch({
     type: PROFILE_TYPES.GETTING_PROFILES_SUCCESS,
-    payload: { profiles: res.data },
+    payload: res.data,
    });
   } catch (err) {
    dispatch({
@@ -125,7 +125,7 @@ export const setTargetProfile =
  (profile: IProfile) => (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
   dispatch({
    type: PROFILE_TYPES.SETTING_TARGET_PROFILE,
-   payload: { profile },
+   payload: profile,
   });
  };
 
@@ -136,7 +136,7 @@ export const getTargetProfile =
    dispatch({
     type: PROFILE_TYPES.GETTING_TARGET_PROFILE,
    });
-   const res = await axios.get(`/api/profile/${id}`);
+   const res = await axios.get(`/api/admin/profile/${id}`);
    dispatch({
     type: PROFILE_TYPES.GETTING_TARGET_PROFILE_SUCCESS,
     payload: res.data,
@@ -144,7 +144,9 @@ export const getTargetProfile =
   } catch (err) {
    dispatch({
     type: PROFILE_TYPES.ERROR_GETTING_TARGET_PROFILE,
-    payload: { msg: '50008' },
+    payload: {
+     msg: "Erreur lors de l'obtention du profil ! Réessayez plus tard. ",
+    },
    });
   }
  };

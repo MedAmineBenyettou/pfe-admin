@@ -5,15 +5,15 @@ import setAuthToken from '../general/setAuthToken';
 import { AlertTypes } from '../reducers/alerts';
 import { IAuthAction } from '../reducers/auth';
 import { ThunkDispatch } from 'redux-thunk';
-//import { getCurrentProfile, createProfile } from './profile';
+import { getCurrentProfile, createProfile } from './profile';
 
 //* Register User
-interface IRegister {
+interface IRegisterForm {
  username: string;
  password: string;
 }
 export const register =
- ({ username, password }: IRegister) =>
+ ({ username, password }: IRegisterForm) =>
  async (dispatch: ThunkDispatch<{}, {}, IAuthAction>) => {
   const config = {
    headers: {
@@ -23,13 +23,13 @@ export const register =
 
   const body = JSON.stringify({ password, username });
   try {
-   const res = await axios.post('/api/users', body, config);
+   const res = await axios.post('/api/admin/admins', body, config);
    dispatch({
     type: AUTH_TYPES.REGISTER_SUCCESS,
     payload: res.data,
    });
    dispatch(loadUser());
-   //dispatch(createProfile({ dateOfBirth }, true));
+   dispatch(createProfile({}));
    const msg = 'User registered successfully';
    dispatch(setAlert(msg, AlertTypes.SUCCESS));
   } catch (err) {
@@ -53,7 +53,7 @@ export const loadUser =
   }
 
   try {
-   const res = await axios.get('/api/auth');
+   const res = await axios.get('/api/admin/auth');
    if (!res.data) throw new Error();
    dispatch({
     type: AUTH_TYPES.USER_LOADED,
@@ -67,12 +67,12 @@ export const loadUser =
  };
 
 //* Login User
-interface ILogin {
+interface ILoginForm {
  username: string;
  password: string;
 }
 export const login =
- ({ username, password }: ILogin) =>
+ ({ username, password }: ILoginForm) =>
  async (dispatch: ThunkDispatch<{}, {}, IAuthAction>) => {
   const config = {
    headers: {
@@ -82,7 +82,7 @@ export const login =
 
   const body = JSON.stringify({ username, password });
   try {
-   const res = await axios.post('/api/auth', body, config);
+   const res = await axios.post('/api/admin/auth', body, config);
    dispatch({
     type: AUTH_TYPES.LOGIN_SUCCESS,
     payload: res.data,
@@ -90,7 +90,7 @@ export const login =
 
    dispatch(setAlert('User logged in Successfully', AlertTypes.SUCCESS));
    dispatch(loadUser());
-   //dispatch(getCurrentProfile());
+   dispatch(getCurrentProfile());
   } catch (err) {
    const errs = err.response.data.errors;
    if (errs)

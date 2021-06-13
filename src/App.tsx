@@ -1,6 +1,6 @@
 import './css/App.css';
 // Redux
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { AppState } from './store';
 // Else
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -12,14 +12,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import { loadUser } from './actions/auth';
 import { useComponentWillMount } from './global';
 
-interface MapStateProps extends Pick<AppState, 'auth'> {}
-interface MapDispatchProps {
- loadUser: typeof loadUser;
-}
-
-interface Props extends MapStateProps, MapDispatchProps {}
-
-const App = ({ auth, loadUser }: Props) => {
+const App = ({ auth, loadUser }: PropsFromRedux) => {
  useComponentWillMount(() => {
   loadUser();
  });
@@ -36,13 +29,16 @@ const App = ({ auth, loadUser }: Props) => {
  );
 };
 
-const mapStateToProps = (state: AppState) => ({
+const mapState = (state: AppState) => ({
  auth: state.auth,
 });
 
-const mapDispatchToProps: MapDispatchProps = {
+const mapDispatch = {
  loadUser,
 };
 
-// @ts-ignore
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+const connector = connect(mapState, mapDispatch);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(App);

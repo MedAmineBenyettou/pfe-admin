@@ -14,4 +14,4 @@ export const useComponentWillMount: (func: (...args: any) => void) => void = (
 
 export const useComponentDidMount: (func: (...args: any) => void) => void = (
  func
-) => useEffect(func, []);
+) => useEffect(func, [func]);

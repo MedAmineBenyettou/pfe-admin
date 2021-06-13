@@ -24,13 +24,13 @@ const initialState: AlertState = [];
 export default function alertsReducer(
  state = initialState,
  action: IAlertAction
-) {
+): AlertState {
  const { type, payload } = action;
  switch (type) {
   case ALERT_TYPES.SET_ALERT:
-   return [...state, payload];
+   return [...state, payload as IAlert];
   case ALERT_TYPES.REMOVE_ALERT:
-   return state.filter((a) => a.id !== payload);
+   return state.filter((a) => a.id !== (payload as string));
   default:
    return state;
  }

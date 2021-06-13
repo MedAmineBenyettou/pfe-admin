@@ -3,7 +3,7 @@ import { AUTH_TYPES } from '../actions/types';
 export interface IUser {
  _id: string;
 }
-interface IState {
+interface IAuthState {
  user: IUser | null;
  loading: boolean;
  isAuthenticated: boolean | null;
@@ -12,17 +12,20 @@ interface IState {
 
 export interface IAuthAction {
  type: AUTH_TYPES;
- payload?: Partial<IState>;
+ payload?: Partial<IAuthState>;
 }
 
-const initialState: IState = {
+const initialState: IAuthState = {
  user: null,
  loading: true,
  isAuthenticated: null,
  token: localStorage.getItem('token'),
 };
 
-export default function authReducer(state = initialState, action: IAuthAction) {
+export default function authReducer(
+ state = initialState,
+ action: IAuthAction
+): IAuthState {
  const { type, payload } = action;
  switch (type) {
   case AUTH_TYPES.REGISTER_FAIL:
@@ -45,7 +48,7 @@ export default function authReducer(state = initialState, action: IAuthAction) {
   case AUTH_TYPES.USER_LOADED:
    return {
     ...state,
-    user: payload?.user,
+    user: (payload as IAuthState).user,
     loading: false,
     isAuthenticated: true,
    };

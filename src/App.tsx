@@ -1,26 +1,48 @@
 import './css/App.css';
 // Redux
-import { Provider } from 'react-redux';
-import store from './store';
+import { connect } from 'react-redux';
+import { AppState } from './store';
 // Else
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import PrivateRoute from './components/routing/PrivateRoute';
 import Alert from './components/layout/Alert';
 import Login from './components/login/Login';
+import Navbar from './components/navbar/Navbar';
 import Dashboard from './components/dashboard/Dashboard';
+import { loadUser } from './actions/auth';
+import { useComponentWillMount } from './global';
 
-const App = () => {
+interface MapStateProps extends Pick<AppState, 'auth'> {}
+interface MapDispatchProps {
+ loadUser: typeof loadUser;
+}
+
+interface Props extends MapStateProps, MapDispatchProps {}
+
+const App = ({ auth, loadUser }: Props) => {
+ useComponentWillMount(() => {
+  loadUser();
+ });
+
  return (
-  <Provider store={store}>
-   <Router>
-    <Alert />
-    <Switch>
-     <Route path="/login" component={Login} />
-     <PrivateRoute path="/" component={Dashboard} />
-    </Switch>
-   </Router>
-  </Provider>
+  <Router>
+   <Alert />
+   <Navbar />
+   <Switch>
+    <Route path="/login" component={Login} />
+    <PrivateRoute path="/" component={Dashboard} />
+   </Switch>
+  </Router>
  );
 };
 
-export default App;
+const mapStateToProps = (state: AppState) => ({
+ auth: state.auth,
+});
+
+const mapDispatchToProps: MapDispatchProps = {
+ loadUser,
+};
+
+// @ts-ignore
+export default connect(mapStateToProps, mapDispatchToProps)(App);

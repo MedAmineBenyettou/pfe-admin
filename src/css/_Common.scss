@@ -1,6 +1,6 @@
-$primary-color: black;
+$primary-color: #4082d4;
 
-$secondary-color: #333;
+$secondary-color: #58ce3d;
 
 $danger-color: #e91e1e;
 $warning-color: #f87d09;
@@ -11,3 +11,66 @@ $mygray: #333333;
 $mygray2: #666666;
 $mygray3: #999999;
 $mygray4: #cccccc;
+
+$largeWidth: 1200px;
+$mediumWidth: 992px;
+$smallWidth: 600px;
+
+input:not([type]):focus:not([readonly]),
+input[type='text']:not(.browser-default):focus:not([readonly]),
+input[type='password']:not(.browser-default):focus:not([readonly]),
+input[type='email']:not(.browser-default):focus:not([readonly]),
+input[type='url']:not(.browser-default):focus:not([readonly]),
+input[type='time']:not(.browser-default):focus:not([readonly]),
+input[type='date']:not(.browser-default):focus:not([readonly]),
+input[type='datetime']:not(.browser-default):focus:not([readonly]),
+input[type='datetime-local']:not(.browser-default):focus:not([readonly]),
+input[type='tel']:not(.browser-default):focus:not([readonly]),
+input[type='number']:not(.browser-default):focus:not([readonly]),
+input[type='search']:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+ border-bottom: 1px solid $primary-color !important;
+ box-shadow: 0 1px 0 0 $primary-color !important;
+}
+
+.progress {
+ background-color: rgba($color: $primary-color, $alpha: 0.5) !important;
+ .indeterminate {
+  background-color: $success-color !important;
+ }
+}
+
+.datepicker-date-display {
+ background-color: $primary-color !important;
+}
+
+.datepicker-day-button:focus {
+ color: white !important;
+ background-color: #a2b0b6 !important;
+}
+
+.datepicker-done,
+.datepicker-cancel,
+.select-dropdown li > span,
+.is-today {
+ color: $primary-color !important;
+}
+
+td.is-selected,
+.month-prev:active,
+.month-prev:focus,
+.month-next:active,
+.month-next:focus {
+ background-color: $primary-color !important;
+}
+
+td.is-selected.is-today {
+ color: white !important;
+}
+
+.switch label input[type='checkbox']:checked + .lever {
+ background-color: $primary-color !important;
+}
+.switch label input[type='checkbox']:checked + .lever:after {
+ background-color: $success-color !important;
+}

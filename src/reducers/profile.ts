@@ -2,6 +2,7 @@ import { AUTH_TYPES, PROFILE_TYPES } from '../actions/types';
 import { IError } from '../general/Common';
 
 export interface IProfile {
+ _id: string;
  username: string;
 }
 

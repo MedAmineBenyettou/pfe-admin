@@ -2,7 +2,7 @@
 
 $bgcolor: rgba(
  $color: $primary-color,
- $alpha: 0.6,
+ $alpha: 0.2,
 );
 
 $navbarHeight: 45px;
@@ -10,8 +10,11 @@ $navbarHeight: 45px;
 #navbar {
  background-color: $bgcolor !important;
  backdrop-filter: blur(2px);
- background-color: rgba(255, 255, 255, 0.2);
+ //  background-color: rgba(255, 255, 255, 0.2);
  user-select: none;
+ * {
+  color: $mygray3;
+ }
  .right-options {
   margin-left: -10px;
  }

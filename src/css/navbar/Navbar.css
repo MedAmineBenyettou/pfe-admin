@@ -61,15 +61,18 @@ td.is-selected.is-today {
 }
 
 #navbar {
-  background-color: rgba(64, 130, 212, 0.6) !important;
+  background-color: rgba(64, 130, 212, 0.2) !important;
   -webkit-backdrop-filter: blur(2px);
           backdrop-filter: blur(2px);
-  background-color: rgba(255, 255, 255, 0.2);
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
   /*//! Search */
+}
+
+#navbar * {
+  color: #999999;
 }
 
 #navbar .right-options {

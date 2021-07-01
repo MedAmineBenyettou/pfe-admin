@@ -15,6 +15,7 @@
     "@types/react-dom": "^17.0.0",
     "axios": "^0.21.1",
     "materialize-css": "^1.0.0",
+    "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
@@ -52,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@types/materialize-css": "^1.0.10",
     "@types/react-router-dom": "^5.1.7",
     "@types/uuid": "^8.3.0"
   }

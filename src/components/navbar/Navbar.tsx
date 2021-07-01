@@ -1,9 +1,11 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 import { AppState } from '../../store';
 import { logout } from '../../actions/auth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Logo } from '../layout/Logo';
+import { initMaterialize } from '../../general/initMaterialize';
 
 import '../../css/navbar/Navbar.css';
 
@@ -12,6 +14,10 @@ export const Navbar = ({
  profile,
  logout,
 }: PropsFromRedux) => {
+ useEffect(() => {
+  initMaterialize();
+ });
+
  const RightMenu = () => (
   <ul className="right-options right hide-on-med-and-down">
    <li>
@@ -30,7 +36,7 @@ export const Navbar = ({
  );
 
  const SearchForm = () => (
-  <form action="" className="search">
+  <form action="" className="search hide-on-small-and-down">
    <FontAwesomeIcon size="4x" icon={['fas', 'search']} color="black" />
    <input type="search" />
   </form>
@@ -52,11 +58,13 @@ export const Navbar = ({
       <Link to={`/profiles/${profile.profile._id}`}>Profile</Link>
      )}
    </li>
-   <li onClick={logout}>
-    <Link className="sidenav-close" to="#">
-     Logout
-    </Link>
-   </li>
+   {isAuthenticated && !loading && !profile.loading && (
+    <li onClick={logout}>
+     <Link className="sidenav-close" to="#">
+      Logout
+     </Link>
+    </li>
+   )}
   </ul>
  );
 

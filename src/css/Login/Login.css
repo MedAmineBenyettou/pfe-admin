@@ -1,0 +1,190 @@
+input:not([type]):focus:not([readonly]),
+input[type='text']:not(.browser-default):focus:not([readonly]),
+input[type='password']:not(.browser-default):focus:not([readonly]),
+input[type='email']:not(.browser-default):focus:not([readonly]),
+input[type='username']:not(.browser-default):focus:not([readonly]),
+input[type='url']:not(.browser-default):focus:not([readonly]),
+input[type='time']:not(.browser-default):focus:not([readonly]),
+input[type='date']:not(.browser-default):focus:not([readonly]),
+input[type='datetime']:not(.browser-default):focus:not([readonly]),
+input[type='datetime-local']:not(.browser-default):focus:not([readonly]),
+input[type='tel']:not(.browser-default):focus:not([readonly]),
+input[type='number']:not(.browser-default):focus:not([readonly]),
+input[type='search']:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #4082d4 !important;
+  -webkit-box-shadow: 0 1px 0 0 #4082d4 !important;
+          box-shadow: 0 1px 0 0 #4082d4 !important;
+}
+
+.progress {
+  background-color: rgba(64, 130, 212, 0.5) !important;
+}
+
+.progress .indeterminate {
+  background-color: #8bc34a !important;
+}
+
+.datepicker-date-display {
+  background-color: #4082d4 !important;
+}
+
+.datepicker-day-button:focus {
+  color: white !important;
+  background-color: #a2b0b6 !important;
+}
+
+.datepicker-done,
+.datepicker-cancel,
+.select-dropdown li > span,
+.is-today {
+  color: #4082d4 !important;
+}
+
+td.is-selected,
+.month-prev:active,
+.month-prev:focus,
+.month-next:active,
+.month-next:focus {
+  background-color: #4082d4 !important;
+}
+
+td.is-selected.is-today {
+  color: white !important;
+}
+
+.switch label input[type='checkbox']:checked + .lever {
+  background-color: #4082d4 !important;
+}
+
+.switch label input[type='checkbox']:checked + .lever:after {
+  background-color: #8bc34a !important;
+}
+
+.LRscreen {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  /* align-content: space-between; */
+  /* justify-content: space-between; */
+  margin: 0 !important;
+  min-height: 100vh;
+  height: 100%;
+}
+
+.LRscreen .LRheader {
+  color: #4082d4;
+  text-align: center;
+}
+
+.LRscreen .LRheader h2 {
+  font-weight: bolder;
+  margin-bottom: 0;
+}
+
+.LRscreen .LRheader p {
+  font-weight: normal;
+}
+
+.LRscreen .LRform {
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+  overflow: hidden;
+}
+
+.LRscreen .LRform p b {
+  cursor: pointer;
+}
+
+.LRscreen .input-field {
+  padding: 0 !important;
+  border: 1px solid #333333;
+  border-radius: 5px;
+  background-color: rgba(204, 204, 204, 0.5) !important;
+  width: 100% !important;
+}
+
+.LRscreen .input-field input {
+  color: #4082d4 !important;
+  padding-left: 45px !important;
+  width: calc(100% - 50px) !important;
+  margin: 0 !important;
+  background-color: none !important;
+  border: none !important;
+  border-radius: 5px !important;
+}
+
+.LRscreen .input-field input::-webkit-input-placeholder {
+  color: #999999 !important;
+}
+
+.LRscreen .input-field input:-ms-input-placeholder {
+  color: #999999 !important;
+}
+
+.LRscreen .input-field input::-ms-input-placeholder {
+  color: #999999 !important;
+}
+
+.LRscreen .input-field input::placeholder {
+  color: #999999 !important;
+}
+
+.LRscreen .input-field .datePicker {
+  width: 95% !important;
+  padding-left: 10px !important;
+}
+
+.LRscreen .input-field .prefix {
+  padding-left: 5px;
+}
+
+.LRscreen .btn {
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  padding: 0 30px !important;
+  min-width: -webkit-max-content !important;
+  min-width: -moz-max-content !important;
+  min-width: max-content !important;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.LRscreen .LRfooter {
+  padding: 10px 0 !important;
+  background-color: rgba(204, 204, 204, 0.9);
+  margin: 3rem 0 0 0;
+  font-size: 0.8em;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.LRscreen .LRfooter > div {
+  margin-bottom: 0px;
+}
+
+.LRscreen .LRfooter > hr {
+  height: 0.5px;
+  background-color: #58ce3d;
+  margin: 5px 0;
+}
+
+.LRscreen .LRfooter span {
+  font-weight: bold;
+  cursor: pointer;
+  width: -webkit-fit-content !important;
+  width: -moz-fit-content !important;
+  width: fit-content !important;
+  margin-right: 30px;
+}
+
+.LRscreen .LRfooter span:hover {
+  background-color: #666666;
+  border-radius: 10px;
+}
+/*# sourceMappingURL=Login.css.map */

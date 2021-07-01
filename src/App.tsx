@@ -12,6 +12,12 @@ import Dashboard from './components/dashboard/Dashboard';
 import { loadUser } from './actions/auth';
 import { useComponentWillMount } from './global';
 
+// Font-awesome:
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
+library.add(fas);
+
 const App = ({ auth, loadUser }: PropsFromRedux) => {
  useComponentWillMount(() => {
   loadUser();

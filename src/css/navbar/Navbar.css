@@ -73,7 +73,8 @@ td.is-selected.is-today {
 }
 
 #navbar * {
-  color: #999999;
+  color: #333333;
+  font-weight: 500;
 }
 
 #navbar .right-options {

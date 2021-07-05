@@ -25,12 +25,15 @@ export const Navbar = ({
    </li>
    {/*//! Profile Menu */}
    <li>
-    {isAuthenticated &&
-     !loading &&
-     !profile.loading &&
-     profile.profile !== null && (
-      <Link to={`/profiles/${profile.profile._id}`}>Profile</Link>
-     )}
+    {!profile.loading && profile.profile !== null && (
+     <Link to={`/profiles/${profile.profile._id}`}>Profile</Link>
+    )}
+   </li>
+   <li onClick={logout} className="red lighten-2">
+    {' '}
+    <Link className="sidenav-close" to="#">
+     Se deconnecter
+    </Link>
    </li>
   </ul>
  );
@@ -58,36 +61,36 @@ export const Navbar = ({
       <Link to={`/profiles/${profile.profile._id}`}>Profile</Link>
      )}
    </li>
-   {isAuthenticated && !loading && !profile.loading && (
-    <li onClick={logout}>
-     <Link className="sidenav-close" to="#">
-      Logout
-     </Link>
-    </li>
-   )}
+
+   <li onClick={logout} className="red lighten-2">
+    <Link className="sidenav-close" to="#">
+     Se deconnecter
+    </Link>
+   </li>
   </ul>
  );
 
  //!---------------------------- RETURN ----------------------------------
- //  if (isAuthenticated && !loading) { //TODO Remove comment when login works
- return (
-  <>
-   <nav id="navbar">
-    <div className="nav-wrapper ">
-     <Logo />
-     <Link to="#" data-target="mobile" className="sidenav-trigger">
-      <FontAwesomeIcon size="lg" icon={['fas', 'bars']} />
-     </Link>
-     <SearchForm />
-     <RightMenu />
-    </div>
-   </nav>
-   <Mobile />
-  </>
- );
- //  } else {
- //   return <></>;
- //  }
+ if (isAuthenticated && !loading) {
+  //TODO Remove comment when login works
+  return (
+   <>
+    <nav id="navbar">
+     <div className="nav-wrapper ">
+      <Logo />
+      <Link to="#" data-target="mobile" className="sidenav-trigger">
+       <FontAwesomeIcon size="lg" icon={['fas', 'bars']} />
+      </Link>
+      <SearchForm />
+      <RightMenu />
+     </div>
+    </nav>
+    <Mobile />
+   </>
+  );
+ } else {
+  return <></>;
+ }
 };
 
 const mapStateToProps = (state: AppState) => ({

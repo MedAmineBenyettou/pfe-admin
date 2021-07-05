@@ -60,8 +60,10 @@ export const loadUser =
     payload: res.data,
    });
   } catch (err) {
+   dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
    dispatch({
     type: AUTH_TYPES.AUTH_ERROR,
+    payload: err.errors,
    });
   }
  };

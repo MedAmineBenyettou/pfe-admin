@@ -1,13 +1,17 @@
 import { AUTH_TYPES } from '../actions/types';
+import { IError } from '../general/Common';
 
 export interface IUser {
  _id: string;
+ username: string;
+ date: Date;
 }
 interface IAuthState {
  user: IUser | null;
  loading: boolean;
  isAuthenticated: boolean | null;
  token: string | null;
+ error: IError | null;
 }
 
 export interface IAuthAction {
@@ -20,6 +24,7 @@ const initialState: IAuthState = {
  loading: true,
  isAuthenticated: null,
  token: localStorage.getItem('token'),
+ error: null,
 };
 
 export default function authReducer(
@@ -40,17 +45,25 @@ export default function authReducer(
     token: null,
     loading: false,
     isAuthenticated: false,
+    error: payload as IError,
    };
   case AUTH_TYPES.REGISTER_SUCCESS:
   case AUTH_TYPES.LOGIN_SUCCESS:
    if (payload?.token) localStorage.setItem('token', payload.token);
-   return { ...state, ...payload, loading: false, isAuthenticated: true };
+   return {
+    ...state,
+    ...payload,
+    loading: false,
+    isAuthenticated: true,
+    error: null,
+   };
   case AUTH_TYPES.USER_LOADED:
    return {
     ...state,
-    user: (payload as IAuthState).user,
+    user: payload as IUser,
     loading: false,
     isAuthenticated: true,
+    error: null,
    };
   default:
    return state;

@@ -14,7 +14,7 @@ const Alert: React.FC<state> = ({ alerts }) => {
    {alerts !== null &&
     alerts.length > 0 &&
     alerts.map((a) => (
-     <div key={a.id} className={`alert alert-${a.alertType}`}>
+     <div key={a.id} className={`alert alert-${a.alertType.toLowerCase()}`}>
       {a.msg}
      </div>
     ))}

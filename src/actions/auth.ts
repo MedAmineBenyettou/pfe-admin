@@ -97,6 +97,7 @@ export const login =
     errs.forEach((e: any) => {
      dispatch(setAlert(e.msg, AlertTypes.DANGER));
     });
+   else dispatch(setAlert('Erreur de login', AlertTypes.DANGER));
    dispatch({
     type: AUTH_TYPES.LOGIN_FAIL,
    });

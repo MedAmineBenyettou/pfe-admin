@@ -45,7 +45,7 @@ export default function authReducer(
     token: null,
     loading: false,
     isAuthenticated: false,
-    error: payload as IError,
+    ...payload,
    };
   case AUTH_TYPES.REGISTER_SUCCESS:
   case AUTH_TYPES.LOGIN_SUCCESS:
@@ -60,10 +60,10 @@ export default function authReducer(
   case AUTH_TYPES.USER_LOADED:
    return {
     ...state,
-    user: payload as IUser,
     loading: false,
     isAuthenticated: true,
     error: null,
+    ...payload,
    };
   default:
    return state;

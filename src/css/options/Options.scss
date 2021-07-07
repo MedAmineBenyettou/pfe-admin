@@ -1,0 +1,38 @@
+@import '../Common';
+
+.options {
+ &-sidenav {
+  position: fixed;
+  height: 100%;
+  background-color: #111; /* Black */
+  overflow-x: hidden;
+  z-index: 1;
+  padding-top: 20px;
+  p {
+   font-size: x-large;
+   color: $primary-color;
+   text-align: center;
+   text-transform: uppercase;
+   font-weight: lighter;
+  }
+  a {
+   padding: 6px 8px 6px 16px;
+   text-decoration: none;
+   font-size: large;
+   color: #818181;
+   display: block;
+   &:hover,
+   &:active {
+    color: $primary-color;
+   }
+  }
+ }
+ &-main {
+  padding: 0px 10px;
+  .header {
+   color: $primary-color;
+  }
+  .profil {
+  }
+ }
+}

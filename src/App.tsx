@@ -11,6 +11,7 @@ import Navbar from './components/navbar/Navbar';
 import Dashboard from './components/dashboard/Dashboard';
 import { loadUser } from './actions/auth';
 import { useComponentWillMount } from './global';
+import { Options } from './components/options/Options';
 
 // Font-awesome:
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -29,6 +30,7 @@ const App = ({ auth, loadUser }: PropsFromRedux) => {
    <Navbar />
    <Switch>
     <Route path="/login" component={Login} />
+    <PrivateRoute path="/options" component={Options} />
     <PrivateRoute path="/" component={Dashboard} />
    </Switch>
   </Router>

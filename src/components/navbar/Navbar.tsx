@@ -11,7 +11,6 @@ import '../../css/navbar/Navbar.css';
 
 export const Navbar = ({
  auth: { isAuthenticated, loading },
- profile,
  logout,
 }: PropsFromRedux) => {
  useEffect(() => {
@@ -23,11 +22,8 @@ export const Navbar = ({
    <li>
     <Link to="/">Home</Link>
    </li>
-   {/*//! Profile Menu */}
    <li>
-    {!profile.loading && profile.profile !== null && (
-     <Link to={`/profiles/${profile.profile._id}`}>Profile</Link>
-    )}
+    {isAuthenticated && !loading && <Link to={`/options`}>Options</Link>}
    </li>
    <li onClick={logout} className="red lighten-2">
     {' '}
@@ -52,14 +48,12 @@ export const Navbar = ({
      Home
     </Link>
    </li>
-   {/*//! Profile Menu */}
    <li>
-    {isAuthenticated &&
-     !loading &&
-     !profile.loading &&
-     profile.profile !== null && (
-      <Link to={`/profiles/${profile.profile._id}`}>Profile</Link>
-     )}
+    {isAuthenticated && !loading && (
+     <Link to={`/options`} className="sidenav-close">
+      Options
+     </Link>
+    )}
    </li>
 
    <li onClick={logout} className="red lighten-2">

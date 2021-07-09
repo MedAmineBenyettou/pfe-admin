@@ -14,6 +14,7 @@
    text-align: center;
    text-transform: uppercase;
    font-weight: lighter;
+   margin-top: 1rem;
   }
   a {
    padding: 6px 8px 6px 16px;
@@ -28,11 +29,16 @@
   }
  }
  &-main {
-  padding: 0px 10px;
+  padding: 10px 30px !important;
   .header {
    color: $primary-color;
   }
+  .content {
+   font-size: large !important;
+  }
   .profil {
+  }
+  .admins {
   }
  }
 }

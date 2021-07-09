@@ -3,7 +3,13 @@ import { IError } from '../general/Common';
 
 export interface IProfile {
  _id: string;
- username: string;
+ user: {
+  username: string;
+ };
+ nom: string;
+ prenom: string;
+ fonction: string;
+ phoneNumber: number;
 }
 
 export interface IProfileState {

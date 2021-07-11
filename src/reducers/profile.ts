@@ -9,7 +9,7 @@ export interface IProfile {
  nom: string;
  prenom: string;
  fonction: string;
- phoneNumber: number;
+ phoneNumber: string;
 }
 
 export interface IProfileState {

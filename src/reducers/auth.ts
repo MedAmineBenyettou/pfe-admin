@@ -1,4 +1,4 @@
-import { AUTH_TYPES } from '../actions/types';
+import { AUTH_TYPES, PROFILE_TYPES } from '../actions/types';
 import { IError } from '../general/Common';
 
 export interface IUser {
@@ -15,7 +15,7 @@ interface IAuthState {
 }
 
 export interface IAuthAction {
- type: AUTH_TYPES;
+ type: AUTH_TYPES | PROFILE_TYPES;
  payload?: Partial<IAuthState>;
 }
 
@@ -38,6 +38,7 @@ export default function authReducer(
   case AUTH_TYPES.AUTH_ERROR:
   case AUTH_TYPES.LOGOUT:
   case AUTH_TYPES.ACCOUNT_DELETED:
+  case PROFILE_TYPES.PROFILE_CREATION_FAIL:
    localStorage.removeItem('token');
    return {
     ...state,
@@ -58,12 +59,13 @@ export default function authReducer(
     error: null,
    };
   case AUTH_TYPES.USER_LOADED:
+  case AUTH_TYPES.USER_UPDATED:
    return {
     ...state,
     loading: false,
     isAuthenticated: true,
     error: null,
-    ...payload,
+    user: payload as IUser,
    };
   default:
    return state;

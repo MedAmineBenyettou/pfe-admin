@@ -10,8 +10,8 @@ export const Options = () => {
 
  return (
   <div className="options row">
-   <div className="options-sidenav col s3">
-    <p>Options</p>
+   <div className="options-sidenav col m3 s12 row">
+    <p className="col s12">Options</p>
     <Link
      to="#"
      className="waves-effect waves-light"
@@ -31,7 +31,7 @@ export const Options = () => {
      Admins
     </Link>
    </div>
-   <div className="options-main col s9 offset-s3">{state}</div>
+   <div className="options-main col m9 s12 offset-m3">{state}</div>
   </div>
  );
 };

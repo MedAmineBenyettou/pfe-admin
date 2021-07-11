@@ -76,7 +76,7 @@ td.is-selected.is-today {
   opacity: 0.9;
   background-color: #58ce3d;
   /*COLOR 1 */
-  color: #4082d4;
+  color: white;
   font-size: 1rem;
   letter-spacing: 0.05rem;
   border-radius: 8px;
@@ -85,13 +85,11 @@ td.is-selected.is-today {
 .alert-container .alert-danger {
   background-color: #e91e1e;
   /*COLOR 2 */
-  color: #cccccc;
 }
 
 .alert-container .alert-success {
   background-color: #8bc34a;
   /*COLOR 3 */
-  color: #cccccc;
 }
 
 .alert-container .alert-warning {
@@ -103,6 +101,5 @@ td.is-selected.is-today {
 .alert-container .alert-info {
   background-color: #29d2e4;
   /*COLOR 5 */
-  color: #cccccc;
 }
 /*# sourceMappingURL=Alert.css.map */

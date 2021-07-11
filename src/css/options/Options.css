@@ -68,7 +68,7 @@ td.is-selected.is-today {
   /* Black */
   overflow-x: hidden;
   z-index: 1;
-  padding-top: 20px;
+  padding-top: 40px !important;
 }
 
 .options-sidenav p {
@@ -98,9 +98,96 @@ td.is-selected.is-today {
 
 .options-main .header {
   color: #4082d4;
+  font-size: 3rem;
+  padding-bottom: 20px;
 }
 
 .options-main .content {
-  font-size: large !important;
+  font-size: medium !important;
+}
+
+.options-main .profil .content .row:nth-child(4) label {
+  padding-left: 35px;
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+
+.options-main .profil .content .row:nth-child(4) label.active {
+  padding-left: 0;
+}
+
+.options-main .profil .content .row:nth-child(4) .input-field input {
+  padding-left: 45px !important;
+  width: calc(100% - 50px) !important;
+}
+
+.options .divider {
+  width: 80%;
+  margin: 20px auto;
+  background-color: #4082d4;
+}
+
+.options .input-field {
+  padding: 0 !important;
+}
+
+.options .input-field label.active {
+  margin-top: -5px;
+}
+
+.options .input-field input {
+  color: #4082d4 !important;
+  padding-left: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.options .input-field input::-webkit-input-placeholder {
+  color: #999999 !important;
+}
+
+.options .input-field input:-ms-input-placeholder {
+  color: #999999 !important;
+}
+
+.options .input-field input::-ms-input-placeholder {
+  color: #999999 !important;
+}
+
+.options .input-field input::placeholder {
+  color: #999999 !important;
+}
+
+.options .input-field .datePicker {
+  width: 95% !important;
+  padding-left: 10px !important;
+}
+
+.options .input-field .prefix {
+  padding-left: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .options-sidenav {
+    position: relative;
+    height: 100%;
+    z-index: 1;
+    margin: 0 !important;
+  }
+  .options-sidenav a {
+    padding: 6px 8px;
+    text-decoration: none;
+    font-size: large;
+    color: #818181;
+    display: inline-block;
+    margin-left: 5px;
+  }
+  .options-main .header {
+    margin: 0 !important;
+  }
+  .options-main .profil .content .row:nth-child(4) .input-field input {
+    padding-left: 45px !important;
+    width: calc(100% - 50px) !important;
+  }
 }
 /*# sourceMappingURL=Options.css.map */

@@ -1,106 +1,162 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { setAlert } from '../../actions/alerts';
-import { AlertTypes } from '../../reducers/alerts';
 import { AppState } from '../../store';
 
 import lock from '../../assets/lock.png';
 import person from '../../assets/person.png';
 import Spinner from '../../components/layout/Spinner';
+import { updateProfile } from '../../actions/profile';
+import { updateUser } from '../../actions/auth';
 
 export const Profil = ({
  profile: { profile, error, loading },
+ auth,
+ updateProfile,
+ updateUser,
 }: PropsFromRedux) => {
- const [formData, setFormData] = useState({ ...profile });
- const onSubmit = (e: any) => {
+ const [authData, setAuthData] = useState<{
+  username?: string;
+  password?: string;
+ }>({
+  username: '',
+  password: '',
+ });
+ const [formData, setFormData] = useState({
+  nom: '',
+  prenom: '',
+  fonction: '',
+  phoneNumber: '',
+ });
+ useEffect(() => {
+  setFormData({
+   nom: profile ? profile.nom : '',
+   prenom: profile ? profile.prenom : '',
+   fonction: profile ? profile.fonction : '',
+   phoneNumber: profile ? profile.phoneNumber : '',
+  });
+  setAuthData({
+   username: auth.user?.username,
+  });
+ }, []);
+ const handleProfile = (e: any) => {
   e.preventDefault();
-  //     //TODO add update function
-  //  if (password.length >= 6) {
-  //   formData.username = formData.username.trim().toLowerCase();
-  // } else {
-  //   setAlert(
-  //    'Le mot de passe doit contenir au moins 6 caractères',
-  //    AlertTypes.DANGER
-  //   );
-  //  }
+  updateProfile(formData);
+ };
+ const handleAuth = (e: any) => {
+  e.preventDefault();
+  var fields: any = {};
+  fields.username = authData.username;
+  if (authData.password && authData.password.length !== 0)
+   fields.password = authData.username;
+  updateUser(fields);
  };
 
- if (!error && !loading && formData.user) {
+ if (!error && !loading) {
   const onChange = (e: any) => {
-   if (e.target.name === 'username')
-    setFormData({ ...formData, user: { username: e.target.value } });
+   if (e.target.name === 'username' || e.target.name === 'password')
+    setAuthData({ [e.target.name]: e.target.value });
    else setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const { username } = formData.user;
   const { fonction, nom, prenom, phoneNumber } = formData;
+  const { username, password } = authData;
   return (
    <div className="profil">
-    <h1 className="header">Profil</h1>
+    <h1 className="header">Options du profil :</h1>
     <div className="content">
      <div className="row">
-      <div className="input-field col s11">
-       <input
-        name="username"
-        placeholder="Username"
-        defaultValue={username}
-        onChange={onChange}
-        minLength={6}
-       />
-       <div className="prefix">
-        <img src={person} alt="person" />
-       </div>
-      </div>
-      <div className="input-field col s11">
+      <div className="input-field col s12">
        <input
         name="nom"
-        placeholder="Nom de l'utilisateur"
+        id="nom"
+        type="text"
         defaultValue={nom}
         onChange={onChange}
        />
+       <label htmlFor="nom">Nom</label>
       </div>
-      <div className="input-field col s11">
+      <div className="input-field col s12">
        <input
         name="prenom"
-        placeholder="Prenom de l'utilisateur"
+        id="prenom"
+        type="text"
         defaultValue={prenom}
         onChange={onChange}
        />
+       <label htmlFor="prenom">Prenom</label>
       </div>
-      <div className="input-field col s11">
+      <div className="input-field col s12">
        <input
         name="phoneNumber"
-        placeholder="Numéro de téléphone"
+        id="phoneNumber"
+        type="text"
         defaultValue={phoneNumber}
         onChange={onChange}
        />
+       <label htmlFor="phoneNumber">Numéro de téléphone</label>
       </div>
-      <div className="input-field col s11">
+      <div className="input-field col s12">
        <input
         name="fonction"
-        placeholder="Fonction de l'utilisateur"
+        id="fonction"
+        type="text"
         defaultValue={fonction}
         onChange={onChange}
        />
+       <label htmlFor="fonction">Fonction</label>
+      </div>
+      <div className=" col s12 valign-wrapper">
+       <button
+        form="profilForm"
+        className="btn col m4 s5 offset-m8 offset-s7 light-blue"
+        onClick={handleProfile}
+       >
+        Enregistrer
+       </button>
       </div>
      </div>
+     <div className="divider"></div>
      <div className="row">
       <h1 className="header">Avancé</h1>
      </div>
      <div className="row">
-      <div id="lPassword" className="input-field col s11">
-       {' '}
-       //TODO add edit password for auth
+      <div className="input-field col s12">
+       <input
+        name="username"
+        id="username"
+        defaultValue={username}
+        onChange={onChange}
+        minLength={6}
+        type="text"
+        autoComplete="false"
+       />
+       <label htmlFor="username">Nom d'utilisateur</label>
+       <div className="prefix">
+        <img src={person} alt="person" />
+       </div>
+      </div>
+      <div id="lPassword" className="input-field col s12">
        <input
         type="password"
         name="password"
-        placeholder="Mot de passe"
-        //    defaultValue={password}
+        id="password"
+        defaultValue={password}
         onChange={onChange}
-        required
+        autoComplete="false"
+        minLength={6}
        />
+       <label htmlFor="password">Mot de passe</label>
        <div className="prefix">
         <img src={lock} alt="lock" />
        </div>
+      </div>
+      <div className=" col s12 valign-wrapper">
+       <button
+        form="authForm"
+        className="btn col m4 s5 offset-m8 offset-s7 light-blue"
+        onClick={handleAuth}
+       >
+        Enregistrer
+       </button>
       </div>
      </div>
     </div>
@@ -114,7 +170,7 @@ const mapStateToProps = (state: AppState) => ({
  profile: state.profile,
 });
 
-const mapDispatchToProps = {}; //TODO add update function
+const mapDispatchToProps = { updateProfile, updateUser }; //TODO add update function
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

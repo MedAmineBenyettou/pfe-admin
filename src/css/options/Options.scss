@@ -7,7 +7,7 @@
   background-color: #111; /* Black */
   overflow-x: hidden;
   z-index: 1;
-  padding-top: 20px;
+  padding-top: 40px !important;
   p {
    font-size: x-large;
    color: $primary-color;
@@ -32,13 +32,89 @@
   padding: 10px 30px !important;
   .header {
    color: $primary-color;
+   font-size: 3rem;
+   padding-bottom: 20px;
   }
   .content {
-   font-size: large !important;
+   font-size: medium !important;
   }
   .profil {
+   .content .row:nth-child(4) {
+    label {
+     padding-left: 35px;
+     transition: all 0.25s ease-in-out;
+     &.active {
+      padding-left: 0;
+     }
+    }
+    .input-field {
+     input {
+      padding-left: 45px !important;
+      width: calc(100% - 50px) !important;
+     }
+    }
+   }
   }
   .admins {
+  }
+ }
+ .divider {
+  width: 80%;
+  margin: 20px auto;
+  background-color: $primary-color;
+ }
+ .input-field {
+  padding: 0 !important;
+  label.active {
+   margin-top: -5px;
+  }
+  input {
+   color: $primary-color !important;
+   padding-left: 0 !important;
+   width: 100% !important;
+   margin: 0 !important;
+   &::placeholder {
+    color: $mygray3 !important;
+   }
+  }
+  .datePicker {
+   width: 95% !important;
+   padding-left: 10px !important;
+  }
+  .prefix {
+   padding-left: 5px;
+  }
+ }
+}
+
+@media only screen and (max-width: $smallWidth) {
+ .options {
+  &-sidenav {
+   position: relative;
+   height: 100%;
+   z-index: 1;
+   margin: 0 !important;
+   a {
+    padding: 6px 8px;
+    text-decoration: none;
+    font-size: large;
+    color: #818181;
+    display: inline-block;
+    margin-left: 5px;
+   }
+  }
+  &-main {
+   .header {
+    margin: 0 !important;
+   }
+   .profil .content .row:nth-child(4) {
+    .input-field {
+     input {
+      padding-left: 45px !important;
+      width: calc(100% - 50px) !important;
+     }
+    }
+   }
   }
  }
 }

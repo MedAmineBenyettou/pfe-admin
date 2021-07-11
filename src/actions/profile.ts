@@ -31,10 +31,18 @@ export const getCurrentProfile =
 
 //* Create Profile
 
-export interface IProfileFormData {}
+export interface IProfileFormData {
+ user?: {
+  username: string;
+ };
+ nom?: string;
+ prenom?: string;
+ fonction?: string;
+ phoneNumber?: string;
+}
 
 export const createProfile =
- (formData: IProfileFormData) =>
+ (formData?: IProfileFormData) =>
  async (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
   try {
    const res = await axios.post('/api/admin/profile', formData, CONFIG);
@@ -53,7 +61,6 @@ export const createProfile =
     type: PROFILE_TYPES.PROFILE_CREATION_FAIL,
     payload: { msg: err.response.statusText },
    });
-   dispatch(deleteAccount());
   }
  };
 

@@ -29,9 +29,8 @@ export const register =
     payload: res.data,
    });
    dispatch(loadUser());
-   dispatch(createProfile({}));
-   const msg = 'User registered successfully';
-   dispatch(setAlert(msg, AlertTypes.SUCCESS));
+   dispatch(createProfile());
+   dispatch(setAlert('Utilisateur enregistré avec succès', AlertTypes.SUCCESS));
   } catch (err) {
    const errs = err.response ? err.response.data.errors : [err];
    if (errs)
@@ -59,11 +58,14 @@ export const loadUser =
     type: AUTH_TYPES.USER_LOADED,
     payload: res.data,
    });
+   dispatch(getCurrentProfile());
   } catch (err) {
-   dispatch(setAlert('Erreur de serveur', AlertTypes.DANGER));
+   dispatch(
+    setAlert("Erreur lors du chargement de l'utilisateur", AlertTypes.DANGER)
+   );
    dispatch({
     type: AUTH_TYPES.AUTH_ERROR,
-    payload: { error: { msg: 'Erreur de serveur' } },
+    payload: { error: { msg: "Erreur lors du chargement de l'utilisateur" } },
    });
   }
  };
@@ -90,9 +92,8 @@ export const login =
     payload: res.data,
    });
 
-   dispatch(setAlert('User logged in Successfully', AlertTypes.SUCCESS));
+   dispatch(setAlert('Utilisateur connecté avec succès', AlertTypes.SUCCESS));
    dispatch(loadUser());
-   dispatch(getCurrentProfile());
   } catch (err) {
    const errs = err.response.data.errors;
    if (errs)
@@ -103,6 +104,42 @@ export const login =
    dispatch({
     type: AUTH_TYPES.LOGIN_FAIL,
    });
+  }
+ };
+
+//* Update User
+interface IUpdateForm {
+ username?: string;
+ password?: string;
+}
+export const updateUser =
+ ({ username, password }: IUpdateForm) =>
+ async (dispatch: ThunkDispatch<{}, {}, IAuthAction>) => {
+  const config = {
+   headers: {
+    'Content-Type': 'application/json',
+   },
+  };
+
+  const body = JSON.stringify({ username, password });
+  try {
+   const res = await axios.put('/api/admin/auth', body, config);
+   dispatch({
+    type: AUTH_TYPES.USER_UPDATED,
+    payload: res.data,
+   });
+
+   dispatch(setAlert('Options modifiées avec succès', AlertTypes.SUCCESS));
+  } catch (err) {
+   const errs = err.response.data.errors;
+   if (errs)
+    errs.forEach((e: any) => {
+     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+    });
+   else
+    dispatch(
+     setAlert('Erreur lors de la modification du profil', AlertTypes.DANGER)
+    );
   }
  };
 

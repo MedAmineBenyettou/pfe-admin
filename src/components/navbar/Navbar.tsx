@@ -75,7 +75,7 @@ export const Navbar = ({
       <Link to="#" data-target="mobile" className="sidenav-trigger">
        <FontAwesomeIcon size="lg" icon={['fas', 'bars']} />
       </Link>
-      <SearchForm />
+      {/* <SearchForm /> */}
       <RightMenu />
      </div>
     </nav>

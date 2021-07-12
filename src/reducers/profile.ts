@@ -10,6 +10,7 @@ export interface IProfile {
  prenom: string;
  fonction: string;
  phoneNumber: string;
+ date: Date;
 }
 
 export interface IProfileState {

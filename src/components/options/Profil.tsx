@@ -170,7 +170,7 @@ const mapStateToProps = (state: AppState) => ({
  profile: state.profile,
 });
 
-const mapDispatchToProps = { updateProfile, updateUser }; //TODO add update function
+const mapDispatchToProps = { updateProfile, updateUser };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

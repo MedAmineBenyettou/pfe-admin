@@ -121,6 +121,11 @@ td.is-selected.is-today {
   width: calc(100% - 50px) !important;
 }
 
+.options-main .admins table {
+  font-size: small !important;
+  border: 0.5px solid #4082d4;
+}
+
 .options .divider {
   width: 80%;
   margin: 20px auto;

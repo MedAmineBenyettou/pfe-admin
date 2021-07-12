@@ -59,6 +59,22 @@
    table {
     font-size: small !important;
     border: 0.5px solid $primary-color;
+    word-break: break-all;
+   }
+  }
+  .laboratoire {
+   .header-desc {
+    margin: auto;
+    background-color: $mygray4;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-weight: lighter;
+    font-size: 1.2rem;
+   }
+   table {
+    font-size: small !important;
+    border: 0.5px solid $primary-color;
+    word-break: break-all;
    }
   }
  }

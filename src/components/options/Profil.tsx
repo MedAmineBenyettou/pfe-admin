@@ -37,7 +37,7 @@ export const Profil = ({
   setAuthData({
    username: auth.user?.username,
   });
- }, []);
+ }, [profile, auth.user]);
  const handleProfile = (e: any) => {
   e.preventDefault();
   updateProfile(formData);

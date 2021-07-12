@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Admins from './Admins';
 import Profil from './Profil';
+import Laboratoire from './Laboratoire';
 
 import '../../css/options/Options.css';
 
@@ -29,6 +30,15 @@ export const Options = () => {
      }}
     >
      Admins
+    </Link>
+    <Link
+     to="#"
+     className="waves-effect waves-light"
+     onClick={() => {
+      setState(<Laboratoire />);
+     }}
+    >
+     Laboratoire
     </Link>
    </div>
    <div className="options-main col m9 s12 offset-m3">{state}</div>

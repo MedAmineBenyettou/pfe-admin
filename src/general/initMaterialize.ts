@@ -1,6 +1,4 @@
 import M from 'materialize-css';
-import moment from 'moment';
-import $ from 'jquery';
 
 export const initMaterialize = () => {
  setTimeout(() => {

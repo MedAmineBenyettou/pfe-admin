@@ -12,7 +12,7 @@ import Navbar from './components/navbar/Navbar';
 import Dashboard from './components/dashboard/Dashboard';
 import { useComponentWillMount } from './global';
 import { Options } from './components/options/Options';
-import { getAnalyseTypes } from './actions/analyses';
+import { getAnalyseTypes, getGenes } from './actions/analyses';
 import './css/App.css';
 
 // Font-awesome:
@@ -21,10 +21,11 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 
 library.add(fas);
 
-const App = ({ auth, loadUser, getAnalyseTypes }: PropsFromRedux) => {
+const App = ({ auth, loadUser, getAnalyseTypes, getGenes }: PropsFromRedux) => {
  useComponentWillMount(() => {
   loadUser();
   getAnalyseTypes();
+  getGenes();
  });
 
  return (
@@ -51,6 +52,7 @@ const mapState = (state: AppState) => ({
 const mapDispatch = {
  loadUser,
  getAnalyseTypes,
+ getGenes,
 };
 
 const connector = connect(mapState, mapDispatch);

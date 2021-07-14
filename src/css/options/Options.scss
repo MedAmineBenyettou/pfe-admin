@@ -63,6 +63,38 @@
    }
   }
   .laboratoire {
+   .types {
+    .genes {
+     margin-top: 10px;
+     .chip {
+      font-size: small !important;
+     }
+    }
+   }
+   .collection {
+    &-header {
+     margin: 0;
+     color: $primary-color;
+    }
+    &-item {
+     &:hover {
+      cursor: pointer;
+      background-color: $mygray4;
+     }
+     .nom {
+      font-weight: bold;
+     }
+     .desc {
+      color: $text-color;
+     }
+     .row {
+      margin: 0;
+     }
+     .secondary-content {
+      color: rgba($color: $danger-color, $alpha: 0.5);
+     }
+    }
+   }
    .header-desc {
     margin: auto;
     background-color: $mygray4;

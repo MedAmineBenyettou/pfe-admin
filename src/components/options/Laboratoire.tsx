@@ -1,38 +1,83 @@
 import { connect, ConnectedProps } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { AppState } from '../../store';
-import moment from 'moment';
 import { useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Spinner from '../layout/Spinner';
 
-export const Laboratoire = ({
- profile: { loading, profiles },
-}: PropsFromRedux) => {
+export const Laboratoire = ({ profile: { loading } }: PropsFromRedux) => {
  useEffect(() => {}, []);
 
- const display = () =>
-  profiles.map((p) => (
-   <tr key={p._id}>
-    <td>{}</td>
-   </tr>
-  ));
+ const displayGenes = () => (
+  <li className="collection-item">
+   <div className="row">
+    <div className="col s9">
+     <span className="nom">Nom</span>
+     <p className="desc">Description</p>
+    </div>
+    <div className="col s3">
+     <a href="#" className="secondary-content">
+      <FontAwesomeIcon size="2x" icon={['fas', 'times']} />
+     </a>
+    </div>
+   </div>
+  </li>
+ );
+
+ const displayAnalyses = () => (
+  <li className="collection-item">
+   <div className="row">
+    <div className="col s9">
+     <span className="nom">Nom</span>
+     <p className="desc">Description</p>
+     <div className="genes">
+      <div className="chip">Test1</div>
+      <div className="chip">Test2</div>
+     </div>
+    </div>
+    <div className="col s3">
+     <a href="#" className="secondary-content">
+      <FontAwesomeIcon size="2x" icon={['fas', 'times']} />
+     </a>
+    </div>
+   </div>
+  </li>
+ );
 
  if (loading) return <Spinner />;
  return (
   <div className="laboratoire">
    <p className="header-desc">
-    Ajouter, modifier ou supprimer les types d'analyses proposer par le
-    laboratoire
+    Ajouter, modifier ou supprimer les types de gênes traités et types
+    d'analyses proposer par le laboratoire
    </p>
    <h1 className="header">Laboratoire</h1>
    <div className="content row">
-    <table className="striped centered col s12">
-     <thead>
-      <tr>
-       <th></th>
-      </tr>
-     </thead>
-     <tbody>{display()}</tbody>
-    </table>
+    <ul className="collection with-header genes">
+     <li className="collection-header row">
+      <h4 className="col s4">Gênes</h4>
+      <Link
+       to="#"
+       className="col offset-s7 btn-floating btn-large waves-effect waves-light right"
+      >
+       <FontAwesomeIcon size="lg" icon={['fas', 'plus']} />
+      </Link>
+     </li>
+     {displayGenes()}
+    </ul>
+    <div className="divider"></div>
+    <ul className="collection with-header types">
+     <li className="collection-header row">
+      <h4 className="col s4">Types d'analyses</h4>
+      <Link
+       to="#"
+       className="col offset-s7 btn-floating btn-large waves-effect waves-light right"
+      >
+       <FontAwesomeIcon size="lg" icon={['fas', 'plus']} />
+      </Link>
+     </li>
+     {displayAnalyses()}
+    </ul>
    </div>
   </div>
  );

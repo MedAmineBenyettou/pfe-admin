@@ -127,6 +127,40 @@ td.is-selected.is-today {
   word-break: break-all;
 }
 
+.options-main .laboratoire .types .genes {
+  margin-top: 10px;
+}
+
+.options-main .laboratoire .types .genes .chip {
+  font-size: small !important;
+}
+
+.options-main .laboratoire .collection-header {
+  margin: 0;
+  color: #4082d4;
+}
+
+.options-main .laboratoire .collection-item:hover {
+  cursor: pointer;
+  background-color: #cccccc;
+}
+
+.options-main .laboratoire .collection-item .nom {
+  font-weight: bold;
+}
+
+.options-main .laboratoire .collection-item .desc {
+  color: #818181;
+}
+
+.options-main .laboratoire .collection-item .row {
+  margin: 0;
+}
+
+.options-main .laboratoire .collection-item .secondary-content {
+  color: rgba(233, 30, 30, 0.5);
+}
+
 .options-main .laboratoire .header-desc {
   margin: auto;
   background-color: #cccccc;

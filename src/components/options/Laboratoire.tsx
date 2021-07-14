@@ -58,7 +58,7 @@ export const Laboratoire = ({ profile: { loading } }: PropsFromRedux) => {
       <h4 className="col s4">Gênes</h4>
       <Link
        to="#"
-       className="col offset-s7 btn-floating btn-large waves-effect waves-light right"
+       className="col offset-l7 offset-m5 offset-s4 btn-floating btn-large waves-effect waves-light right"
       >
        <FontAwesomeIcon size="lg" icon={['fas', 'plus']} />
       </Link>
@@ -71,7 +71,7 @@ export const Laboratoire = ({ profile: { loading } }: PropsFromRedux) => {
       <h4 className="col s4">Types d'analyses</h4>
       <Link
        to="#"
-       className="col offset-s7 btn-floating btn-large waves-effect waves-light right"
+       className="col offset-l7 offset-m5 offset-s4 btn-floating btn-large waves-effect waves-light right"
       >
        <FontAwesomeIcon size="lg" icon={['fas', 'plus']} />
       </Link>

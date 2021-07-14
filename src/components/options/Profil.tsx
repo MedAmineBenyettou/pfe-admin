@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { AppState } from '../../store';
 
@@ -18,26 +18,17 @@ export const Profil = ({
   username?: string;
   password?: string;
  }>({
-  username: '',
+  username: auth.user?.username,
   password: '',
  });
+
  const [formData, setFormData] = useState({
-  nom: '',
-  prenom: '',
-  fonction: '',
-  phoneNumber: '',
+  nom: profile ? profile.nom : '',
+  prenom: profile ? profile.prenom : '',
+  fonction: profile ? profile.fonction : '',
+  phoneNumber: profile ? profile.phoneNumber : '',
  });
- useEffect(() => {
-  setFormData({
-   nom: profile ? profile.nom : '',
-   prenom: profile ? profile.prenom : '',
-   fonction: profile ? profile.fonction : '',
-   phoneNumber: profile ? profile.phoneNumber : '',
-  });
-  setAuthData({
-   username: auth.user?.username,
-  });
- }, [profile, auth.user]);
+
  const handleProfile = (e: any) => {
   e.preventDefault();
   updateProfile(formData);

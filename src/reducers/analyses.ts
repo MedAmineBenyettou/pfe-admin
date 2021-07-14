@@ -1,4 +1,4 @@
-import { ANALYSES } from '../actions/types';
+import { ANALYSES_TYPES } from '../actions/types';
 import { IError } from '../general/Common';
 
 export interface IGene {
@@ -20,8 +20,14 @@ export interface IAnalyse {
 }
 
 export interface IAnalyseAction {
- type: ANALYSES;
- payload?: IError | IAnalyseType[] | IAnalyse[] | IGene[];
+ type: ANALYSES_TYPES;
+ payload?:
+  | IError
+  | IAnalyseType[]
+  | IAnalyse[]
+  | IGene[]
+  | IAnalyseType
+  | IGene;
 }
 
 export type AnalyseState = {
@@ -30,6 +36,11 @@ export type AnalyseState = {
  types: IAnalyseType[];
  genes: IGene[];
  analyses: IAnalyse[];
+ selection: {
+  type: IAnalyseType | null;
+  gene: IGene | null;
+  analyse: IAnalyse | null;
+ };
 };
 
 const initialState: AnalyseState = {
@@ -38,6 +49,11 @@ const initialState: AnalyseState = {
  types: [],
  genes: [],
  analyses: [],
+ selection: {
+  type: null,
+  gene: null,
+  analyse: null,
+ },
 };
 
 export default function analysesReducer(
@@ -46,38 +62,70 @@ export default function analysesReducer(
 ): AnalyseState {
  const { type, payload } = action;
  switch (type) {
-  case ANALYSES.GET_TYPES:
+  case ANALYSES_TYPES.GET_TYPES:
    return {
     ...state,
     types: payload as IAnalyseType[],
     loading: false,
     error: null,
    };
-  case ANALYSES.ADD_TYPE:
+  case ANALYSES_TYPES.ADD_TYPE:
    return {
     ...state,
     loading: false,
     error: null,
     types: payload as IAnalyseType[],
    };
-  case ANALYSES.GET_GENES:
+  case ANALYSES_TYPES.GET_GENES:
    return {
     ...state,
     genes: payload as IGene[],
     loading: false,
     error: null,
    };
-  case ANALYSES.ADD_GENE:
+  case ANALYSES_TYPES.ADD_GENE:
    return {
     ...state,
     loading: false,
     error: null,
     genes: payload as IGene[],
    };
-  case ANALYSES.GET_TYPES_ERROR:
-  case ANALYSES.ADD_TYPE_ERROR:
-  case ANALYSES.ADD_GENE_ERROR:
-  case ANALYSES.GET_GENES_ERROR:
+  case ANALYSES_TYPES.SELECT_TYPE:
+   return {
+    ...state,
+    selection: {
+     ...state.selection,
+     type: payload as IAnalyseType,
+    },
+   };
+  case ANALYSES_TYPES.CLEAR_SELECTED_TYPE:
+   return {
+    ...state,
+    selection: {
+     ...state.selection,
+     type: null,
+    },
+   };
+  case ANALYSES_TYPES.SELECT_GENE:
+   return {
+    ...state,
+    selection: {
+     ...state.selection,
+     gene: payload as IGene,
+    },
+   };
+  case ANALYSES_TYPES.CLEAR_SELECTED_GENE:
+   return {
+    ...state,
+    selection: {
+     ...state.selection,
+     gene: null,
+    },
+   };
+  case ANALYSES_TYPES.GET_TYPES_ERROR:
+  case ANALYSES_TYPES.ADD_TYPE_ERROR:
+  case ANALYSES_TYPES.ADD_GENE_ERROR:
+  case ANALYSES_TYPES.GET_GENES_ERROR:
    return {
     ...state,
     loading: false,

@@ -1,4 +1,4 @@
-import { ANALYSES } from './types';
+import { ANALYSES_TYPES } from './types';
 import { ThunkDispatch } from 'redux-thunk';
 import { IAnalyseAction, IAnalyseType, IGene } from '../reducers/analyses';
 import axios from 'axios';
@@ -13,12 +13,12 @@ export const getAnalyseTypes =
   try {
    const res = await axios.get('/api/analyseTypes');
    dispatch({
-    type: ANALYSES.GET_TYPES,
+    type: ANALYSES_TYPES.GET_TYPES,
     payload: res.data,
    });
   } catch (err) {
    dispatch({
-    type: ANALYSES.GET_TYPES_ERROR,
+    type: ANALYSES_TYPES.GET_TYPES_ERROR,
     payload: err.response.data.msg,
    });
    dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
@@ -31,7 +31,7 @@ export const addAnalyseTypes =
   try {
    const res = await axios.post('/api/analyseTypes', type, CONFIG);
    dispatch({
-    type: ANALYSES.ADD_TYPE,
+    type: ANALYSES_TYPES.ADD_TYPE,
     payload: res.data,
    });
    dispatch(
@@ -42,11 +42,27 @@ export const addAnalyseTypes =
    );
   } catch (err) {
    dispatch({
-    type: ANALYSES.ADD_TYPE_ERROR,
+    type: ANALYSES_TYPES.ADD_TYPE_ERROR,
     payload: err.response.data.msg,
    });
    dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
   }
+ };
+
+export const selectType =
+ (type: IAnalyseType) =>
+ async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  dispatch({
+   type: ANALYSES_TYPES.SELECT_TYPE,
+   payload: type,
+  });
+ };
+
+export const clearSelectedType =
+ () => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  dispatch({
+   type: ANALYSES_TYPES.CLEAR_SELECTED_TYPE,
+  });
  };
 
 //! GENES  ------------------------------------------------------------
@@ -56,12 +72,12 @@ export const getGenes =
   try {
    const res = await axios.get('/api/admin/genes');
    dispatch({
-    type: ANALYSES.GET_GENES,
+    type: ANALYSES_TYPES.GET_GENES,
     payload: res.data,
    });
   } catch (err) {
    dispatch({
-    type: ANALYSES.GET_GENES_ERROR,
+    type: ANALYSES_TYPES.GET_GENES_ERROR,
     payload: err.response.data.msg,
    });
    dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
@@ -74,7 +90,7 @@ export const addGene =
   try {
    const res = await axios.post('/api/admin/genes', type, CONFIG);
    dispatch({
-    type: ANALYSES.ADD_GENE,
+    type: ANALYSES_TYPES.ADD_GENE,
     payload: res.data,
    });
    dispatch(
@@ -82,9 +98,24 @@ export const addGene =
    );
   } catch (err) {
    dispatch({
-    type: ANALYSES.ADD_GENE_ERROR,
+    type: ANALYSES_TYPES.ADD_GENE_ERROR,
     payload: err.response.data.msg,
    });
    dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
   }
+ };
+
+export const selectGene =
+ (gene: IGene) => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  dispatch({
+   type: ANALYSES_TYPES.SELECT_TYPE,
+   payload: gene,
+  });
+ };
+
+export const clearSelectedGene =
+ () => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  dispatch({
+   type: ANALYSES_TYPES.CLEAR_SELECTED_GENE,
+  });
  };

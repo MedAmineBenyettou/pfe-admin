@@ -21,7 +21,7 @@ export const getAnalyseTypes =
     type: ANALYSES_TYPES.GET_TYPES_ERROR,
     payload: err.response.data.msg,
    });
-   dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
+   //    dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
   }
  };
 
@@ -80,7 +80,7 @@ export const getGenes =
     type: ANALYSES_TYPES.GET_GENES_ERROR,
     payload: err.response.data.msg,
    });
-   dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
+   //    dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
   }
  };
 

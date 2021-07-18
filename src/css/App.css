@@ -61,6 +61,13 @@ td.is-selected.is-today {
   background-color: #8bc34a !important;
 }
 
+.app {
+  width: 100vw;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+}
+
 .app .main {
   padding-top: 45px;
 }

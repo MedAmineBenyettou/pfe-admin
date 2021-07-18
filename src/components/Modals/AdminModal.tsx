@@ -5,21 +5,22 @@ import Spinner from '../layout/Spinner';
 import lock from '../../assets/lock.png';
 import person from '../../assets/person.png';
 import { register } from '../../actions/auth';
-import { setTargetProfile, updateProfileById } from '../../actions/profile';
+import { updateProfileById } from '../../actions/profile';
 
 const AdminModal = ({
  profile: {
   targetProfile: { loading, profile },
  },
- setTargetProfile,
  updateProfileById,
  register,
 }: PropsFromRedux) => {
  const [authForm, setAuthForm] = useState<{
   username?: string;
   password?: string;
+  isEnabled?: boolean;
  }>({
   username: profile ? profile.user.username : '',
+  isEnabled: profile ? profile.user.isEnabled : false,
   password: '',
  });
 
@@ -37,10 +38,14 @@ const AdminModal = ({
    fonction: profile ? profile.fonction : fonction,
    phoneNumber: profile ? profile.phoneNumber : phoneNumber,
   });
+  setAuthForm({
+   username: profile ? profile.user.username : username,
+   isEnabled: profile ? profile.user.isEnabled : isEnabled,
+  });
  }, [profile]);
 
  const { fonction, nom, prenom, phoneNumber } = formData;
- const { username, password } = authForm;
+ const { username, password, isEnabled } = authForm;
 
  const close = () => {
   var elmnt = document.getElementById('AdminModal');
@@ -51,7 +56,9 @@ const AdminModal = ({
  };
 
  const onChange = (e: any) => {
-  if (e.target.name === 'username' || e.target.name === 'password') {
+  if (e.target.name === 'isEnabled')
+   setAuthForm({ ...authForm, isEnabled: !isEnabled });
+  else if (e.target.name === 'username' || e.target.name === 'password') {
    setAuthForm({ ...authForm, [e.target.name]: e.target.value });
   } else setFormData({ ...formData, [e.target.name]: e.target.value });
  };
@@ -59,17 +66,20 @@ const AdminModal = ({
  const handleBtn = (e: any) => {
   if (profile) {
    var fields: any = {};
-   fields.username = username;
-   if (password && password.length !== 0 && password.length >= 6)
-    fields.password = username;
+   if (username && username.length > 0 && username !== profile.user.username)
+    fields.username = username;
+   if (password && password.length >= 6) fields.password = password;
+   fields.isEnabled = isEnabled;
    updateProfileById(profile._id, { ...formData, user: fields });
   } else {
    var fields: any = {};
    fields.username = username;
    fields.password = password;
+   fields.isEnabled = isEnabled;
    register(fields);
   }
  };
+
  if (loading) return <Spinner />;
  return (
   <div id="AdminModal" className="modal modal-fixed-footer">
@@ -149,6 +159,20 @@ const AdminModal = ({
        />
        <label htmlFor="fonction">Fonction</label>
       </div>
+      <div className="switch">
+       <label>
+        Compte: Desactivé
+        <input
+         name="isEnabled"
+         type="checkbox"
+         checked={isEnabled ? true : false}
+         value={'isEnabled'}
+         onChange={onChange}
+        />
+        <span className="lever"></span>
+        Activé
+       </label>
+      </div>
      </div>
     )}
    </div>
@@ -177,7 +201,7 @@ const mapStateToProps = (state: AppState) => ({
  profile: state.profile,
 });
 
-const mapDispatchToProps = { setTargetProfile, updateProfileById, register };
+const mapDispatchToProps = { updateProfileById, register };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

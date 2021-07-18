@@ -67,7 +67,8 @@
    table {
     font-size: small !important;
     border: 0.5px solid $primary-color;
-    word-break: break-all;
+    // word-break: break-all;
+    // line-break: strict;
     tr {
      cursor: pointer;
      &:hover {
@@ -180,6 +181,14 @@
       width: calc(100% - 50px) !important;
      }
     }
+   }
+  }
+ }
+ .admins {
+  table {
+   font-size: smaller !important;
+   thead {
+    font-size: smaller;
    }
   }
  }

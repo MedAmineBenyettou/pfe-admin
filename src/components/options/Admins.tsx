@@ -9,7 +9,7 @@ import M from 'materialize-css';
 import { setTimeout } from 'timers';
 
 export const Admins = ({
- profile: { loading, profiles },
+ profile: { loading, profiles, profile },
  getAllProfiles,
  setTargetProfile,
 }: PropsFromRedux) => {
@@ -35,26 +35,33 @@ export const Admins = ({
   }, 1000);
  };
 
- const display = () =>
-  profiles.map((p) => (
-   <tr
-    // className="modal-trigger"
-    // //@ts-ignore
-    // href="#AdminModal"
-    key={p._id}
-    onClick={() => handleOnClick(p)}
-   >
-    <td>{p.user.username}</td>
-    <td>{p.nom}</td>
-    <td>{p.prenom}</td>
-    <td>{p.fonction}</td>
-    <td>{p.phoneNumber}</td>
-    <td>{moment(p.date).format('DD/MM/YYYY')}</td>
-    <td className={`${p.user.isEnabled ? 'green-text' : 'red-text'}`}>
-     {p.user.isEnabled ? 'Activé' : 'Desactivé'}
-    </td>
-   </tr>
-  ));
+ const display = () => {
+  var res = profiles.map((p) => {
+   if (profile && p._id != profile._id) {
+    return (
+     <tr
+      // className="modal-trigger"
+      // //@ts-ignore
+      // href="#AdminModal"
+      key={p._id}
+      onClick={() => handleOnClick(p)}
+     >
+      <td>{p.user.username}</td>
+      <td>{p.nom}</td>
+      <td>{p.prenom}</td>
+      <td>{p.fonction}</td>
+      <td>{p.phoneNumber}</td>
+      <td>{moment(p.date).format('DD/MM/YYYY')}</td>
+      <td className={`${p.user.isEnabled ? 'green-text' : 'red-text'}`}>
+       {p.user.isEnabled ? 'Activé' : 'Desactivé'}
+      </td>
+     </tr>
+    );
+   }
+  });
+  if (res.length > 0) return res;
+  return <p className="error">Pas d'utilisateurs</p>;
+ };
 
  if (loading) return <Spinner />;
  return (

@@ -44,13 +44,15 @@ export const Admins = ({
     key={p._id}
     onClick={() => handleOnClick(p)}
    >
-    <td>{p._id}</td>
     <td>{p.user.username}</td>
     <td>{p.nom}</td>
     <td>{p.prenom}</td>
     <td>{p.fonction}</td>
     <td>{p.phoneNumber}</td>
     <td>{moment(p.date).format('DD/MM/YYYY')}</td>
+    <td className={`${p.user.isEnabled ? 'green-text' : 'red-text'}`}>
+     {p.user.isEnabled ? 'Activé' : 'Desactivé'}
+    </td>
    </tr>
   ));
 
@@ -70,13 +72,14 @@ export const Admins = ({
     <table className="striped centered col s12">
      <thead>
       <tr>
-       <th>ID</th>
+       {/* <th>ID</th> */}
        <th>Nom d'utilisateur</th>
        <th>Nom</th>
        <th>Prenom</th>
        <th>Fonction</th>
        <th>Numéro de téléphone</th>
        <th>A rejoint le</th>
+       <th>Etat</th>
       </tr>
      </thead>
      <tbody>{display()}</tbody>

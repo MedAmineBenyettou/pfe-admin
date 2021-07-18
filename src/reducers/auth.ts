@@ -4,6 +4,7 @@ import { IError } from '../general/Common';
 export interface IUser {
  _id: string;
  username: string;
+ isEnabled: boolean;
  date: Date;
 }
 interface IAuthState {

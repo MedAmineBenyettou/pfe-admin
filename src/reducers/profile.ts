@@ -1,11 +1,10 @@
 import { AUTH_TYPES, PROFILE_TYPES } from '../actions/types';
 import { IError } from '../general/Common';
+import { IUser } from './auth';
 
 export interface IProfile {
  _id: string;
- user: {
-  username: string;
- };
+ user: Pick<IUser, 'username' | 'isEnabled' | '_id'>;
  nom: string;
  prenom: string;
  fonction: string;

@@ -102,6 +102,10 @@ td.is-selected.is-today {
   padding-bottom: 20px;
 }
 
+.options-main .header h1 {
+  font-size: 3rem;
+}
+
 .options-main .content {
   font-size: medium !important;
 }
@@ -121,10 +125,22 @@ td.is-selected.is-today {
   width: calc(100% - 50px) !important;
 }
 
+.options-main .admins .header .btn {
+  margin-bottom: 15px;
+}
+
 .options-main .admins table {
   font-size: small !important;
   border: 0.5px solid #4082d4;
   word-break: break-all;
+}
+
+.options-main .admins table tr {
+  cursor: pointer;
+}
+
+.options-main .admins table tr:hover {
+  background-color: #cccccc;
 }
 
 .options-main .laboratoire .types .genes {

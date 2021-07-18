@@ -21,7 +21,7 @@ const AddGeneModal = ({
  };
  if (loading) return <Spinner />;
  return (
-  <div id="modal1" className="modal modal-fixed-footer">
+  <div id="GeneModal" className="modal modal-fixed-footer">
    <div className="modal-content">
     <h4>Ajouter/Modifier un gêne</h4>
     <div className="form row">
@@ -49,7 +49,7 @@ const AddGeneModal = ({
    </div>
    <div className="modal-footer">
     <p className="red-text left">* sont nécéssaires</p>
-    <a href="#!" className="modal-close waves-effect waves-green btn-flat">
+    <a href="#" className="modal-close waves-effect waves-green btn-flat">
      Sauvgarder
     </a>
    </div>

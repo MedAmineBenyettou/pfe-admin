@@ -45,7 +45,7 @@ export const Profil = ({
  if (!error && !loading) {
   const onChange = (e: any) => {
    if (e.target.name === 'username' || e.target.name === 'password')
-    setAuthData({ [e.target.name]: e.target.value });
+    setAuthData({ ...authData, [e.target.name]: e.target.value });
    else setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const { fonction, nom, prenom, phoneNumber } = formData;

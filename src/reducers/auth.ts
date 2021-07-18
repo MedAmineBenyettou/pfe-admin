@@ -33,7 +33,6 @@ export default function authReducer(
 ): IAuthState {
  const { type, payload } = action;
  switch (type) {
-  case AUTH_TYPES.REGISTER_FAIL:
   case AUTH_TYPES.LOGIN_FAIL:
   case AUTH_TYPES.AUTH_ERROR:
   case AUTH_TYPES.LOGOUT:
@@ -48,7 +47,8 @@ export default function authReducer(
     isAuthenticated: false,
     ...payload,
    };
-  case AUTH_TYPES.REGISTER_SUCCESS:
+  case AUTH_TYPES.REGISTER_FAIL:
+   return { ...state, error: payload as IError };
   case AUTH_TYPES.LOGIN_SUCCESS:
    if (payload?.token) localStorage.setItem('token', payload.token);
    return {

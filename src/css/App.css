@@ -78,4 +78,19 @@ td.is-selected.is-today {
   background-color: #4082d4 !important;
   color: white !important;
 }
+
+#AdminModal .input-field input {
+  padding-left: 45px !important;
+  width: calc(100% - 50px) !important;
+}
+
+#AdminModal .input-field label {
+  padding-left: 35px;
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+
+#AdminModal .input-field label.active {
+  padding-left: 0;
+}
 /*# sourceMappingURL=App.css.map */

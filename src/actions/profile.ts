@@ -11,6 +11,7 @@ export const getCurrentProfile =
  () => async (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
   try {
    const res = await axios.get('/api/admin/profile/me');
+   if (!res) createProfile();
    dispatch({
     type: PROFILE_TYPES.GET_PROFILE,
     payload: res.data,
@@ -64,6 +65,29 @@ export const createProfile =
   }
  };
 
+export const createProfileById =
+ (id: string, formData?: IProfileFormData) =>
+ async (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
+  try {
+   const res = await axios.post(`/api/admin/profile/${id}`, formData, CONFIG);
+   dispatch({
+    type: PROFILE_TYPES.OTHER_PROFILE_CREATION_SUCCESS,
+    payload: res.data,
+   });
+  } catch (err) {
+   const errors = err.response.data.errors;
+   if (errors) {
+    errors.forEach((e: any) => {
+     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+    });
+   }
+   dispatch({
+    type: PROFILE_TYPES.OTHER_PROFILE_CREATION_FAIL,
+    payload: { msg: err.response.data.msg },
+   });
+  }
+ };
+
 //* Update profile
 export const updateProfile =
  (formData: Partial<IProfileFormData>) =>
@@ -86,6 +110,29 @@ export const updateProfile =
    dispatch({
     type: PROFILE_TYPES.PROFILE_UPDATE_FAIL,
     payload: { msg: err.response.statusText },
+   });
+  }
+ };
+export const updateProfileById =
+ (id: string, formData: Partial<IProfileFormData>) =>
+ async (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
+  try {
+   const res = await axios.put(`/api/admin/profile/${id}`, formData, CONFIG);
+   dispatch({
+    type: PROFILE_TYPES.OTHER_PROFILE_UPDATE_SUCCESS,
+    payload: res.data,
+   });
+   dispatch(setAlert('Profil mis à jour', AlertTypes.SUCCESS));
+  } catch (err) {
+   const errors = err.response.data.errors;
+   if (errors) {
+    errors.forEach((e: any) => {
+     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+    });
+   }
+   dispatch({
+    type: PROFILE_TYPES.OTHER_PROFILE_UPDATE_FAIL,
+    payload: { msg: err.response.data.msg },
    });
   }
  };
@@ -129,7 +176,8 @@ export const getAllProfiles =
 
 //* sets Target's Profile
 export const setTargetProfile =
- (profile: IProfile) => (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
+ (profile: IProfile | null) =>
+ (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
   dispatch({
    type: PROFILE_TYPES.SETTING_TARGET_PROFILE,
    payload: profile,

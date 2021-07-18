@@ -27,7 +27,7 @@ export interface IProfileState {
 
 export interface IProfileAction {
  type: PROFILE_TYPES | AUTH_TYPES;
- payload?: IProfile | IProfile[] | IError;
+ payload?: IProfile | IProfile[] | IError | null;
 }
 
 const initialState: IProfileState = {
@@ -115,6 +115,8 @@ export default function profileReducer(
     loading: true,
    };
   case PROFILE_TYPES.GETTING_PROFILES_SUCCESS:
+  case PROFILE_TYPES.OTHER_PROFILE_UPDATE_SUCCESS:
+  case PROFILE_TYPES.OTHER_PROFILE_CREATION_SUCCESS:
    return {
     ...state,
     profiles: payload as IProfile[],
@@ -152,6 +154,15 @@ export default function profileReducer(
     },
    };
   }
+  case PROFILE_TYPES.OTHER_PROFILE_UPDATE_FAIL:
+   return {
+    ...state,
+    targetProfile: {
+     ...state.targetProfile,
+     loading: false,
+     error: payload as IError,
+    },
+   };
   default:
    return state;
  }

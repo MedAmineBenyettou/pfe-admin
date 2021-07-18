@@ -33,6 +33,9 @@
   .header {
    color: $primary-color;
    font-size: 3rem;
+   h1 {
+    font-size: 3rem;
+   }
    padding-bottom: 20px;
   }
   .content {
@@ -56,10 +59,21 @@
    }
   }
   .admins {
+   .header {
+    .btn {
+     margin-bottom: 15px;
+    }
+   }
    table {
     font-size: small !important;
     border: 0.5px solid $primary-color;
     word-break: break-all;
+    tr {
+     cursor: pointer;
+     &:hover {
+      background-color: $mygray4;
+     }
+    }
    }
   }
   .laboratoire {

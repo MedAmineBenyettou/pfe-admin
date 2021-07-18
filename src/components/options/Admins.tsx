@@ -2,20 +2,48 @@ import { connect, ConnectedProps } from 'react-redux';
 import { AppState } from '../../store';
 import moment from 'moment';
 import { useEffect } from 'react';
-import { getAllProfiles } from '../../actions/profile';
+import { getAllProfiles, setTargetProfile } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
+import { IProfile } from '../../reducers/profile';
+import M from 'materialize-css';
+import { setTimeout } from 'timers';
 
 export const Admins = ({
  profile: { loading, profiles },
  getAllProfiles,
+ setTargetProfile,
 }: PropsFromRedux) => {
  useEffect(() => {
   getAllProfiles();
  }, [getAllProfiles]);
 
+ const handleOnClick = (p: IProfile) => {
+  setTargetProfile(p);
+  setTimeout(() => {
+   var elmnt = document.getElementById('AdminModal');
+   if (elmnt) {
+    var inst = M.Modal.getInstance(elmnt);
+    inst.options = {
+     ...inst.options,
+     dismissible: true,
+     onCloseEnd: () => {
+      setTargetProfile(null);
+     },
+    };
+    inst.open();
+   }
+  }, 1000);
+ };
+
  const display = () =>
   profiles.map((p) => (
-   <tr key={p._id}>
+   <tr
+    // className="modal-trigger"
+    // //@ts-ignore
+    // href="#AdminModal"
+    key={p._id}
+    onClick={() => handleOnClick(p)}
+   >
     <td>{p._id}</td>
     <td>{p.user.username}</td>
     <td>{p.nom}</td>
@@ -29,7 +57,15 @@ export const Admins = ({
  if (loading) return <Spinner />;
  return (
   <div className="admins">
-   <h1 className="header">Listes des administrateurs</h1>
+   <div className="header">
+    <h1>Listes des administrateurs</h1>
+    <a
+     className="btn light-green waves-effect waves-light right modal-trigger"
+     href="#AdminModal"
+    >
+     Ajouter un administrateur
+    </a>
+   </div>
    <div className="content row">
     <table className="striped centered col s12">
      <thead>
@@ -54,7 +90,7 @@ const mapStateToProps = (state: AppState) => ({
  profile: state.profile,
 });
 
-const mapDispatchToProps = { getAllProfiles };
+const mapDispatchToProps = { getAllProfiles, setTargetProfile };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

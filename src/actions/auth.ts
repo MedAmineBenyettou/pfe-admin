@@ -3,9 +3,10 @@ import axios from 'axios';
 import { setAlert } from './alerts';
 import setAuthToken from '../general/setAuthToken';
 import { AlertTypes } from '../reducers/alerts';
-import { IAuthAction } from '../reducers/auth';
+import { IAuthAction, IUser } from '../reducers/auth';
 import { ThunkDispatch } from 'redux-thunk';
-import { getCurrentProfile, createProfile } from './profile';
+import { getCurrentProfile, createProfileById } from './profile';
+import { CONFIG } from '../general/Common';
 
 //* Register User
 interface IRegisterForm {
@@ -15,21 +16,14 @@ interface IRegisterForm {
 export const register =
  ({ username, password }: IRegisterForm) =>
  async (dispatch: ThunkDispatch<{}, {}, IAuthAction>) => {
-  const config = {
-   headers: {
-    'Content-Type': 'application/json',
-   },
-  };
-
   const body = JSON.stringify({ password, username });
   try {
-   const res = await axios.post('/api/admin/admins', body, config);
+   const res = await axios.post('/api/admin/admins', body, CONFIG);
    dispatch({
     type: AUTH_TYPES.REGISTER_SUCCESS,
-    payload: res.data,
    });
-   dispatch(loadUser());
-   dispatch(createProfile());
+   const user = res.data.find((p: IUser) => p.username === username);
+   dispatch(createProfileById(user._id));
    dispatch(setAlert('Utilisateur enregistré avec succès', AlertTypes.SUCCESS));
   } catch (err) {
    const errs = err.response ? err.response.data.errors : [err];
@@ -37,8 +31,10 @@ export const register =
     errs.forEach((e: any) => {
      dispatch(setAlert(e.msg, AlertTypes.DANGER));
     });
+   console.error(err);
    dispatch({
     type: AUTH_TYPES.REGISTER_FAIL,
+    payload: err,
    });
   }
  };

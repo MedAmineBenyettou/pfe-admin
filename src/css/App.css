@@ -62,7 +62,7 @@ td.is-selected.is-today {
 }
 
 .app {
-  width: 100vw;
+  width: 100%;
   min-width: -webkit-fit-content;
   min-width: -moz-fit-content;
   min-width: fit-content;

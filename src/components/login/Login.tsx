@@ -15,16 +15,8 @@ function Login({
 
  return (
   <div id="LRscreen_id" className="LRscreen row">
-   <div className="LRform col m6 offset-m3 s10 offset-s1">
-    {/*//! Forms */}
+   <div className="LRform col m8 offset-m2 s10 offset-s1">
     <Lform />
-   </div>
-
-   {/*//! Footer  */}
-   <div className="LRfooter col s12">
-    <div className="col s12 container">
-     <p>LADEAO</p>
-    </div>
    </div>
   </div>
  );

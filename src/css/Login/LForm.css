@@ -1,8 +1,203 @@
-.Lform .input-field:nth-child(2) {
+input:not([type]):focus:not([readonly]),
+input[type='text']:not(.browser-default):focus:not([readonly]),
+input[type='password']:not(.browser-default):focus:not([readonly]),
+input[type='email']:not(.browser-default):focus:not([readonly]),
+input[type='username']:not(.browser-default):focus:not([readonly]),
+input[type='url']:not(.browser-default):focus:not([readonly]),
+input[type='time']:not(.browser-default):focus:not([readonly]),
+input[type='date']:not(.browser-default):focus:not([readonly]),
+input[type='datetime']:not(.browser-default):focus:not([readonly]),
+input[type='datetime-local']:not(.browser-default):focus:not([readonly]),
+input[type='tel']:not(.browser-default):focus:not([readonly]),
+input[type='number']:not(.browser-default):focus:not([readonly]),
+input[type='search']:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #4082d4 !important;
+  -webkit-box-shadow: 0 1px 0 0 #4082d4 !important;
+          box-shadow: 0 1px 0 0 #4082d4 !important;
+}
+
+.progress {
+  background-color: rgba(64, 130, 212, 0.5) !important;
+}
+
+.progress .indeterminate {
+  background-color: #8bc34a !important;
+}
+
+.datepicker-date-display {
+  background-color: #4082d4 !important;
+}
+
+.datepicker-day-button:focus {
+  color: white !important;
+  background-color: #a2b0b6 !important;
+}
+
+.datepicker-done,
+.datepicker-cancel,
+.select-dropdown li > span,
+.is-today {
+  color: #4082d4 !important;
+}
+
+td.is-selected,
+.month-prev:active,
+.month-prev:focus,
+.month-next:active,
+.month-next:focus {
+  background-color: #4082d4 !important;
+}
+
+td.is-selected.is-today {
+  color: white !important;
+}
+
+.switch label input[type='checkbox']:checked + .lever {
+  background-color: #4082d4 !important;
+}
+
+.switch label input[type='checkbox']:checked + .lever:after {
+  background-color: #8bc34a !important;
+}
+
+.LRform {
+  border-radius: 10px !important;
+}
+
+.login-form {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: -webkit-max-content !important;
+  height: -moz-max-content !important;
+  height: max-content !important;
+  padding: 0 !important;
+  -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+          box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  border-radius: 10px !important;
+}
+
+.login-form .left-side {
+  padding: 0 !important;
+}
+
+.login-form .left-side .LRheader {
+  background-color: white !important;
+  border-top-left-radius: 10px;
+}
+
+.login-form .left-side .LRheader h3 {
+  text-transform: uppercase;
+  font-size: x-large;
+}
+
+.login-form .left-side hr {
+  background-color: white !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.login-form .left-side .row {
+  margin: 0 !important;
+}
+
+.login-form .left-side .Lform {
+  padding: 0 !important;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-color: white !important;
+}
+
+.login-form .left-side .Lform .loginForm .input-field:nth-child(2) {
   margin-bottom: 5px;
 }
 
-.Lform label {
+.login-form .left-side .Lform .loginForm label {
   margin-right: 5px;
+}
+
+.login-form .left-side .Lform .valign-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+  width: 100% !important;
+  padding: 0;
+  background-color: none !important;
+}
+
+.login-form .left-side .Lform .valign-wrapper span {
+  color: #818181;
+  font-weight: lighter;
+  padding: 5px 0 20px 0;
+}
+
+.login-form .left-side .Lform .valign-wrapper .btn {
+  border-bottom-left-radius: 10px;
+}
+
+.login-form .right-side {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 0 !important;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  background-image: linear-gradient(190deg, rgba(64, 130, 212, 0.9) 0%, rgba(88, 206, 61, 0.45) 85%);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.login-form .right-side .logo {
+  padding: 30px;
+}
+
+.login-form .right-side p {
+  padding: 30px 0;
+  color: #333333;
+  font-size: smaller;
+}
+
+@media only screen and (max-width: 600px) {
+  .login-form {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .login-form .right-side {
+    margin: 0 !important;
+    width: 100% !important;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 10px;
+  }
+  .login-form .left-side {
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+  .login-form .left-side .LRheader {
+    border-top-left-radius: 0;
+    padding: 10px 0 !important;
+  }
+  .login-form .left-side .btn {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
 }
 /*# sourceMappingURL=LForm.css.map */

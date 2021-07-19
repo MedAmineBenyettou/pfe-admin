@@ -7,6 +7,7 @@ import lock from '../../assets/lock.png';
 import person from '../../assets/person.png';
 
 import '../../css/Login/LForm.css';
+import { Logo } from '../layout/Logo';
 
 function Lform({ login, setAlert }: ReduxProps) {
  const [formData, setFormData] = useState({ username: '', password: '' });
@@ -28,55 +29,57 @@ function Lform({ login, setAlert }: ReduxProps) {
  };
  const { username, password } = formData;
  return (
-  <>
-   {/*//! Header */}
-   <div className="LRheader col s12 container">
-    <h2 className="col s12 ">Se connecter</h2>
-    <p className="col s12 ">Commencez votre journée productive</p>
-   </div>
-   <hr className="col s12" style={{ margin: '5px 0 20px 0' }} />
-   <div className="Lform">
-    <form id="loginForm" className="col s12" onSubmit={onSubmit}>
-     <div className="row">
-      <div className="input-field col s11">
-       <input
-        name="username"
-        placeholder="Nom d'utilisateur"
-        defaultValue={username}
-        onChange={onChange}
-        required
-       />
-       <div className="prefix">
-        <img src={person} alt="mail" />
+  <div className="login-form col s12 row">
+   <div className="col s6 left-side">
+    {/*//! Header */}
+    <div className="LRheader col s12 container">
+     <h3 className="col s12 ">Se connecter</h3>
+    </div>
+    <hr className="col s8 offset-s2" />
+    <div className="Lform col s12">
+     <form id="loginForm" className="col s12" onSubmit={onSubmit}>
+      <div className="row">
+       <div className="input-field col s11">
+        <input
+         name="username"
+         placeholder="Nom d'utilisateur"
+         defaultValue={username}
+         onChange={onChange}
+         required
+        />
+        <div className="prefix">
+         <img src={person} alt="mail" />
+        </div>
+       </div>
+       <div id="lPassword" className="input-field col s11">
+        <input
+         type="password"
+         name="password"
+         placeholder="Mot de passe"
+         defaultValue={password}
+         onChange={onChange}
+         required
+        />
+        <div className="prefix">
+         <img src={lock} alt="lock" />
+        </div>
        </div>
       </div>
-      <div id="lPassword" className="input-field col s11">
-       <input
-        type="password"
-        name="password"
-        placeholder="Mot de passe"
-        defaultValue={password}
-        onChange={onChange}
-        required
-       />
-       <div className="prefix">
-        <img src={lock} alt="lock" />
-       </div>
-      </div>
+     </form>
+     {/*//! down form  */}
+     <div className=" col s12 valign-wrapper">
+      <span>Pas de compte? Contactez un administrateur pour avoir accèe.</span>
+      <button type="submit" form="loginForm" className="btn light-blue col s12">
+       Se connecter
+      </button>
      </div>
-    </form>
-    {/*//! down form  */}
-    <div className=" col s12 valign-wrapper">
-     <button
-      type="submit"
-      form="loginForm"
-      className="btn col s4 offset-s4 light-blue"
-     >
-      Se connecter
-     </button>
     </div>
    </div>
-  </>
+   <div className="col s6 right-side">
+    <Logo />
+    <p className="col s12 ">Commencez votre journée productive</p>
+   </div>
+  </div>
  );
 }
 

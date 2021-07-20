@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
+import { addGene } from '../../actions/analyses';
 import { AppState } from '../../store';
 import Spinner from '../layout/Spinner';
 
@@ -8,6 +9,7 @@ const AddGeneModal = ({
   selection: { gene },
   loading,
  },
+ addGene,
 }: PropsFromRedux) => {
  const [form, setForm] = useState({
   nom: gene ? gene.nom : '',
@@ -15,15 +17,32 @@ const AddGeneModal = ({
  });
 
  const { nom, description } = form;
+ useEffect(() => {
+  setForm({
+   nom: gene ? gene.nom : nom,
+   description: gene
+    ? gene.description
+      ? gene.description
+      : description
+    : description,
+  });
+ }, []);
 
  const onChange = (e: any) => {
   setForm({ ...form, [e.target.name]: e.target.value });
  };
+
+ const handleClick = () => {
+  addGene(form);
+ };
+
  if (loading) return <Spinner />;
  return (
   <div id="GeneModal" className="modal modal-fixed-footer">
    <div className="modal-content">
-    <h4>Ajouter/Modifier un gêne</h4>
+    <h4>
+     {gene ? 'Modifier' : 'Ajouter'} un gêne {gene ? `(${gene.nom})` : ''}
+    </h4>
     <div className="form row">
      <div className="input-field col s12">
       <input
@@ -49,8 +68,12 @@ const AddGeneModal = ({
    </div>
    <div className="modal-footer">
     <p className="red-text left">* sont nécéssaires</p>
-    <a href="#" className="modal-close waves-effect waves-green btn-flat">
-     Sauvgarder
+    <a
+     href="#"
+     className="modal-close waves-effect waves-green btn-flat"
+     onClick={handleClick}
+    >
+     {gene ? 'Sauvgarder' : 'Ajouter'}
     </a>
    </div>
   </div>
@@ -61,7 +84,7 @@ const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { addGene };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

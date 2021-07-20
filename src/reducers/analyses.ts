@@ -131,6 +131,11 @@ export default function analysesReducer(
     loading: false,
     error: payload as IError,
    };
+  case ANALYSES_TYPES.LOADING_ANALYSE:
+   return {
+    ...state,
+    loading: true,
+   };
   default:
    return state;
  }

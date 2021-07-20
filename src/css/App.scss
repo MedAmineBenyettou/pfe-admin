@@ -38,3 +38,19 @@
 .side-active {
  color: $primary-color !important;
 }
+
+.danger {
+ color: $danger-color !important;
+}
+
+.warning {
+ color: $warning-color !important;
+}
+
+.info {
+ color: rgba($color: $primary-color, $alpha: 0.75) !important;
+}
+
+.center-text {
+ text-align: center !important;
+}

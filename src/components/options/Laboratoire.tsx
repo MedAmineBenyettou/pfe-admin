@@ -1,28 +1,68 @@
+import { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppState } from '../../store';
-import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Spinner from '../layout/Spinner';
+import { getGenes } from '../../actions/analyses';
 
-export const Laboratoire = ({ profile: { loading } }: PropsFromRedux) => {
- useEffect(() => {}, []);
+export const Laboratoire = ({
+ profile: { loading },
+ analyses,
+ getGenes,
+}: PropsFromRedux) => {
+ useEffect(() => {
+  getGenes();
+ }, [getGenes]);
 
- const displayGenes = () => (
-  <li className="collection-item">
-   <div className="row">
-    <div className="col s9">
-     <span className="nom">Nom</span>
-     <p className="desc">Description</p>
+ const displayGenes = () => {
+  if (analyses.loading)
+   return (
+    <li>
+     <div className="row">
+      <div className="col s12">
+       <Spinner />
+      </div>
+     </div>
+    </li>
+   );
+  if (analyses.error)
+   return (
+    <li>
+     <div className="row">
+      <div className="col s12">
+       <p className="danger center-text">{analyses.error.msg}</p>
+      </div>
+     </div>
+    </li>
+   );
+  if (analyses.genes.length < 1)
+   return (
+    <li>
+     <div className="row">
+      <div className="col s12">
+       <p className="warning center-text">Pas de gênes.</p>
+       <p className="info center-text">Il faut ajouter des gênes d'abord.</p>
+      </div>
+     </div>
+    </li>
+   );
+  return analyses.genes.map((g) => (
+   <li className="collection-item">
+    <div className="row">
+     <div className="col s9">
+      <span className="nom">{g.nom}</span>
+      <p className="desc">{g.description}</p>
+     </div>
+     <div className="col s3">
+      <a href="#" className="secondary-content">
+       <FontAwesomeIcon size="2x" icon={['fas', 'times']} />
+      </a>
+     </div>
     </div>
-    <div className="col s3">
-     <a href="#" className="secondary-content">
-      <FontAwesomeIcon size="2x" icon={['fas', 'times']} />
-     </a>
-    </div>
-   </div>
-  </li>
- );
+   </li>
+  ));
+ };
 
  const displayAnalyses = () => (
   <li className="collection-item">
@@ -56,12 +96,12 @@ export const Laboratoire = ({ profile: { loading } }: PropsFromRedux) => {
     <ul className="collection with-header genes">
      <li className="collection-header row">
       <h4 className="col s4">Gênes</h4>
-      <Link
-       to="#"
-       className="col offset-l7 offset-m5 offset-s4 btn-floating btn-large waves-effect waves-light right"
+      <a
+       className="col offset-l7 offset-m5 offset-s4 btn-floating btn-large waves-effect waves-light right modal-trigger"
+       href="#GeneModal"
       >
        <FontAwesomeIcon size="lg" icon={['fas', 'plus']} />
-      </Link>
+      </a>
      </li>
      {displayGenes()}
     </ul>
@@ -85,9 +125,10 @@ export const Laboratoire = ({ profile: { loading } }: PropsFromRedux) => {
 
 const mapStateToProps = (state: AppState) => ({
  profile: state.profile,
+ analyses: state.analyses,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { getGenes };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

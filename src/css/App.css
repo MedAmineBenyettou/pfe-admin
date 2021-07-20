@@ -104,4 +104,20 @@ td.is-selected.is-today {
 .side-active {
   color: #4082d4 !important;
 }
+
+.danger {
+  color: #e91e1e !important;
+}
+
+.warning {
+  color: #f87d09 !important;
+}
+
+.info {
+  color: rgba(64, 130, 212, 0.75) !important;
+}
+
+.center-text {
+  text-align: center !important;
+}
 /*# sourceMappingURL=App.css.map */

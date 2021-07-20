@@ -10,6 +10,9 @@ import { AlertTypes } from '../reducers/alerts';
 
 export const getAnalyseTypes =
  () => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  dispatch({
+   type: ANALYSES_TYPES.LOADING_ANALYSE,
+  });
   try {
    const res = await axios.get('/api/analyseTypes');
    dispatch({
@@ -69,6 +72,9 @@ export const clearSelectedType =
 
 export const getGenes =
  () => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  dispatch({
+   type: ANALYSES_TYPES.LOADING_ANALYSE,
+  });
   try {
    const res = await axios.get('/api/admin/genes');
    dispatch({
@@ -80,7 +86,7 @@ export const getGenes =
     type: ANALYSES_TYPES.GET_GENES_ERROR,
     payload: err.response.data.msg,
    });
-   //    dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
+   dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
   }
  };
 
@@ -99,6 +105,27 @@ export const addGene =
   } catch (err) {
    dispatch({
     type: ANALYSES_TYPES.ADD_GENE_ERROR,
+    payload: err.response.data.msg,
+   });
+   dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
+  }
+ };
+
+export const updateGeneById =
+ (id: string, type: Partial<Pick<IGene, 'nom' | 'description'>>) =>
+ async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  try {
+   const res = await axios.put(`/api/admin/genes/${id}`, type, CONFIG);
+   dispatch({
+    type: ANALYSES_TYPES.UPDATE_GENE,
+    payload: res.data,
+   });
+   dispatch(
+    setAlert(`Gene "${res.data.nom}" modifié avec succès`, AlertTypes.DANGER)
+   );
+  } catch (err) {
+   dispatch({
+    type: ANALYSES_TYPES.UPDATE_GENE_ERROR,
     payload: err.response.data.msg,
    });
    dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));

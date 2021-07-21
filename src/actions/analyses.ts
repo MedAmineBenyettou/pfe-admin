@@ -93,6 +93,9 @@ export const getGenes =
 export const addGene =
  (type: Pick<IGene, 'nom' | 'description'>) =>
  async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  dispatch({
+   type: ANALYSES_TYPES.LOADING_ANALYSE,
+  });
   try {
    const res = await axios.post('/api/admin/genes', type, CONFIG);
    dispatch({
@@ -114,6 +117,9 @@ export const addGene =
 export const updateGeneById =
  (id: string, type: Partial<Pick<IGene, 'nom' | 'description'>>) =>
  async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  dispatch({
+   type: ANALYSES_TYPES.LOADING_ANALYSE,
+  });
   try {
    const res = await axios.put(`/api/admin/genes/${id}`, type, CONFIG);
    dispatch({
@@ -121,21 +127,21 @@ export const updateGeneById =
     payload: res.data,
    });
    dispatch(
-    setAlert(`Gene "${type.nom}" modifié avec succès`, AlertTypes.DANGER)
+    setAlert(`Gene "${type.nom}" modifié avec succès`, AlertTypes.SUCCESS)
    );
   } catch (err) {
    dispatch({
     type: ANALYSES_TYPES.UPDATE_GENE_ERROR,
-    payload: err.response.data.msg,
+    payload: err.response.data.errors[0],
    });
-   dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
+   dispatch(setAlert(err.response.data.errors[0].msg, AlertTypes.DANGER));
   }
  };
 
 export const selectGene =
  (gene: IGene) => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
   dispatch({
-   type: ANALYSES_TYPES.SELECT_TYPE,
+   type: ANALYSES_TYPES.SELECT_GENE,
    payload: gene,
   });
  };

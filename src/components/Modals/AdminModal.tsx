@@ -33,14 +33,14 @@ const AdminModal = ({
 
  useEffect(() => {
   setFormData({
-   nom: profile ? profile.nom : nom,
-   prenom: profile ? profile.prenom : prenom,
-   fonction: profile ? profile.fonction : fonction,
-   phoneNumber: profile ? profile.phoneNumber : phoneNumber,
+   nom: profile ? profile.nom : '',
+   prenom: profile ? profile.prenom : '',
+   fonction: profile ? profile.fonction : '',
+   phoneNumber: profile ? profile.phoneNumber : '',
   });
   setAuthForm({
-   username: profile ? profile.user.username : username,
-   isEnabled: profile ? profile.user.isEnabled : isEnabled,
+   username: profile ? profile.user.username : '',
+   isEnabled: profile ? profile.user.isEnabled : false,
   });
  }, [profile]);
 
@@ -181,20 +181,18 @@ const AdminModal = ({
      </div>
      <div className="modal-footer">
       <p className="red-text left">* sont nécéssaires</p>
-      <a
-       href="#"
+      <button
        onClick={handleBtn}
        className="modal-close waves-effect waves-green btn-flat"
       >
        {profile ? 'Modifier' : 'Ajouter'}
-      </a>
-      <a
+      </button>
+      <button
        onClick={close}
-       href="#"
        className="modal-close waves-effect btn-flat white black-text"
       >
        Annuler
-      </a>
+      </button>
      </div>
     </>
    )}

@@ -37,15 +37,9 @@ export const Admins = ({
 
  const display = () => {
   var res = profiles.map((p) => {
-   if (profile && p._id != profile._id) {
+   if (profile && p._id !== profile._id) {
     return (
-     <tr
-      // className="modal-trigger"
-      // //@ts-ignore
-      // href="#AdminModal"
-      key={p._id}
-      onClick={() => handleOnClick(p)}
-     >
+     <tr key={p._id} onClick={() => handleOnClick(p)}>
       <td>{p.user.username}</td>
       <td>{p.nom}</td>
       <td>{p.prenom}</td>
@@ -57,7 +51,7 @@ export const Admins = ({
       </td>
      </tr>
     );
-   }
+   } else return <></>;
   });
   if (res.length > 0) return res;
   return <p className="error">Pas d'utilisateurs</p>;

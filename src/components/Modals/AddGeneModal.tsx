@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { addGene } from '../../actions/analyses';
+import { addGene, updateGeneById } from '../../actions/analyses';
 import { AppState } from '../../store';
 import Spinner from '../layout/Spinner';
+import M from 'materialize-css';
 
 const AddGeneModal = ({
  analyses: {
@@ -10,30 +11,43 @@ const AddGeneModal = ({
   loading,
  },
  addGene,
+ updateGeneById,
 }: PropsFromRedux) => {
  const [form, setForm] = useState({
   nom: gene ? gene.nom : '',
   description: gene ? (gene.description ? gene.description : '') : '',
  });
 
- const { nom, description } = form;
  useEffect(() => {
-  setForm({
-   nom: gene ? gene.nom : nom,
-   description: gene
-    ? gene.description
-      ? gene.description
-      : description
-    : description,
-  });
- }, []);
+  if (gene && !loading)
+   setForm({
+    nom: gene.nom,
+    description: gene.description ? gene.description : '',
+   });
+  else
+   setForm({
+    nom: '',
+    description: '',
+   });
+ }, [gene, loading]);
+
+ const { nom, description } = form;
 
  const onChange = (e: any) => {
   setForm({ ...form, [e.target.name]: e.target.value });
  };
 
  const handleClick = () => {
-  addGene(form);
+  if (gene) updateGeneById(gene._id, form);
+  else addGene(form);
+ };
+
+ const close = () => {
+  var elmnt = document.getElementById('AdminModal');
+  if (elmnt) {
+   var inst = M.Modal.getInstance(elmnt);
+   inst.close();
+  }
  };
 
  return (
@@ -71,13 +85,18 @@ const AddGeneModal = ({
      </div>
      <div className="modal-footer">
       <p className="red-text left">* sont nécéssaires</p>
-      <a
-       href="#"
+      <button
        className="modal-close waves-effect waves-green btn-flat"
        onClick={handleClick}
       >
-       {gene ? 'Sauvgarder' : 'Ajouter'}
-      </a>
+       {gene ? 'Modifier' : 'Ajouter'}
+      </button>
+      <button
+       onClick={close}
+       className="modal-close waves-effect btn-flat white black-text"
+      >
+       Annuler
+      </button>
      </div>
     </>
    )}
@@ -89,7 +108,7 @@ const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
 });
 
-const mapDispatchToProps = { addGene };
+const mapDispatchToProps = { addGene, updateGeneById };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

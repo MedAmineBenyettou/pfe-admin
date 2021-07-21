@@ -4,12 +4,40 @@ import { Link } from 'react-router-dom';
 import { AppState } from '../../store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Spinner from '../layout/Spinner';
-import { getGenes } from '../../actions/analyses';
+import {
+ clearSelectedGene,
+ selectGene,
+ getGenes,
+} from '../../actions/analyses';
+import { IGene } from '../../reducers/analyses';
 
-export const Laboratoire = ({ analyses, getGenes }: PropsFromRedux) => {
+export const Laboratoire = ({
+ analyses,
+ getGenes,
+ clearSelectedGene,
+ selectGene,
+}: PropsFromRedux) => {
  useEffect(() => {
   getGenes();
  }, [getGenes]);
+
+ const handleUpdateGene = (g: IGene) => {
+  selectGene(g);
+  setTimeout(() => {
+   var elmnt = document.getElementById('GeneModal');
+   if (elmnt) {
+    var inst = M.Modal.getInstance(elmnt);
+    inst.options = {
+     ...inst.options,
+     dismissible: true,
+     onCloseEnd: () => {
+      clearSelectedGene();
+     },
+    };
+    inst.open();
+   }
+  }, 1000);
+ };
 
  const displayGenes = () => {
   if (analyses.loading)
@@ -44,9 +72,14 @@ export const Laboratoire = ({ analyses, getGenes }: PropsFromRedux) => {
     </li>
    );
   return analyses.genes.map((g) => (
-   <li className="collection-item">
+   <li key={g._id} className="collection-item">
     <div className="row">
-     <div className="col s11">
+     <div
+      className="col s11"
+      onClick={() => {
+       handleUpdateGene(g);
+      }}
+     >
       <span className="nom">{g.nom}</span>
       <p className="desc">{g.description}</p>
      </div>
@@ -122,7 +155,7 @@ const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
 });
 
-const mapDispatchToProps = { getGenes };
+const mapDispatchToProps = { getGenes, clearSelectedGene, selectGene };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

@@ -2,20 +2,20 @@ import { ANALYSES_TYPES } from '../actions/types';
 import { IError } from '../general/Common';
 
 export interface IGene {
- id: string;
+ _id: string;
  nom: string;
  description?: string;
 }
 
 export interface IAnalyseType {
- id: string;
+ _id: string;
  nom: string;
  genes: [IGene];
  description?: string;
 }
 
 export interface IAnalyse {
- id: string;
+ _id: string;
  type: IAnalyseType;
 }
 
@@ -77,18 +77,13 @@ export default function analysesReducer(
     types: payload as IAnalyseType[],
    };
   case ANALYSES_TYPES.GET_GENES:
-   return {
-    ...state,
-    genes: payload as IGene[],
-    loading: false,
-    error: null,
-   };
   case ANALYSES_TYPES.ADD_GENE:
+  case ANALYSES_TYPES.UPDATE_GENE:
    return {
     ...state,
+    genes: payload as IGene[],
     loading: false,
     error: null,
-    genes: payload as IGene[],
    };
   case ANALYSES_TYPES.SELECT_TYPE:
    return {
@@ -126,6 +121,7 @@ export default function analysesReducer(
   case ANALYSES_TYPES.ADD_TYPE_ERROR:
   case ANALYSES_TYPES.ADD_GENE_ERROR:
   case ANALYSES_TYPES.GET_GENES_ERROR:
+  case ANALYSES_TYPES.UPDATE_GENE_ERROR:
    return {
     ...state,
     loading: false,

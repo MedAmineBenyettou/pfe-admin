@@ -34,12 +34,12 @@ export const Navbar = ({
   </ul>
  );
 
- const SearchForm = () => (
-  <form action="" className="search hide-on-small-and-down">
-   <FontAwesomeIcon size="4x" icon={['fas', 'search']} color="black" />
-   <input type="search" />
-  </form>
- );
+ //  const SearchForm = () => (
+ //   <form action="" className="search hide-on-small-and-down">
+ //    <FontAwesomeIcon size="4x" icon={['fas', 'search']} color="black" />
+ //    <input type="search" />
+ //   </form>
+ //  );
 
  const Mobile = () => (
   <ul className="sidenav" id="mobile">

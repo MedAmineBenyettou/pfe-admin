@@ -82,11 +82,34 @@ export const getGenes =
     payload: res.data,
    });
   } catch (err) {
+   const error = err.response.data.errors[0] || Object(err.response.data.msg);
+
    dispatch({
     type: ANALYSES_TYPES.GET_GENES_ERROR,
-    payload: err.response.data.msg,
+    payload: error,
    });
-   dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
+   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+  }
+ };
+
+export const deleteGeneById =
+ (id: string) => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  dispatch({
+   type: ANALYSES_TYPES.LOADING_ANALYSE,
+  });
+  try {
+   const res = await axios.delete(`/api/admin/genes/${id}`);
+   dispatch({
+    type: ANALYSES_TYPES.DELETE_GENE,
+    payload: res.data,
+   });
+  } catch (err) {
+   const error = err.response.data.errors[0] || Object(err.response.data.msg);
+   dispatch({
+    type: ANALYSES_TYPES.DELETE_GENE_ERROR,
+    payload: error,
+   });
+   dispatch(setAlert(error.msg, AlertTypes.DANGER));
   }
  };
 
@@ -106,11 +129,13 @@ export const addGene =
     setAlert(`Gene "${type.nom}" ajouté avec succès`, AlertTypes.SUCCESS)
    );
   } catch (err) {
+   const error = err.response.data.errors[0] || Object(err.response.data.msg);
+
    dispatch({
     type: ANALYSES_TYPES.ADD_GENE_ERROR,
-    payload: err.response.data.msg,
+    payload: error,
    });
-   dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
+   dispatch(setAlert(error.msg, AlertTypes.DANGER));
   }
  };
 
@@ -130,11 +155,13 @@ export const updateGeneById =
     setAlert(`Gene "${type.nom}" modifié avec succès`, AlertTypes.SUCCESS)
    );
   } catch (err) {
+   const error = err.response.data.errors[0] || Object(err.response.data.msg);
+
    dispatch({
     type: ANALYSES_TYPES.UPDATE_GENE_ERROR,
-    payload: err.response.data.errors[0],
+    payload: error,
    });
-   dispatch(setAlert(err.response.data.errors[0].msg, AlertTypes.DANGER));
+   dispatch(setAlert(error.msg, AlertTypes.DANGER));
   }
  };
 

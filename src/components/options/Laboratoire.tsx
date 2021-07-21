@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 import { AppState } from '../../store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Spinner from '../layout/Spinner';
@@ -8,18 +8,43 @@ import {
  clearSelectedGene,
  selectGene,
  getGenes,
+ deleteGeneById,
 } from '../../actions/analyses';
 import { IGene } from '../../reducers/analyses';
+import { initMaterialize } from '../../general/initMaterialize';
 
 export const Laboratoire = ({
  analyses,
  getGenes,
  clearSelectedGene,
  selectGene,
+ deleteGeneById,
 }: PropsFromRedux) => {
  useEffect(() => {
   getGenes();
  }, [getGenes]);
+
+ useEffect(() => {
+  initMaterialize();
+ }, []);
+
+ const handleDeleteGene = (g: IGene) => {
+  selectGene(g);
+  setTimeout(() => {
+   var elmnt = document.getElementById('confirmDeleteGene');
+   if (elmnt) {
+    var inst = M.Modal.getInstance(elmnt);
+    inst.options = {
+     ...inst.options,
+     dismissible: true,
+     onCloseEnd: () => {
+      clearSelectedGene();
+     },
+    };
+    inst.open();
+   }
+  }, 500);
+ };
 
  const handleUpdateGene = (g: IGene) => {
   selectGene(g);
@@ -83,11 +108,14 @@ export const Laboratoire = ({
       <span className="nom">{g.nom}</span>
       <p className="desc">{g.description}</p>
      </div>
-     <div className="col s1">
+     <a
+      className="col s1 waves-effect waves-light modal-trigger"
+      onClick={() => handleDeleteGene(g)}
+     >
       <span className="secondary-content">
        <FontAwesomeIcon size="2x" icon={['fas', 'times']} />
       </span>
-     </div>
+     </a>
     </div>
    </li>
   ));
@@ -147,6 +175,30 @@ export const Laboratoire = ({
      {displayAnalyses()}
     </ul>
    </div>
+   {/*//! MODAL */}
+   <div id="confirmDeleteGene" className="modal">
+    <div className="modal-content">
+     <h4 className="warning">
+      Voulez vous vraiment supprimer ce gene "{analyses.selection.gene?.nom}"?
+     </h4>
+     <p>
+      Une fois supprimer, vous ne pourrez plus l'utilisez dans les analyses!
+     </p>
+    </div>
+    <div className="modal-footer">
+     <button
+      onClick={() => {
+       if (analyses.selection.gene) deleteGeneById(analyses.selection.gene._id);
+      }}
+      className="modal-close waves-effect btn-flat"
+     >
+      Confirmer
+     </button>
+     <button className="modal-close waves-effect btn-flat white black-text">
+      Annuler
+     </button>
+    </div>
+   </div>
   </div>
  );
 };
@@ -155,7 +207,12 @@ const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
 });
 
-const mapDispatchToProps = { getGenes, clearSelectedGene, selectGene };
+const mapDispatchToProps = {
+ getGenes,
+ clearSelectedGene,
+ selectGene,
+ deleteGeneById,
+};
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

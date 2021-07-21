@@ -79,6 +79,7 @@ export default function analysesReducer(
   case ANALYSES_TYPES.GET_GENES:
   case ANALYSES_TYPES.ADD_GENE:
   case ANALYSES_TYPES.UPDATE_GENE:
+  case ANALYSES_TYPES.DELETE_GENE:
    return {
     ...state,
     genes: payload as IGene[],
@@ -122,6 +123,7 @@ export default function analysesReducer(
   case ANALYSES_TYPES.ADD_GENE_ERROR:
   case ANALYSES_TYPES.GET_GENES_ERROR:
   case ANALYSES_TYPES.UPDATE_GENE_ERROR:
+  case ANALYSES_TYPES.DELETE_GENE_ERROR:
    return {
     ...state,
     loading: false,

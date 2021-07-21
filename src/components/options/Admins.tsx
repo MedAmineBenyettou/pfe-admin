@@ -55,7 +55,17 @@ export const Admins = ({
    } else return <Fragment key={'id'}></Fragment>;
   });
   if (res.length > 0) return res;
-  return <p className="error">Pas d'utilisateurs</p>;
+  return (
+   <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td className="error">Pas d'utilisateur</td>
+    <td></td>
+    <td></td>
+    <td></td>
+   </tr>
+  );
  };
 
  if (loading) return <Spinner />;

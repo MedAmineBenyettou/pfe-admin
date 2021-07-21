@@ -46,14 +46,14 @@ export const Laboratoire = ({ analyses, getGenes }: PropsFromRedux) => {
   return analyses.genes.map((g) => (
    <li className="collection-item">
     <div className="row">
-     <div className="col s9">
+     <div className="col s11">
       <span className="nom">{g.nom}</span>
       <p className="desc">{g.description}</p>
      </div>
-     <div className="col s3">
-      <a href="#" className="secondary-content">
+     <div className="col s1">
+      <span className="secondary-content">
        <FontAwesomeIcon size="2x" icon={['fas', 'times']} />
-      </a>
+      </span>
      </div>
     </div>
    </li>
@@ -63,7 +63,7 @@ export const Laboratoire = ({ analyses, getGenes }: PropsFromRedux) => {
  const displayAnalyses = () => (
   <li className="collection-item">
    <div className="row">
-    <div className="col s9">
+    <div className="col s11">
      <span className="nom">Nom</span>
      <p className="desc">Description</p>
      <div className="genes">
@@ -71,10 +71,10 @@ export const Laboratoire = ({ analyses, getGenes }: PropsFromRedux) => {
       <div className="chip">Test2</div>
      </div>
     </div>
-    <div className="col s3">
-     <a href="#" className="secondary-content">
+    <div className="col s1">
+     <span className="secondary-content">
       <FontAwesomeIcon size="2x" icon={['fas', 'times']} />
-     </a>
+     </span>
     </div>
    </div>
   </li>
@@ -90,9 +90,9 @@ export const Laboratoire = ({ analyses, getGenes }: PropsFromRedux) => {
    <div className="content row">
     <ul className="collection with-header genes">
      <li className="collection-header row">
-      <h4 className="col s4">Gênes</h4>
+      <h4 className="col s8 m10">Gênes</h4>
       <a
-       className="col offset-l7 offset-m5 offset-s4 btn-floating btn-large waves-effect waves-light right modal-trigger"
+       className="btn-floating btn-large waves-effect waves-light right modal-trigger"
        href="#GeneModal"
       >
        <FontAwesomeIcon size="lg" icon={['fas', 'plus']} />
@@ -103,10 +103,10 @@ export const Laboratoire = ({ analyses, getGenes }: PropsFromRedux) => {
     <div className="divider"></div>
     <ul className="collection with-header types">
      <li className="collection-header row">
-      <h4 className="col s4">Types d'analyses</h4>
+      <h4 className="col s8 m10">Types d'analyses</h4>
       <Link
        to="#"
-       className="col offset-l7 offset-m5 offset-s4 btn-floating btn-large waves-effect waves-light right"
+       className="btn-floating btn-large waves-effect waves-light right"
       >
        <FontAwesomeIcon size="lg" icon={['fas', 'plus']} />
       </Link>

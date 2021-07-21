@@ -156,6 +156,7 @@
 
 @media only screen and (max-width: $smallWidth) {
  .options {
+  margin-top: -45px;
   &-sidenav {
    position: relative;
    height: 100%;

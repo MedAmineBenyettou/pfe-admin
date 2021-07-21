@@ -100,7 +100,7 @@ export const addGene =
     payload: res.data,
    });
    dispatch(
-    setAlert(`Gene "${res.data.nom}" ajouté avec succès`, AlertTypes.DANGER)
+    setAlert(`Gene "${type.nom}" ajouté avec succès`, AlertTypes.SUCCESS)
    );
   } catch (err) {
    dispatch({
@@ -121,7 +121,7 @@ export const updateGeneById =
     payload: res.data,
    });
    dispatch(
-    setAlert(`Gene "${res.data.nom}" modifié avec succès`, AlertTypes.DANGER)
+    setAlert(`Gene "${type.nom}" modifié avec succès`, AlertTypes.DANGER)
    );
   } catch (err) {
    dispatch({

@@ -238,6 +238,9 @@ td.is-selected.is-today {
 }
 
 @media only screen and (max-width: 600px) {
+  .options {
+    margin-top: -45px;
+  }
   .options-sidenav {
     position: relative;
     height: 100%;

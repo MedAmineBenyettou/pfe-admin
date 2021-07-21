@@ -6,11 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Spinner from '../layout/Spinner';
 import { getGenes } from '../../actions/analyses';
 
-export const Laboratoire = ({
- profile: { loading },
- analyses,
- getGenes,
-}: PropsFromRedux) => {
+export const Laboratoire = ({ analyses, getGenes }: PropsFromRedux) => {
  useEffect(() => {
   getGenes();
  }, [getGenes]);
@@ -84,7 +80,6 @@ export const Laboratoire = ({
   </li>
  );
 
- if (loading) return <Spinner />;
  return (
   <div className="laboratoire">
    <p className="header-desc">
@@ -124,7 +119,6 @@ export const Laboratoire = ({
 };
 
 const mapStateToProps = (state: AppState) => ({
- profile: state.profile,
  analyses: state.analyses,
 });
 

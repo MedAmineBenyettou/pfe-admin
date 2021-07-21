@@ -36,46 +36,51 @@ const AddGeneModal = ({
   addGene(form);
  };
 
- if (loading) return <Spinner />;
  return (
   <div id="GeneModal" className="modal modal-fixed-footer">
-   <div className="modal-content">
-    <h4>
-     {gene ? 'Modifier' : 'Ajouter'} un gêne {gene ? `(${gene.nom})` : ''}
-    </h4>
-    <div className="form row">
-     <div className="input-field col s12">
-      <input
-       name="nom"
-       id="nom"
-       type="text"
-       defaultValue={nom}
-       onChange={onChange}
-      />
-      <label htmlFor="nom">Nom*</label>
+   {loading ? (
+    <Spinner />
+   ) : (
+    <>
+     <div className="modal-content">
+      <h4>
+       {gene ? 'Modifier' : 'Ajouter'} un gêne {gene ? `(${gene.nom})` : ''}
+      </h4>
+      <div className="form row">
+       <div className="input-field col s12">
+        <input
+         name="nom"
+         id="nom"
+         type="text"
+         defaultValue={nom}
+         onChange={onChange}
+        />
+        <label htmlFor="nom">Nom*</label>
+       </div>
+       <div className="input-field col s12">
+        <input
+         name="description"
+         id="description"
+         type="text"
+         defaultValue={description}
+         onChange={onChange}
+        />
+        <label htmlFor="description">Description</label>
+       </div>
+      </div>
      </div>
-     <div className="input-field col s12">
-      <input
-       name="description"
-       id="description"
-       type="text"
-       defaultValue={description}
-       onChange={onChange}
-      />
-      <label htmlFor="description">Description</label>
+     <div className="modal-footer">
+      <p className="red-text left">* sont nécéssaires</p>
+      <a
+       href="#"
+       className="modal-close waves-effect waves-green btn-flat"
+       onClick={handleClick}
+      >
+       {gene ? 'Sauvgarder' : 'Ajouter'}
+      </a>
      </div>
-    </div>
-   </div>
-   <div className="modal-footer">
-    <p className="red-text left">* sont nécéssaires</p>
-    <a
-     href="#"
-     className="modal-close waves-effect waves-green btn-flat"
-     onClick={handleClick}
-    >
-     {gene ? 'Sauvgarder' : 'Ajouter'}
-    </a>
-   </div>
+    </>
+   )}
   </div>
  );
 };

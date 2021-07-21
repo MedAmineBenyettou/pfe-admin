@@ -109,7 +109,7 @@ export const Laboratoire = ({
       <p className="desc">{g.description}</p>
      </div>
      <button
-      className="col s1 waves-effect waves-light modal-trigger"
+      className="col s1 waves-effect waves-light mymodal-trigger"
       onClick={() => handleDeleteGene(g)}
      >
       <span className="secondary-content">

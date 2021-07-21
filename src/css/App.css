@@ -121,7 +121,7 @@ td.is-selected.is-today {
   text-align: center !important;
 }
 
-button.modal-trigger {
+button.mymodal-trigger {
   background: none;
   border: none;
   margin: auto;
@@ -134,11 +134,11 @@ button.modal-trigger {
   border-radius: 8px;
 }
 
-button.modal-trigger:focus {
+button.mymodal-trigger:focus {
   background: none;
 }
 
-button.modal-trigger:hover {
+button.mymodal-trigger:hover {
   background-color: rgba(153, 153, 153, 0.5);
 }
 /*# sourceMappingURL=App.css.map */

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { generatePath, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AppState } from '../../store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Spinner from '../layout/Spinner';
@@ -108,14 +108,14 @@ export const Laboratoire = ({
       <span className="nom">{g.nom}</span>
       <p className="desc">{g.description}</p>
      </div>
-     <a
+     <button
       className="col s1 waves-effect waves-light modal-trigger"
       onClick={() => handleDeleteGene(g)}
      >
       <span className="secondary-content">
        <FontAwesomeIcon size="2x" icon={['fas', 'times']} />
       </span>
-     </a>
+     </button>
     </div>
    </li>
   ));

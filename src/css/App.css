@@ -120,4 +120,25 @@ td.is-selected.is-today {
 .center-text {
   text-align: center !important;
 }
+
+button.modal-trigger {
+  background: none;
+  border: none;
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 8px;
+}
+
+button.modal-trigger:focus {
+  background: none;
+}
+
+button.modal-trigger:hover {
+  background-color: rgba(153, 153, 153, 0.5);
+}
 /*# sourceMappingURL=App.css.map */

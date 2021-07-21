@@ -54,3 +54,18 @@
 .center-text {
  text-align: center !important;
 }
+
+button.modal-trigger {
+ background: none;
+ border: none;
+ margin: auto;
+ display: flex;
+ justify-content: center;
+ border-radius: 8px;
+ &:focus {
+  background: none;
+ }
+ &:hover {
+  background-color: rgba($color: $mygray3, $alpha: 0.5);
+ }
+}

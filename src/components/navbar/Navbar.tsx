@@ -34,13 +34,6 @@ export const Navbar = ({
   </ul>
  );
 
- //  const SearchForm = () => (
- //   <form action="" className="search hide-on-small-and-down">
- //    <FontAwesomeIcon size="4x" icon={['fas', 'search']} color="black" />
- //    <input type="search" />
- //   </form>
- //  );
-
  const Mobile = () => (
   <ul className="sidenav" id="mobile">
    <li>
@@ -66,7 +59,6 @@ export const Navbar = ({
 
  //!---------------------------- RETURN ----------------------------------
  if (isAuthenticated && !loading) {
-  //TODO Remove comment when login works
   return (
    <>
     <nav id="navbar">
@@ -75,7 +67,6 @@ export const Navbar = ({
       <Link to="#" data-target="mobile" className="sidenav-trigger">
        <FontAwesomeIcon size="lg" icon={['fas', 'bars']} />
       </Link>
-      {/* <SearchForm /> */}
       <RightMenu />
      </div>
     </nav>

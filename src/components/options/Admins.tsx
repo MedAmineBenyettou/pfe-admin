@@ -1,4 +1,5 @@
 import { connect, ConnectedProps } from 'react-redux';
+import { Fragment } from 'react';
 import { AppState } from '../../store';
 import moment from 'moment';
 import { useEffect } from 'react';
@@ -51,7 +52,7 @@ export const Admins = ({
       </td>
      </tr>
     );
-   } else return <></>;
+   } else return <Fragment key={'id'}></Fragment>;
   });
   if (res.length > 0) return res;
   return <p className="error">Pas d'utilisateurs</p>;

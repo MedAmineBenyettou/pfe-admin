@@ -1,4 +1,3 @@
-import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -7,9 +6,7 @@ import done from '../../assets/done.png';
 import waiting from '../../assets/waiting.png';
 import gears from '../../assets/gears.png';
 
-interface Props {}
-
-function Dashboard({}: Props): ReactElement {
+function Dashboard() {
  return (
   <div className="dashboard row">
    <div className="section col s12">

@@ -64,15 +64,15 @@ const AdminModal = ({
  };
 
  const handleBtn = (e: any) => {
+  var fields: any = {};
   if (profile) {
-   var fields: any = {};
    if (username && username.length > 0 && username !== profile.user.username)
     fields.username = username;
    if (password && password.length >= 6) fields.password = password;
    fields.isEnabled = isEnabled;
    updateProfileById(profile._id, { ...formData, user: fields });
   } else {
-   var fields: any = {};
+   fields = {};
    fields.username = username;
    fields.password = password;
    fields.isEnabled = isEnabled;

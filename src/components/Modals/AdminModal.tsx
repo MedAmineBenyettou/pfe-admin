@@ -92,7 +92,7 @@ const AdminModal = ({
        <div className="input-field col s12">
         <input
          name="username"
-         id="username"
+         id="AdminModal-username"
          defaultValue={username}
          onChange={onChange}
          type="text"
@@ -107,7 +107,7 @@ const AdminModal = ({
         <input
          type="password"
          name="password"
-         id="password"
+         id="AdminModal-password"
          defaultValue={password}
          onChange={onChange}
          autoComplete="false"
@@ -125,7 +125,7 @@ const AdminModal = ({
         <div className="input-field col s12">
          <input
           name="nom"
-          id="nom"
+          id="AdminModal-nom"
           type="text"
           defaultValue={nom}
           onChange={onChange}
@@ -135,7 +135,7 @@ const AdminModal = ({
         <div className="input-field col s12">
          <input
           name="prenom"
-          id="prenom"
+          id="AdminModal-prenom"
           type="text"
           defaultValue={prenom}
           onChange={onChange}
@@ -145,7 +145,7 @@ const AdminModal = ({
         <div className="input-field col s12">
          <input
           name="phoneNumber"
-          id="phoneNumber"
+          id="AdminModal-phoneNumber"
           type="text"
           defaultValue={phoneNumber}
           onChange={onChange}
@@ -155,7 +155,7 @@ const AdminModal = ({
         <div className="input-field col s12">
          <input
           name="fonction"
-          id="fonction"
+          id="AdminModal-fonction"
           type="text"
           defaultValue={fonction}
           onChange={onChange}

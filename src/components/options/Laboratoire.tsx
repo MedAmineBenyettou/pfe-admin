@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { AppState } from '../../store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Spinner from '../layout/Spinner';
@@ -9,8 +8,12 @@ import {
  selectGene,
  getGenes,
  deleteGeneById,
+ selectType,
+ clearSelectedType,
+ deleteTypeById,
+ getAnalyseTypes,
 } from '../../actions/analyses';
-import { IGene } from '../../reducers/analyses';
+import { IAnalyseType, IGene } from '../../reducers/analyses';
 import { initMaterialize } from '../../general/initMaterialize';
 
 export const Laboratoire = ({
@@ -19,10 +22,15 @@ export const Laboratoire = ({
  clearSelectedGene,
  selectGene,
  deleteGeneById,
+ clearSelectedType,
+ deleteTypeById,
+ selectType,
+ getAnalyseTypes,
 }: PropsFromRedux) => {
  useEffect(() => {
   getGenes();
- }, [getGenes]);
+  getAnalyseTypes();
+ }, [getGenes, getAnalyseTypes]);
 
  useEffect(() => {
   initMaterialize();
@@ -44,6 +52,42 @@ export const Laboratoire = ({
     inst.open();
    }
   }, 500);
+ };
+
+ const handleDeleteType = (t: IAnalyseType) => {
+  selectType(t);
+  setTimeout(() => {
+   var elmnt = document.getElementById('confirmDeleteType');
+   if (elmnt) {
+    var inst = M.Modal.getInstance(elmnt);
+    inst.options = {
+     ...inst.options,
+     dismissible: true,
+     onCloseEnd: () => {
+      clearSelectedType();
+     },
+    };
+    inst.open();
+   }
+  }, 500);
+ };
+
+ const handleUpdateType = (t: IAnalyseType) => {
+  selectType(t);
+  setTimeout(() => {
+   var elmnt = document.getElementById('AnalyseTypeModal');
+   if (elmnt) {
+    var inst = M.Modal.getInstance(elmnt);
+    inst.options = {
+     ...inst.options,
+     dismissible: true,
+     onCloseEnd: () => {
+      clearSelectedType();
+     },
+    };
+    inst.open();
+   }
+  }, 1000);
  };
 
  const handleUpdateGene = (g: IGene) => {
@@ -71,16 +115,6 @@ export const Laboratoire = ({
      <div className="row">
       <div className="col s12">
        <Spinner />
-      </div>
-     </div>
-    </li>
-   );
-  if (analyses.error)
-   return (
-    <li>
-     <div className="row">
-      <div className="col s12">
-       <p className="danger center-text">{analyses.error.msg}</p>
       </div>
      </div>
     </li>
@@ -121,25 +155,60 @@ export const Laboratoire = ({
   ));
  };
 
- const displayAnalyses = () => (
-  <li className="collection-item">
-   <div className="row">
-    <div className="col s11">
-     <span className="nom">Nom</span>
-     <p className="desc">Description</p>
-     <div className="genes">
-      <div className="chip">Test1</div>
-      <div className="chip">Test2</div>
-     </div>
-    </div>
-    <div className="col s1">
-     <span className="secondary-content">
-      <FontAwesomeIcon size="2x" icon={['fas', 'times']} />
-     </span>
-    </div>
+ const displayTypeGenes = (t: IAnalyseType) =>
+  t.genes.map((g) => (
+   <div key={g._id} className="chip">
+    {g.nom}
    </div>
-  </li>
- );
+  ));
+
+ const displayAnalyses = () => {
+  if (analyses.loading)
+   return (
+    <li>
+     <div className="row">
+      <div className="col s12">
+       <Spinner />
+      </div>
+     </div>
+    </li>
+   );
+  if (analyses.types.length < 1)
+   return (
+    <li>
+     <div className="row">
+      <div className="col s12">
+       <p className="warning center-text">Pas de types d'analyse.</p>
+       <p className="info center-text">Il faut ajouter des types d'abord.</p>
+      </div>
+     </div>
+    </li>
+   );
+  return analyses.types.map((t) => (
+   <li key={t._id} className="collection-item">
+    <div className="row">
+     <div
+      className="col s11"
+      onClick={() => {
+       handleUpdateType(t);
+      }}
+     >
+      <span className="nom">{t.nom}</span>
+      <p className="desc">{t.description}</p>
+      <div className="genes">{displayTypeGenes(t)}</div>
+     </div>
+     <button
+      className="col s1 waves-effect waves-light mymodal-trigger"
+      onClick={() => handleDeleteType(t)}
+     >
+      <span className="secondary-content">
+       <FontAwesomeIcon size="2x" icon={['fas', 'times']} />
+      </span>
+     </button>
+    </div>
+   </li>
+  ));
+ };
 
  return (
   <div className="laboratoire">
@@ -165,12 +234,12 @@ export const Laboratoire = ({
     <ul className="collection with-header types">
      <li className="collection-header row">
       <h4 className="col s8 m10">Types d'analyses</h4>
-      <Link
-       to="#"
-       className="btn-floating btn-large waves-effect waves-light right"
+      <a
+       href="#AnalyseTypeModal"
+       className="btn-floating btn-large waves-effect waves-light right modal-trigger"
       >
        <FontAwesomeIcon size="lg" icon={['fas', 'plus']} />
-      </Link>
+      </a>
      </li>
      {displayAnalyses()}
     </ul>
@@ -199,6 +268,30 @@ export const Laboratoire = ({
      </button>
     </div>
    </div>
+   {/*//! MODAL Type*/}
+   <div id="confirmDeleteType" className="modal">
+    <div className="modal-content">
+     <h4 className="warning">
+      Voulez vous vraiment supprimer ce type "{analyses.selection.type?.nom}"?
+     </h4>
+     <p>
+      Une fois supprimer, vous ne pourrez plus l'utilisez dans les analyses!
+     </p>
+    </div>
+    <div className="modal-footer">
+     <button
+      onClick={() => {
+       if (analyses.selection.type) deleteTypeById(analyses.selection.type._id);
+      }}
+      className="modal-close waves-effect btn-flat"
+     >
+      Confirmer
+     </button>
+     <button className="modal-close waves-effect btn-flat white black-text">
+      Annuler
+     </button>
+    </div>
+   </div>
   </div>
  );
 };
@@ -208,10 +301,14 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = {
- getGenes,
  clearSelectedGene,
  selectGene,
+ getGenes,
  deleteGeneById,
+ selectType,
+ clearSelectedType,
+ deleteTypeById,
+ getAnalyseTypes,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

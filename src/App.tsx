@@ -12,6 +12,7 @@ import Navbar from './components/navbar/Navbar';
 import Dashboard from './components/dashboard/Dashboard';
 import AddGeneModal from './components/Modals/AddGeneModal';
 import AdminModal from './components/Modals/AdminModal';
+import AnalyseTypeModal from './components/Modals/AnalyseTypeModal';
 import { useComponentWillMount } from './global';
 import { Options } from './components/options/Options';
 import { getAnalyseTypes, getGenes } from './actions/analyses';
@@ -37,6 +38,7 @@ const App = ({ auth, loadUser, getAnalyseTypes, getGenes }: PropsFromRedux) => {
     <Navbar />
     <AddGeneModal />
     <AdminModal />
+    <AnalyseTypeModal />
     <div className="main">
      <Switch>
       <Route path="/login" component={Login} />

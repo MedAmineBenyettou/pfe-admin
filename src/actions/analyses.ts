@@ -20,16 +20,19 @@ export const getAnalyseTypes =
     payload: res.data,
    });
   } catch (err) {
+   const error = err.response.data.errors
+    ? err.response.data.errors[0] || Object(err.response.data.msg)
+    : Object(err.response.data.msg);
    dispatch({
     type: ANALYSES_TYPES.GET_TYPES_ERROR,
-    payload: err.response.data.msg,
+    payload: error,
    });
-   //    dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
+   dispatch(setAlert(error.msg, AlertTypes.DANGER));
   }
  };
 
 export const addAnalyseTypes =
- (type: Pick<IAnalyseType, 'nom' | 'description'>) =>
+ (type: Pick<IAnalyseType, 'nom' | 'description' | 'genes'>) =>
  async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
   try {
    const res = await axios.post('/api/analyseTypes', type, CONFIG);
@@ -39,16 +42,72 @@ export const addAnalyseTypes =
    });
    dispatch(
     setAlert(
-     `Type d'analyse "${res.data.nom}" ajouté avec succès`,
-     AlertTypes.DANGER
+     `Type d'analyse "${type.nom}" ajouté avec succès`,
+     AlertTypes.SUCCESS
     )
    );
   } catch (err) {
+   const error = err.response.data.errors
+    ? err.response.data.errors[0] || Object(err.response.data.msg)
+    : Object(err.response.data.msg);
    dispatch({
     type: ANALYSES_TYPES.ADD_TYPE_ERROR,
-    payload: err.response.data.msg,
+    payload: error,
    });
-   dispatch(setAlert(err.response.data.msg, AlertTypes.DANGER));
+   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+  }
+ };
+
+export const updateAnalyseTypeById =
+ (
+  id: string,
+  type: Partial<Pick<IAnalyseType, 'nom' | 'description' | 'genes'>>
+ ) =>
+ async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  try {
+   const res = await axios.put(`/api/analyseTypes/${id}`, type, CONFIG);
+   dispatch({
+    type: ANALYSES_TYPES.UPDATE_TYPE,
+    payload: res.data,
+   });
+   dispatch(
+    setAlert(
+     `Type d'analyse "${type.nom}" modifié avec succès`,
+     AlertTypes.SUCCESS
+    )
+   );
+  } catch (err) {
+   const error = err.response.data.errors
+    ? err.response.data.errors[0] || Object(err.response.data.msg)
+    : Object(err.response.data.msg);
+   dispatch({
+    type: ANALYSES_TYPES.UPDATE_TYPE_ERROR,
+    payload: error,
+   });
+   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+  }
+ };
+
+export const deleteTypeById =
+ (id: string) => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  dispatch({
+   type: ANALYSES_TYPES.LOADING_ANALYSE,
+  });
+  try {
+   const res = await axios.delete(`/api/analyseTypes/${id}`);
+   dispatch({
+    type: ANALYSES_TYPES.DELETE_TYPE,
+    payload: res.data,
+   });
+  } catch (err) {
+   const error = err.response.data.errors
+    ? err.response.data.errors[0] || Object(err.response.data.msg)
+    : Object(err.response.data.msg);
+   dispatch({
+    type: ANALYSES_TYPES.DELETE_TYPE_ERROR,
+    payload: error,
+   });
+   dispatch(setAlert(error.msg, AlertTypes.DANGER));
   }
  };
 
@@ -82,8 +141,9 @@ export const getGenes =
     payload: res.data,
    });
   } catch (err) {
-   const error = err.response.data.errors[0] || Object(err.response.data.msg);
-
+   const error = err.response.data.errors
+    ? err.response.data.errors[0] || Object(err.response.data.msg)
+    : Object(err.response.data.msg);
    dispatch({
     type: ANALYSES_TYPES.GET_GENES_ERROR,
     payload: error,
@@ -104,7 +164,9 @@ export const deleteGeneById =
     payload: res.data,
    });
   } catch (err) {
-   const error = err.response.data.errors[0] || Object(err.response.data.msg);
+   const error = err.response.data.errors
+    ? err.response.data.errors[0] || Object(err.response.data.msg)
+    : Object(err.response.data.msg);
    dispatch({
     type: ANALYSES_TYPES.DELETE_GENE_ERROR,
     payload: error,
@@ -129,7 +191,9 @@ export const addGene =
     setAlert(`Gene "${type.nom}" ajouté avec succès`, AlertTypes.SUCCESS)
    );
   } catch (err) {
-   const error = err.response.data.errors[0] || Object(err.response.data.msg);
+   const error = err.response.data.errors
+    ? err.response.data.errors[0] || Object(err.response.data.msg)
+    : Object(err.response.data.msg);
 
    dispatch({
     type: ANALYSES_TYPES.ADD_GENE_ERROR,
@@ -155,7 +219,9 @@ export const updateGeneById =
     setAlert(`Gene "${type.nom}" modifié avec succès`, AlertTypes.SUCCESS)
    );
   } catch (err) {
-   const error = err.response.data.errors[0] || Object(err.response.data.msg);
+   const error = err.response.data.errors
+    ? err.response.data.errors[0] || Object(err.response.data.msg)
+    : Object(err.response.data.msg);
 
    dispatch({
     type: ANALYSES_TYPES.UPDATE_GENE_ERROR,

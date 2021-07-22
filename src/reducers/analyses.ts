@@ -10,7 +10,7 @@ export interface IGene {
 export interface IAnalyseType {
  _id: string;
  nom: string;
- genes: [IGene];
+ genes: IGene[];
  description?: string;
 }
 
@@ -63,18 +63,21 @@ export default function analysesReducer(
  const { type, payload } = action;
  switch (type) {
   case ANALYSES_TYPES.GET_TYPES:
-   return {
-    ...state,
-    types: payload as IAnalyseType[],
-    loading: false,
-    error: null,
-   };
   case ANALYSES_TYPES.ADD_TYPE:
+  case ANALYSES_TYPES.UPDATE_TYPE:
+  case ANALYSES_TYPES.DELETE_TYPE:
+   if (!(payload as IAnalyseType[]).length)
+    return {
+     ...state,
+     types: [],
+     loading: false,
+     error: null,
+    };
    return {
     ...state,
+    types: payload as IAnalyseType[],
     loading: false,
     error: null,
-    types: payload as IAnalyseType[],
    };
   case ANALYSES_TYPES.GET_GENES:
   case ANALYSES_TYPES.ADD_GENE:
@@ -124,6 +127,8 @@ export default function analysesReducer(
   case ANALYSES_TYPES.GET_GENES_ERROR:
   case ANALYSES_TYPES.UPDATE_GENE_ERROR:
   case ANALYSES_TYPES.DELETE_GENE_ERROR:
+  case ANALYSES_TYPES.UPDATE_TYPE_ERROR:
+  case ANALYSES_TYPES.DELETE_TYPE_ERROR:
    return {
     ...state,
     loading: false,

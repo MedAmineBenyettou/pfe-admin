@@ -69,7 +69,9 @@ const AddGeneModal = ({
          defaultValue={nom}
          onChange={onChange}
         />
-        <label htmlFor="nom">Nom*</label>
+        <label htmlFor="GeneModal-nom" className="active">
+         Nom*
+        </label>
        </div>
        <div className="input-field col s12">
         <input
@@ -79,7 +81,9 @@ const AddGeneModal = ({
          defaultValue={description}
          onChange={onChange}
         />
-        <label htmlFor="description">Description</label>
+        <label htmlFor="GeneModal-description" className="active">
+         Description
+        </label>
        </div>
       </div>
      </div>

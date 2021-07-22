@@ -63,7 +63,9 @@ export const Profil = ({
         defaultValue={nom}
         onChange={onChange}
        />
-       <label htmlFor="nom">Nom</label>
+       <label htmlFor="nom" className="active">
+        Nom
+       </label>
       </div>
       <div className="input-field col s12">
        <input
@@ -73,7 +75,9 @@ export const Profil = ({
         defaultValue={prenom}
         onChange={onChange}
        />
-       <label htmlFor="prenom">Prenom</label>
+       <label htmlFor="prenom" className="active">
+        Prenom
+       </label>
       </div>
       <div className="input-field col s12">
        <input
@@ -83,7 +87,9 @@ export const Profil = ({
         defaultValue={phoneNumber}
         onChange={onChange}
        />
-       <label htmlFor="phoneNumber">Numéro de téléphone</label>
+       <label htmlFor="phoneNumber" className="active">
+        Numéro de téléphone
+       </label>
       </div>
       <div className="input-field col s12">
        <input
@@ -93,7 +99,9 @@ export const Profil = ({
         defaultValue={fonction}
         onChange={onChange}
        />
-       <label htmlFor="fonction">Fonction</label>
+       <label htmlFor="fonction" className="active">
+        Fonction
+       </label>
       </div>
       <div className=" col s12 valign-wrapper">
        <button
@@ -120,7 +128,9 @@ export const Profil = ({
         type="text"
         autoComplete="false"
        />
-       <label htmlFor="username">Nom d'utilisateur</label>
+       <label htmlFor="username" className="active">
+        Nom d'utilisateur
+       </label>
        <div className="prefix">
         <img src={person} alt="person" />
        </div>
@@ -135,7 +145,9 @@ export const Profil = ({
         autoComplete="false"
         minLength={6}
        />
-       <label htmlFor="password">Mot de passe</label>
+       <label htmlFor="password" className="active">
+        Mot de passe
+       </label>
        <div className="prefix">
         <img src={lock} alt="lock" />
        </div>

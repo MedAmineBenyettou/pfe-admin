@@ -114,7 +114,9 @@ const AnalyseTypeModal = ({
          defaultValue={nom}
          onChange={onChange}
         />
-        <label htmlFor="nom">Nom*</label>
+        <label htmlFor="analyseTypeModal-nom" className="active">
+         Nom*
+        </label>
        </div>
        <div className="input-field col s12">
         <input
@@ -124,7 +126,9 @@ const AnalyseTypeModal = ({
          defaultValue={description}
          onChange={onChange}
         />
-        <label htmlFor="description">Description</label>
+        <label htmlFor="analyseTypeModal-description" className="active">
+         Description
+        </label>
        </div>
        <div className="input-field col s12">
         <select multiple={true} name="mygenes" id="analyseTypeModal-select">

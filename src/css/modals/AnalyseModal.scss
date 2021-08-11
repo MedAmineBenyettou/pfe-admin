@@ -1,0 +1,30 @@
+@import '../Common';
+
+#AnalyseModal {
+ width: 93% !important;
+ $height: 90%;
+ height: $height !important;
+ max-height: $height !important;
+ top: 5% !important;
+ .modal-content {
+  padding: 10px 0;
+  h4 {
+   padding: 15px 10px;
+   margin: 0;
+  }
+  .carousel {
+   background-color: rgba($color: $mygray3, $alpha: 0.1);
+   border-bottom: 1px solid rgba($color: $mygray3, $alpha: 0.5);
+   $h: 60px;
+   height: $h;
+   min-height: $h;
+   &-item {
+    height: $h;
+    min-height: $h;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
+  }
+ }
+}

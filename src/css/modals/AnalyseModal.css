@@ -61,70 +61,40 @@ td.is-selected.is-today {
   background-color: #8bc34a !important;
 }
 
-.app {
-  width: 100%;
-  min-width: -webkit-fit-content;
-  min-width: -moz-fit-content;
-  min-width: fit-content;
+#AnalyseModal {
+  width: 93% !important;
+  height: 90% !important;
+  max-height: 90% !important;
+  top: 5% !important;
 }
 
-.app .main {
-  padding-top: 45px;
+#AnalyseModal .modal-content {
+  padding: 10px 0;
 }
 
-.modal {
-  top: 10%;
-  width: 85% !important;
+#AnalyseModal .modal-content h4 {
+  padding: 15px 10px;
+  margin: 0;
 }
 
-.modal h4 {
-  color: #4082d4;
-  text-transform: uppercase;
+#AnalyseModal .modal-content .carousel {
+  background-color: rgba(153, 153, 153, 0.1);
+  border-bottom: 1px solid rgba(153, 153, 153, 0.5);
+  height: 60px;
+  min-height: 60px;
 }
 
-.modal-close {
-  background-color: #4082d4 !important;
-  color: white !important;
-}
-
-.side-active {
-  color: #4082d4 !important;
-}
-
-.danger {
-  color: #e91e1e !important;
-}
-
-.warning {
-  color: #f87d09 !important;
-}
-
-.info {
-  color: rgba(64, 130, 212, 0.75) !important;
-}
-
-.center-text {
-  text-align: center !important;
-}
-
-button.mymodal-trigger {
-  background: none;
-  border: none;
-  margin: auto;
+#AnalyseModal .modal-content .carousel-item {
+  height: 60px;
+  min-height: 60px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  border-radius: 8px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
-
-button.mymodal-trigger:focus {
-  background: none;
-}
-
-button.mymodal-trigger:hover {
-  background-color: rgba(153, 153, 153, 0.5);
-}
-/*# sourceMappingURL=App.css.map */
+/*# sourceMappingURL=AnalyseModal.css.map */

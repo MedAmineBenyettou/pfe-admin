@@ -137,23 +137,6 @@ export const updateProfileById =
   }
  };
 
-//* Delete Account
-export const deleteAccount =
- () => async (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
-  try {
-   await axios.delete('/api/admin/profile');
-   dispatch({ type: PROFILE_TYPES.CLEAR_PROFILE });
-   dispatch({ type: PROFILE_TYPES.ACCOUNT_DELETED });
-
-   dispatch(setAlert('Votre compte a été supprimé !', AlertTypes.SUCCESS));
-  } catch (err) {
-   dispatch({
-    type: PROFILE_TYPES.PROFILE_ERROR,
-    payload: { msg: err.response.statusText },
-   });
-  }
- };
-
 //* Get All Profiles
 export const getAllProfiles =
  () => async (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {

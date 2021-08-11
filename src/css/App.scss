@@ -10,6 +10,7 @@
 
 .modal {
  top: 10%;
+ width: 85% !important;
  h4 {
   color: $primary-color;
   text-transform: uppercase;
@@ -17,21 +18,6 @@
  &-close {
   background-color: $primary-color !important;
   color: white !important;
- }
-}
-#AdminModal {
- .input-field {
-  input {
-   padding-left: 45px !important;
-   width: calc(100% - 50px) !important;
-  }
-  label {
-   padding-left: 35px;
-   transition: all 0.25s ease-in-out;
-   &.active {
-    padding-left: 0;
-   }
-  }
  }
 }
 

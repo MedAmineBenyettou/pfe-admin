@@ -1,14 +1,14 @@
 import { AUTH_TYPES, PROFILE_TYPES } from '../actions/types';
 import { IError } from '../general/Common';
 
-export interface IUser {
+export interface IAdmin {
  _id: string;
  username: string;
  isEnabled: boolean;
  date: Date;
 }
 interface IAuthState {
- user: IUser | null;
+ user: IAdmin | null;
  loading: boolean;
  isAuthenticated: boolean | null;
  token: string | null;
@@ -66,7 +66,7 @@ export default function authReducer(
     loading: false,
     isAuthenticated: true,
     error: null,
-    user: payload as IUser,
+    user: payload as IAdmin,
    };
   default:
    return state;

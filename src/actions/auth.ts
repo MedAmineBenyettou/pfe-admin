@@ -3,7 +3,7 @@ import axios from 'axios';
 import { setAlert } from './alerts';
 import setAuthToken from '../general/setAuthToken';
 import { AlertTypes } from '../reducers/alerts';
-import { IAuthAction, IUser } from '../reducers/auth';
+import { IAuthAction, IAdmin } from '../reducers/auth';
 import { ThunkDispatch } from 'redux-thunk';
 import { getCurrentProfile, createProfileById } from './profile';
 import { CONFIG } from '../general/Common';
@@ -22,7 +22,7 @@ export const register =
    dispatch({
     type: AUTH_TYPES.REGISTER_SUCCESS,
    });
-   const user = res.data.find((p: IUser) => p.username === username);
+   const user = res.data.find((p: IAdmin) => p.username === username);
    dispatch(createProfileById(user._id));
    dispatch(setAlert('Utilisateur enregistré avec succès', AlertTypes.SUCCESS));
   } catch (err) {

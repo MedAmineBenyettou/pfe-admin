@@ -1,0 +1,15 @@
+#UserModal .input-field input {
+  padding-left: 45px !important;
+  width: calc(100% - 50px) !important;
+}
+
+#UserModal .input-field label {
+  padding-left: 35px;
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+
+#UserModal .input-field label.active {
+  padding-left: 0;
+}
+/*# sourceMappingURL=UserModal.css.map */

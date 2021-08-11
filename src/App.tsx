@@ -13,9 +13,14 @@ import Dashboard from './components/dashboard/Dashboard';
 import AddGeneModal from './components/Modals/AddGeneModal';
 import AdminModal from './components/Modals/AdminModal';
 import AnalyseTypeModal from './components/Modals/AnalyseTypeModal';
+import UserModal from './components/Modals/UserModal';
 import { useComponentWillMount } from './global';
 import { Options } from './components/options/Options';
 import { getAnalyseTypes, getGenes } from './actions/analyses';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import fr from 'date-fns/locale/fr';
+
 import './css/App.css';
 
 // Font-awesome:
@@ -32,22 +37,25 @@ const App = ({ auth, loadUser, getAnalyseTypes, getGenes }: PropsFromRedux) => {
  });
 
  return (
-  <div className="app">
-   <Router>
-    <Alert />
-    <Navbar />
-    <AddGeneModal />
-    <AdminModal />
-    <AnalyseTypeModal />
-    <div className="main">
-     <Switch>
-      <Route path="/login" component={Login} />
-      <PrivateRoute path="/options" component={Options} />
-      <PrivateRoute path="/" component={Dashboard} />
-     </Switch>
-    </div>
-   </Router>
-  </div>
+  <MuiPickersUtilsProvider locale={fr} utils={DateFnsUtils}>
+   <div className="app">
+    <Router>
+     <Alert />
+     <Navbar />
+     <AddGeneModal />
+     <AdminModal />
+     <AnalyseTypeModal />
+     <UserModal />
+     <div className="main">
+      <Switch>
+       <Route path="/login" component={Login} />
+       <PrivateRoute path="/options" component={Options} />
+       <PrivateRoute path="/" component={Dashboard} />
+      </Switch>
+     </div>
+    </Router>
+   </div>
+  </MuiPickersUtilsProvider>
  );
 };
 

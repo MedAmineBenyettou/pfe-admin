@@ -6,6 +6,7 @@ import person from '../../assets/person.png';
 import { register } from '../../actions/auth';
 import { updateProfileById } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
+import '../../css/modals/AdminModal.css';
 
 const AdminModal = ({
  profile: {

@@ -1,4 +1,8 @@
-import { AUTH_TYPES, USER_PROFILE_TYPES } from '../actions/types';
+import {
+ AUTH_TYPES,
+ USER_AUTH_TYPES,
+ USER_PROFILE_TYPES,
+} from '../actions/types';
 import { IError } from '../general/Common';
 
 export interface IUser {
@@ -31,8 +35,8 @@ export interface IUserProfileState {
  error: IError | null;
 }
 
-export interface IProfileAction {
- type: USER_PROFILE_TYPES | AUTH_TYPES;
+export interface IUserProfileAction {
+ type: USER_PROFILE_TYPES | USER_AUTH_TYPES;
  payload?: IUserProfile | IUserProfile[] | IError | null;
 }
 
@@ -49,7 +53,7 @@ const initialState: IUserProfileState = {
 
 export default function profileReducer(
  state = initialState,
- action: IProfileAction
+ action: IUserProfileAction
 ): IUserProfileState {
  const { type, payload } = action;
  switch (type) {
@@ -59,14 +63,19 @@ export default function profileReducer(
     ...state,
     loading: false,
     error: null,
+    targetUserProfile: {
+     userProfile: payload as IUserProfile,
+     loading: false,
+     error: null,
+    },
    };
   case USER_PROFILE_TYPES.USER_PROFILE_UPDATE_SUCCESS:
    return {
     ...state,
     targetUserProfile: {
-     ...state.targetUserProfile,
      userProfile: payload as IUserProfile,
      loading: false,
+     error: null,
     },
     loading: false,
     error: null,
@@ -83,18 +92,6 @@ export default function profileReducer(
     },
     error: payload as IError,
     loading: false,
-   };
-  case AUTH_TYPES.LOGOUT:
-   return {
-    ...state,
-    loading: false,
-    targetUserProfile: {
-     loading: false,
-     userProfile: null,
-     error: null,
-    },
-    userProfiles: [],
-    error: null,
    };
   case USER_PROFILE_TYPES.CLEAR_USER_PROFILE:
    return {
@@ -152,7 +149,7 @@ export default function profileReducer(
      error: null,
     },
    };
-  case USER_PROFILE_TYPES.ERROR_GETTING_TARGET_USER_PROFILE: {
+  case USER_PROFILE_TYPES.ERROR_GETTING_TARGET_USER_PROFILE:
    return {
     ...state,
     targetUserProfile: {
@@ -162,7 +159,7 @@ export default function profileReducer(
      error: payload as IError,
     },
    };
-  }
+
   default:
    return state;
  }

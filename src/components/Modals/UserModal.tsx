@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { AppState } from '../../store';
 import lock from '../../assets/lock.png';
-import person from '../../assets/person.png';
+import mail from '../../assets/mail.png';
 // import { register } from '../../actions/auth';
 // import { updateProfileById } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
@@ -126,10 +126,10 @@ const UserModal = ({
          autoComplete="false"
         />
         <label htmlFor="UserModal-email" className="active">
-         Nom d'utilisateur
+         Email*
         </label>
         <div className="prefix">
-         <img src={person} alt="person" />
+         <img src={mail} alt="mail" />
         </div>
        </div>
        <div id="lPassword" className="input-field col s12">
@@ -143,7 +143,7 @@ const UserModal = ({
          minLength={6}
         />
         <label htmlFor="UserModal-password" className="active">
-         Mot de passe
+         Mot de passe*
         </label>
         <div className="prefix">
          <img src={lock} alt="lock" />
@@ -162,7 +162,7 @@ const UserModal = ({
           onChange={onChange}
          />
          <label htmlFor="UserModal-nom" className="active">
-          Nom
+          Nom*
          </label>
         </div>
         <div className="input-field col s12">
@@ -174,7 +174,7 @@ const UserModal = ({
           onChange={onChange}
          />
          <label htmlFor="UserModal-prenom" className="active">
-          Prenom
+          Prenom*
          </label>
         </div>
         <div className="input-field col s12">
@@ -190,7 +190,7 @@ const UserModal = ({
           disableFuture={true}
          />
          <label htmlFor="UserModal-dateOfBirth" className="active">
-          Date de naissance
+          Date de naissance*
          </label>
         </div>
         <div className="input-field col s12">
@@ -202,7 +202,7 @@ const UserModal = ({
           onChange={onChange}
          />
          <label htmlFor="UserModal-phoneNumber" className="active">
-          Numéro de téléphone
+          Numéro de téléphone*
          </label>
         </div>
         {userProfile && (

@@ -52,25 +52,25 @@ const UserModal = ({
    isEnabled: userProfile ? userProfile.user.isEnabled : true,
    password: '',
   });
-  initDateBirthPicker();
+  //   initDateBirthPicker();
  }, [userProfile]);
 
  const selectBirthDateHandler = (date: Date) => {
   setFormData({ ...formData, dateOfBirth: date });
  };
 
- const initDateBirthPicker = () => {
-  //   M.AutoInit();
-  //   var elem = document.querySelectorAll('#UserModal-dateOfBirth');
-  //   if (elem) {
-  //    M.Datepicker.init(elem, {
-  //     format: 'dd mmm, yyyy',
-  //     defaultDate: dateOfBirth,
-  //     onSelect: selectBirthDateHandler,
-  //     container: document.getElementById('UserModal'),
-  //    });
-  //   }
- };
+ //  const initDateBirthPicker = () => {
+ //     M.AutoInit();
+ //     var elem = document.querySelectorAll('#UserModal-dateOfBirth');
+ //     if (elem) {
+ //      M.Datepicker.init(elem, {
+ //       format: 'dd mmm, yyyy',
+ //       defaultDate: dateOfBirth,
+ //       onSelect: selectBirthDateHandler,
+ //       container: document.getElementById('UserModal'),
+ //      });
+ //     }
+ //  };
 
  const close = () => {
   var elmnt = document.getElementById('UserModal');
@@ -177,7 +177,7 @@ const UserModal = ({
           Prenom*
          </label>
         </div>
-        <div className="input-field col s12">
+        <div className="input-field col s5">
          <DatePicker
           value={dateOfBirth}
           name="dateOfBirth"
@@ -193,6 +193,18 @@ const UserModal = ({
           Date de naissance*
          </label>
         </div>
+        <div className="input-field col s5 offset-s1">
+         <input
+          name="birthLocation"
+          id="UserModal-birthLocation"
+          type="text"
+          defaultValue={birthLocation}
+          onChange={onChange}
+         />
+         <label htmlFor="UserModal-birthLocation" className="active">
+          Lieu de naissance*
+         </label>
+        </div>
         <div className="input-field col s12">
          <input
           name="phoneNumber"
@@ -203,6 +215,18 @@ const UserModal = ({
          />
          <label htmlFor="UserModal-phoneNumber" className="active">
           Numéro de téléphone*
+         </label>
+        </div>
+        <div className="input-field col s12">
+         <input
+          name="adresse"
+          id="UserModal-adresse"
+          type="text"
+          defaultValue={adresse}
+          onChange={onChange}
+         />
+         <label htmlFor="UserModal-adresse" className="active">
+          Adresse*
          </label>
         </div>
         {userProfile && (

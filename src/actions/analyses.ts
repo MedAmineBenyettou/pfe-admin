@@ -19,7 +19,7 @@ export const getAnalyseTypes =
     type: ANALYSES_TYPES.GET_TYPES,
     payload: res.data,
    });
-  } catch (err) {
+  } catch (err: any) {
    const error = err.response.data.errors
     ? err.response.data.errors[0] || Object(err.response.data.msg)
     : Object(err.response.data.msg);
@@ -46,7 +46,7 @@ export const addAnalyseTypes =
      AlertTypes.SUCCESS
     )
    );
-  } catch (err) {
+  } catch (err: any) {
    const error = err.response.data.errors
     ? err.response.data.errors[0] || Object(err.response.data.msg)
     : Object(err.response.data.msg);
@@ -76,7 +76,7 @@ export const updateAnalyseTypeById =
      AlertTypes.SUCCESS
     )
    );
-  } catch (err) {
+  } catch (err: any) {
    const error = err.response.data.errors
     ? err.response.data.errors[0] || Object(err.response.data.msg)
     : Object(err.response.data.msg);
@@ -99,7 +99,7 @@ export const deleteTypeById =
     type: ANALYSES_TYPES.DELETE_TYPE,
     payload: res.data,
    });
-  } catch (err) {
+  } catch (err: any) {
    const error = err.response.data.errors
     ? err.response.data.errors[0] || Object(err.response.data.msg)
     : Object(err.response.data.msg);
@@ -140,7 +140,7 @@ export const getGenes =
     type: ANALYSES_TYPES.GET_GENES,
     payload: res.data,
    });
-  } catch (err) {
+  } catch (err: any) {
    const error = err.response.data.errors
     ? err.response.data.errors[0] || Object(err.response.data.msg)
     : Object(err.response.data.msg);
@@ -163,7 +163,7 @@ export const deleteGeneById =
     type: ANALYSES_TYPES.DELETE_GENE,
     payload: res.data,
    });
-  } catch (err) {
+  } catch (err: any) {
    const error = err.response.data.errors
     ? err.response.data.errors[0] || Object(err.response.data.msg)
     : Object(err.response.data.msg);
@@ -190,7 +190,7 @@ export const addGene =
    dispatch(
     setAlert(`Gene "${type.nom}" ajouté avec succès`, AlertTypes.SUCCESS)
    );
-  } catch (err) {
+  } catch (err: any) {
    const error = err.response.data.errors
     ? err.response.data.errors[0] || Object(err.response.data.msg)
     : Object(err.response.data.msg);
@@ -218,7 +218,7 @@ export const updateGeneById =
    dispatch(
     setAlert(`Gene "${type.nom}" modifié avec succès`, AlertTypes.SUCCESS)
    );
-  } catch (err) {
+  } catch (err: any) {
    const error = err.response.data.errors
     ? err.response.data.errors[0] || Object(err.response.data.msg)
     : Object(err.response.data.msg);

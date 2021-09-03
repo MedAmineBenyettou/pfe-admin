@@ -25,7 +25,7 @@ export const register =
    const user = res.data.find((p: IAdmin) => p.username === username);
    dispatch(createProfileById(user._id));
    dispatch(setAlert('Utilisateur enregistré avec succès', AlertTypes.SUCCESS));
-  } catch (err) {
+  } catch (err: any) {
    const errs = err.response ? err.response.data.errors : [err];
    if (errs)
     errs.forEach((e: any) => {
@@ -55,7 +55,7 @@ export const loadUser =
     payload: res.data,
    });
    dispatch(getCurrentProfile());
-  } catch (err) {
+  } catch (err: any) {
    dispatch(
     setAlert("Erreur lors du chargement de l'utilisateur", AlertTypes.DANGER)
    );
@@ -90,7 +90,7 @@ export const login =
 
    dispatch(setAlert('Utilisateur connecté avec succès', AlertTypes.SUCCESS));
    dispatch(loadUser());
-  } catch (err) {
+  } catch (err: any) {
    const errs = err.response.data.errors;
    if (errs)
     errs.forEach((e: any) => {
@@ -126,7 +126,7 @@ export const updateUser =
    });
 
    dispatch(setAlert('Options modifiées avec succès', AlertTypes.SUCCESS));
-  } catch (err) {
+  } catch (err: any) {
    const errs = err.response.data.errors;
    if (errs)
     errs.forEach((e: any) => {

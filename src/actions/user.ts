@@ -25,7 +25,7 @@ export const register =
    const user = res.data.find((p: IUser) => p.email === email);
    dispatch(createProfileById(user._id));
    dispatch(setAlert('Utilisateur enregistré avec succès', AlertTypes.SUCCESS));
-  } catch (err) {
+  } catch (err: any) {
    const errs = err.response ? err.response.data.errors : [err];
    if (errs)
     errs.forEach((e: any) => {

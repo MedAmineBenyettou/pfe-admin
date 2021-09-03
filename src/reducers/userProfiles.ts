@@ -1,8 +1,4 @@
-import {
- AUTH_TYPES,
- USER_AUTH_TYPES,
- USER_PROFILE_TYPES,
-} from '../actions/types';
+import { USER_AUTH_TYPES, USER_PROFILE_TYPES } from '../actions/types';
 import { IError } from '../general/Common';
 
 export interface IUser {

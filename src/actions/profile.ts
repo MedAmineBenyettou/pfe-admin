@@ -16,7 +16,7 @@ export const getCurrentProfile =
     type: PROFILE_TYPES.GET_PROFILE,
     payload: res.data,
    });
-  } catch (err) {
+  } catch (err: any) {
    const errors = err.response.data.errors;
    if (errors) {
     errors.forEach((e: any) => {
@@ -51,7 +51,7 @@ export const createProfile =
     type: PROFILE_TYPES.PROFILE_CREATION_SUCCESS,
     payload: res.data,
    });
-  } catch (err) {
+  } catch (err: any) {
    const errors = err.response.data.errors;
    if (errors) {
     errors.forEach((e: any) => {
@@ -74,7 +74,7 @@ export const createProfileById =
     type: PROFILE_TYPES.OTHER_PROFILE_CREATION_SUCCESS,
     payload: res.data,
    });
-  } catch (err) {
+  } catch (err: any) {
    const errors = err.response.data.errors;
    if (errors) {
     errors.forEach((e: any) => {
@@ -99,7 +99,7 @@ export const updateProfile =
     payload: res.data,
    });
    dispatch(setAlert('Profil mis à jour', AlertTypes.SUCCESS));
-  } catch (err) {
+  } catch (err: any) {
    const errors = err.response.data.errors;
    if (errors) {
     errors.forEach((e: any) => {
@@ -123,7 +123,7 @@ export const updateProfileById =
     payload: res.data,
    });
    dispatch(setAlert('Profil mis à jour', AlertTypes.SUCCESS));
-  } catch (err) {
+  } catch (err: any) {
    const errors = err.response.data.errors;
    if (errors) {
     errors.forEach((e: any) => {
@@ -149,7 +149,7 @@ export const getAllProfiles =
     type: PROFILE_TYPES.GETTING_PROFILES_SUCCESS,
     payload: res.data,
    });
-  } catch (err) {
+  } catch (err: any) {
    dispatch({
     type: PROFILE_TYPES.ERROR_GETTING_PROFILES,
     payload: { msg: err.response.statusText },
@@ -179,7 +179,7 @@ export const getTargetProfile =
     type: PROFILE_TYPES.GETTING_TARGET_PROFILE_SUCCESS,
     payload: res.data,
    });
-  } catch (err) {
+  } catch (err: any) {
    dispatch({
     type: PROFILE_TYPES.ERROR_GETTING_TARGET_PROFILE,
     payload: {

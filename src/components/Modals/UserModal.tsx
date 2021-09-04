@@ -9,11 +9,22 @@ import Spinner from '../layout/Spinner';
 import { IUser, IUserProfile } from '../../reducers/userProfiles';
 import { DatePicker } from '@material-ui/pickers';
 import '../../css/modals/UserModal.css';
+import { registerUser } from '../../actions/user';
+import {
+ getAllUsersProfiles,
+ updateUserProfileById,
+} from '../../actions/userProfiles';
+import { setAlert } from '../../actions/alerts';
+import { AlertTypes } from '../../reducers/alerts';
 
 const UserModal = ({
  userProfiles: {
   targetUserProfile: { loading, userProfile },
  },
+ registerUser,
+ updateUserProfileById,
+ setAlert,
+ getAllUsersProfiles,
 }: PropsFromRedux) => {
  const [authForm, setAuthForm] = useState<
   Pick<IUser, 'email' | 'isEnabled'> & { password: string }
@@ -59,19 +70,6 @@ const UserModal = ({
   setFormData({ ...formData, dateOfBirth: date });
  };
 
- //  const initDateBirthPicker = () => {
- //     M.AutoInit();
- //     var elem = document.querySelectorAll('#UserModal-dateOfBirth');
- //     if (elem) {
- //      M.Datepicker.init(elem, {
- //       format: 'dd mmm, yyyy',
- //       defaultDate: dateOfBirth,
- //       onSelect: selectBirthDateHandler,
- //       container: document.getElementById('UserModal'),
- //      });
- //     }
- //  };
-
  const close = () => {
   var elmnt = document.getElementById('UserModal');
   if (elmnt) {
@@ -83,7 +81,7 @@ const UserModal = ({
  const onChange = (e: any) => {
   if (e.target.name === 'isEnabled')
    setAuthForm({ ...authForm, isEnabled: !isEnabled });
-  else if (e.target.name === 'username' || e.target.name === 'password') {
+  else if (e.target.name === 'email' || e.target.name === 'password') {
    setAuthForm({ ...authForm, [e.target.name]: e.target.value });
   } else setFormData({ ...formData, [e.target.name]: e.target.value });
  };
@@ -95,13 +93,15 @@ const UserModal = ({
     fields.email = email;
    if (password && password.length >= 6) fields.password = password;
    fields.isEnabled = isEnabled;
-   //    updateProfileById(userProfile._id, { ...formData, user: fields }); //TODO
+   updateUserProfileById(userProfile._id, { ...formData, ...fields });
+   getAllUsersProfiles();
   } else {
-   fields = {};
-   fields.email = email;
-   fields.password = password;
-   fields.isEnabled = isEnabled;
-   //    register(fields); //TODO
+   if (!(password && password.length >= 6))
+    setAlert('Le mot de passe doit contenir 6 caractères', AlertTypes.WARNING);
+   else {
+    registerUser({ ...formData, ...authForm });
+    getAllUsersProfiles();
+   }
   }
  };
 
@@ -183,7 +183,7 @@ const UserModal = ({
           name="dateOfBirth"
           id="UserModal-dateOfBirth"
           onChange={(d) => {
-           if (d) setFormData({ ...formData, dateOfBirth: d });
+           if (d) selectBirthDateHandler(d);
           }}
           format={'dd MMMM yyyy'}
           autoOk={true}
@@ -274,8 +274,10 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = {
- // updateProfileById,
- //  register
+ updateUserProfileById,
+ setAlert,
+ registerUser,
+ getAllUsersProfiles,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

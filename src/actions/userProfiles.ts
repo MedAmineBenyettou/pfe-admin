@@ -20,28 +20,28 @@ export interface IUserProfileFormData {
 }
 
 //* Create User Profile
-export const createUserProfile =
- (formData: IUserProfileFormData) =>
- async (dispatch: ThunkDispatch<{}, {}, IUserProfileAction>) => {
-  try {
-   const res = await axios.post('/api/profile', formData, CONFIG);
-   dispatch({
-    type: USER_PROFILE_TYPES.USER_PROFILE_CREATION_SUCCESS,
-    payload: res.data,
-   });
-  } catch (err: any) {
-   const errors = err.response.data.errors;
-   if (errors) {
-    errors.forEach((e: any) => {
-     dispatch(setAlert(e.msg, AlertTypes.DANGER));
-    });
-   }
-   dispatch({
-    type: USER_PROFILE_TYPES.USER_PROFILE_CREATION_FAIL,
-    payload: { msg: err.response.statusText },
-   });
-  }
- };
+// export const createUserProfile =
+//  (formData: IUserProfileFormData) =>
+//  async (dispatch: ThunkDispatch<{}, {}, IUserProfileAction>) => {
+//   try {
+//    const res = await axios.post('/api/profile', formData, CONFIG);
+//    dispatch({
+//     type: USER_PROFILE_TYPES.USER_PROFILE_CREATION_SUCCESS,
+//     payload: res.data,
+//    });
+//   } catch (err: any) {
+//    const errors = err.response.data.errors;
+//    if (errors) {
+//     errors.forEach((e: any) => {
+//      dispatch(setAlert(e.msg, AlertTypes.DANGER));
+//     });
+//    }
+//    dispatch({
+//     type: USER_PROFILE_TYPES.USER_PROFILE_CREATION_FAIL,
+//     payload: { msg: err.response.statusText },
+//    });
+//   }
+//  };
 
 //* Update profile
 export const updateUserProfileById =
@@ -53,7 +53,7 @@ export const updateUserProfileById =
     type: USER_PROFILE_TYPES.USER_PROFILE_UPDATE_SUCCESS,
     payload: res.data,
    });
-   dispatch(setAlert('Profil mis à jour', AlertTypes.SUCCESS));
+   dispatch(setAlert(`Profil d'utilisateur mis à jour`, AlertTypes.SUCCESS));
   } catch (err: any) {
    const errors = err.response.data.errors;
    if (errors) {

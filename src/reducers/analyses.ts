@@ -22,8 +22,10 @@ export interface IAnalyse {
  user: IProfile;
  type: IAnalyseType;
  locationDePrelevement: string;
- description: string;
- notes: string;
+ etat: number;
+ positive: boolean;
+ description?: string;
+ notes?: string;
 }
 
 export interface IAnalyseAction {

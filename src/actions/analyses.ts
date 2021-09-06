@@ -13,6 +13,14 @@ import { AlertTypes } from '../reducers/alerts';
 
 //! ANALYSES ------------------------------------------------------
 
+export type AnalyseStateForm = Omit<
+ IAnalyse,
+ '_id' | 'user' | 'type' | 'patient'
+> & {
+ type: string;
+ patient: string;
+};
+
 export const getAnalyses =
  () => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
   dispatch({
@@ -37,10 +45,10 @@ export const getAnalyses =
  };
 
 export const addAnalyse =
- (type: Omit<IAnalyse, '_id' | 'user'>) =>
+ (form: Partial<AnalyseStateForm>) =>
  async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
   try {
-   const res = await axios.post('/api/analyse', type, CONFIG);
+   const res = await axios.post('/api/analyse', form, CONFIG);
    dispatch({
     type: ANALYSES_TYPES.ADD_ANALYSE,
     payload: res.data,
@@ -59,7 +67,7 @@ export const addAnalyse =
  };
 
 export const updateAnalyseById =
- (id: string, type: Partial<Omit<IAnalyse, '_id' | 'user'>>) =>
+ (id: string, type: Partial<AnalyseStateForm>) =>
  async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
   try {
    const res = await axios.put(`/api/analyse/${id}`, type, CONFIG);

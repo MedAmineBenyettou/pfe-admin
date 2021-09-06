@@ -1,9 +1,15 @@
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
 import MesPatients from './MesPatients';
 import ToutLesPatients from './ToutLesPatients';
+import { getAllUsersProfiles } from '../../actions/userProfiles';
 
 import '../../css/dashboard/dashboard.css';
 
-const Dashboard = () => {
+const Dashboard = ({ getAllUsersProfiles }: any) => {
+ useEffect(() => {
+  getAllUsersProfiles();
+ }, [getAllUsersProfiles]);
  return (
   <div className="dashboard row">
    <MesPatients />
@@ -13,4 +19,10 @@ const Dashboard = () => {
  );
 };
 
-export default Dashboard;
+const mapStateToProps = (state: any) => ({});
+
+const mapDispatchToProps = {
+ getAllUsersProfiles,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

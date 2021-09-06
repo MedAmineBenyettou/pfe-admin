@@ -97,4 +97,8 @@ td.is-selected.is-today {
       -ms-flex-align: center;
           align-items: center;
 }
+
+#AnalyseModal .modal-content .main-form {
+  padding: 15px 10px;
+}
 /*# sourceMappingURL=AnalyseModal.css.map */

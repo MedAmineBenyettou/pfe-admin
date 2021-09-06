@@ -14,6 +14,7 @@ import AddGeneModal from './components/Modals/AddGeneModal';
 import AdminModal from './components/Modals/AdminModal';
 import AnalyseTypeModal from './components/Modals/AnalyseTypeModal';
 import UserModal from './components/Modals/UserModal';
+import Patients from './components/patients/Patients';
 import { useComponentWillMount } from './global';
 import { Options } from './components/options/Options';
 import { getAnalyseTypes, getGenes } from './actions/analyses';
@@ -50,6 +51,7 @@ const App = ({ auth, loadUser, getAnalyseTypes, getGenes }: PropsFromRedux) => {
       <Switch>
        <Route path="/login" component={Login} />
        <PrivateRoute path="/options" component={Options} />
+       <PrivateRoute path="/patients" component={Patients} />
        <PrivateRoute path="/" component={Dashboard} />
       </Switch>
      </div>

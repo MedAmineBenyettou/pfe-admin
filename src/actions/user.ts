@@ -10,6 +10,7 @@ import {
 import { ThunkDispatch } from 'redux-thunk';
 // import { getCurrentProfile, createProfileById } from './profile';
 import { CONFIG } from '../general/Common';
+import { getAllUsersProfiles } from './userProfiles';
 
 //* Register User
 interface IRegisterUserForm
@@ -45,6 +46,7 @@ export const registerUser =
     type: USER_AUTH_TYPES.USER_REGISTER_SUCCESS,
    });
    dispatch(setAlert('Utilisateur enregistré avec succès', AlertTypes.SUCCESS));
+   dispatch(getAllUsersProfiles());
   } catch (err: any) {
    const errs = err.response ? err.response.data.errors : [err];
    if (errs)

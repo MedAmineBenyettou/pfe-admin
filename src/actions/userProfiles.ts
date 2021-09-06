@@ -54,6 +54,7 @@ export const updateUserProfileById =
     payload: res.data,
    });
    dispatch(setAlert(`Profil d'utilisateur mis à jour`, AlertTypes.SUCCESS));
+   dispatch(getAllUsersProfiles());
   } catch (err: any) {
    const errors = err.response.data.errors;
    if (errors) {
@@ -82,9 +83,15 @@ export const getAllUsersProfiles =
     payload: res.data,
    });
   } catch (err: any) {
+   const errs = err.response ? err.response.data.errors : [err];
+   if (errs)
+    errs.forEach((e: any) => {
+     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+    });
+   console.error(err);
    dispatch({
     type: USER_PROFILE_TYPES.ERROR_GETTING_USER_PROFILES,
-    payload: { msg: err.response.statusText },
+    payload: { msg: err.response },
    });
   }
  };

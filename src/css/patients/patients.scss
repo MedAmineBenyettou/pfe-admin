@@ -1,0 +1,21 @@
+@import '../Common';
+
+.patients {
+ padding: 0 20px;
+ .header {
+  h1 {
+   color: $primary-color;
+  }
+ }
+ table {
+  margin-top: 15px;
+  font-size: small !important;
+  border: 0.5px solid $primary-color;
+  tr {
+   cursor: pointer;
+   &:hover {
+    background-color: $mygray4 !important;
+   }
+  }
+ }
+}

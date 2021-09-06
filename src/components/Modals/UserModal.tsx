@@ -10,10 +10,7 @@ import { IUser, IUserProfile } from '../../reducers/userProfiles';
 import { DatePicker } from '@material-ui/pickers';
 import '../../css/modals/UserModal.css';
 import { registerUser } from '../../actions/user';
-import {
- getAllUsersProfiles,
- updateUserProfileById,
-} from '../../actions/userProfiles';
+import { updateUserProfileById } from '../../actions/userProfiles';
 import { setAlert } from '../../actions/alerts';
 import { AlertTypes } from '../../reducers/alerts';
 
@@ -24,7 +21,6 @@ const UserModal = ({
  registerUser,
  updateUserProfileById,
  setAlert,
- getAllUsersProfiles,
 }: PropsFromRedux) => {
  const [authForm, setAuthForm] = useState<
   Pick<IUser, 'email' | 'isEnabled'> & { password: string }
@@ -93,14 +89,12 @@ const UserModal = ({
     fields.email = email;
    if (password && password.length >= 6) fields.password = password;
    fields.isEnabled = isEnabled;
-   updateUserProfileById(userProfile._id, { ...formData, ...fields });
-   getAllUsersProfiles();
+   updateUserProfileById(userProfile._id, { ...formData, user: fields });
   } else {
    if (!(password && password.length >= 6))
     setAlert('Le mot de passe doit contenir 6 caractères', AlertTypes.WARNING);
    else {
     registerUser({ ...formData, ...authForm });
-    getAllUsersProfiles();
    }
   }
  };
@@ -229,7 +223,7 @@ const UserModal = ({
           Adresse*
          </label>
         </div>
-        {userProfile && (
+        {/* {userProfile && (
          <div className="switch">
           <label>
            Compte: Desactivé
@@ -244,7 +238,7 @@ const UserModal = ({
            Activé
           </label>
          </div>
-        )}
+        )} */}
        </div>
       }
      </div>
@@ -277,7 +271,6 @@ const mapDispatchToProps = {
  updateUserProfileById,
  setAlert,
  registerUser,
- getAllUsersProfiles,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

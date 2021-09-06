@@ -1,0 +1,85 @@
+input:not([type]):focus:not([readonly]),
+input[type='text']:not(.browser-default):focus:not([readonly]),
+input[type='password']:not(.browser-default):focus:not([readonly]),
+input[type='email']:not(.browser-default):focus:not([readonly]),
+input[type='username']:not(.browser-default):focus:not([readonly]),
+input[type='url']:not(.browser-default):focus:not([readonly]),
+input[type='time']:not(.browser-default):focus:not([readonly]),
+input[type='date']:not(.browser-default):focus:not([readonly]),
+input[type='datetime']:not(.browser-default):focus:not([readonly]),
+input[type='datetime-local']:not(.browser-default):focus:not([readonly]),
+input[type='tel']:not(.browser-default):focus:not([readonly]),
+input[type='number']:not(.browser-default):focus:not([readonly]),
+input[type='search']:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #4082d4 !important;
+  -webkit-box-shadow: 0 1px 0 0 #4082d4 !important;
+          box-shadow: 0 1px 0 0 #4082d4 !important;
+}
+
+.progress {
+  background-color: rgba(64, 130, 212, 0.5) !important;
+}
+
+.progress .indeterminate {
+  background-color: #8bc34a !important;
+}
+
+.datepicker-date-display {
+  background-color: #4082d4 !important;
+}
+
+.datepicker-day-button:focus {
+  color: white !important;
+  background-color: #a2b0b6 !important;
+}
+
+.datepicker-done,
+.datepicker-cancel,
+.select-dropdown li > span,
+.is-today {
+  color: #4082d4 !important;
+}
+
+td.is-selected,
+.month-prev:active,
+.month-prev:focus,
+.month-next:active,
+.month-next:focus {
+  background-color: #4082d4 !important;
+}
+
+td.is-selected.is-today {
+  color: white !important;
+}
+
+.switch label input[type='checkbox']:checked + .lever {
+  background-color: #4082d4 !important;
+}
+
+.switch label input[type='checkbox']:checked + .lever:after {
+  background-color: #8bc34a !important;
+}
+
+.patients {
+  padding: 0 20px;
+}
+
+.patients .header h1 {
+  color: #4082d4;
+}
+
+.patients table {
+  margin-top: 15px;
+  font-size: small !important;
+  border: 0.5px solid #4082d4;
+}
+
+.patients table tr {
+  cursor: pointer;
+}
+
+.patients table tr:hover {
+  background-color: #cccccc !important;
+}
+/*# sourceMappingURL=patients.css.map */

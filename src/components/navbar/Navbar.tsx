@@ -22,9 +22,16 @@ export const Navbar = ({
    <li>
     <Link to="/">Home</Link>
    </li>
-   <li>
-    {isAuthenticated && !loading && <Link to={`/options`}>Options</Link>}
-   </li>
+   {isAuthenticated && !loading && (
+    <>
+     <li>
+      <Link to={`/options`}>Options</Link>
+     </li>
+     <li>
+      <Link to={`/patients`}>Patients</Link>
+     </li>
+    </>
+   )}
    <li onClick={logout} className="red lighten-2">
     {' '}
     <Link className="sidenav-close" to="#">
@@ -43,9 +50,14 @@ export const Navbar = ({
    </li>
    <li>
     {isAuthenticated && !loading && (
-     <Link to={`/options`} className="sidenav-close">
-      Options
-     </Link>
+     <>
+      <Link to={`/options`} className="sidenav-close">
+       Options
+      </Link>
+      <Link to={`/patients`} className="sidenav-close">
+       Patients
+      </Link>
+     </>
     )}
    </li>
 

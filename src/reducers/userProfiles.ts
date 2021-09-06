@@ -68,11 +68,7 @@ export default function profileReducer(
   case USER_PROFILE_TYPES.USER_PROFILE_UPDATE_SUCCESS:
    return {
     ...state,
-    targetUserProfile: {
-     userProfile: payload as IUserProfile,
-     loading: false,
-     error: null,
-    },
+    userProfiles: payload as IUserProfile[],
     loading: false,
     error: null,
    };

@@ -1,5 +1,7 @@
 import { ANALYSES_TYPES } from '../actions/types';
 import { IError } from '../general/Common';
+import { IProfile } from './profile';
+import { IUserProfile } from './userProfiles';
 
 export interface IGene {
  _id: string;
@@ -16,7 +18,12 @@ export interface IAnalyseType {
 
 export interface IAnalyse {
  _id: string;
+ patient: IUserProfile;
+ user: IProfile;
  type: IAnalyseType;
+ locationDePrelevement: string;
+ description: string;
+ notes: string;
 }
 
 export interface IAnalyseAction {
@@ -27,7 +34,8 @@ export interface IAnalyseAction {
   | IAnalyse[]
   | IGene[]
   | IAnalyseType
-  | IGene;
+  | IGene
+  | IAnalyse;
 }
 
 export type AnalyseState = {

@@ -3,8 +3,6 @@ import { connect, ConnectedProps } from 'react-redux';
 import { AppState } from '../../store';
 import lock from '../../assets/lock.png';
 import mail from '../../assets/mail.png';
-// import { register } from '../../actions/auth';
-// import { updateProfileById } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
 import { IUser, IUserProfile } from '../../reducers/userProfiles';
 import { DatePicker } from '@material-ui/pickers';
@@ -59,7 +57,6 @@ const UserModal = ({
    isEnabled: userProfile ? userProfile.user.isEnabled : true,
    password: '',
   });
-  //   initDateBirthPicker();
  }, [userProfile]);
 
  const selectBirthDateHandler = (date: Date) => {

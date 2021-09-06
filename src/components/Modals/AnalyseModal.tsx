@@ -4,12 +4,16 @@ import { AppState } from '../../store';
 import Spinner from '../layout/Spinner';
 import M from 'materialize-css';
 import '../../css/modals/AnalyseModal.css';
+import { setTargetUserProfile } from '../../actions/userProfiles';
 
 const AnalyseModal = ({
  analyses: {
   selection: { analyse },
   loading,
+  genes,
+  types,
  },
+ setTargetUserProfile,
 }: PropsFromRedux) => {
  //  const [form, setForm] = useState({
  //   nom: analyse ? analyse.nom : '',
@@ -36,8 +40,8 @@ const AnalyseModal = ({
  //  };
 
  const handleClick = () => {
-  //   if (analyse) updateGeneById(analyse._id, form);
-  //   else addGene(form);
+  // if (analyse) updateAnalyse(analyse._id, form);
+  // else addGene(form);
  };
 
  const close = () => {
@@ -54,7 +58,7 @@ const AnalyseModal = ({
    var inst = M.Modal.init(elmnt, {
     dismissible: true,
     onCloseEnd: () => {
-     //    setTargetProfile(null);
+     setTargetUserProfile(null);
     },
    });
    inst.open();
@@ -116,7 +120,7 @@ const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { setTargetUserProfile };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

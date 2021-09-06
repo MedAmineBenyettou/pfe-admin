@@ -1,10 +1,123 @@
 import { ANALYSES_TYPES } from './types';
 import { ThunkDispatch } from 'redux-thunk';
-import { IAnalyseAction, IAnalyseType, IGene } from '../reducers/analyses';
+import {
+ IAnalyse,
+ IAnalyseAction,
+ IAnalyseType,
+ IGene,
+} from '../reducers/analyses';
 import axios from 'axios';
 import { CONFIG } from '../general/Common';
 import { setAlert } from './alerts';
 import { AlertTypes } from '../reducers/alerts';
+
+//! ANALYSES ------------------------------------------------------
+
+export const getAnalyses =
+ () => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  dispatch({
+   type: ANALYSES_TYPES.LOADING_ANALYSE,
+  });
+  try {
+   const res = await axios.get('/api/analyse');
+   dispatch({
+    type: ANALYSES_TYPES.GET_ANALYSES,
+    payload: res.data,
+   });
+  } catch (err: any) {
+   const error = err.response.data.errors
+    ? err.response.data.errors[0] || Object(err.response.data.msg)
+    : Object(err.response.data.msg);
+   dispatch({
+    type: ANALYSES_TYPES.GET_ANALYSES_ERROR,
+    payload: error,
+   });
+   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+  }
+ };
+
+export const addAnalyse =
+ (type: Omit<IAnalyse, '_id' | 'user'>) =>
+ async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  try {
+   const res = await axios.post('/api/analyse', type, CONFIG);
+   dispatch({
+    type: ANALYSES_TYPES.ADD_ANALYSE,
+    payload: res.data,
+   });
+   dispatch(setAlert(`Analyse ajoutée avec succès`, AlertTypes.SUCCESS));
+  } catch (err: any) {
+   const error = err.response.data.errors
+    ? err.response.data.errors[0] || Object(err.response.data.msg)
+    : Object(err.response.data.msg);
+   dispatch({
+    type: ANALYSES_TYPES.ADD_ANALYSE_ERROR,
+    payload: error,
+   });
+   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+  }
+ };
+
+export const updateAnalyseById =
+ (id: string, type: Partial<Omit<IAnalyse, '_id' | 'user'>>) =>
+ async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  try {
+   const res = await axios.put(`/api/analyse/${id}`, type, CONFIG);
+   dispatch({
+    type: ANALYSES_TYPES.UPDATE_ANALYSE,
+    payload: res.data,
+   });
+   dispatch(setAlert(`Analyse modifiée avec succès`, AlertTypes.SUCCESS));
+  } catch (err: any) {
+   const error = err.response.data.errors
+    ? err.response.data.errors[0] || Object(err.response.data.msg)
+    : Object(err.response.data.msg);
+   dispatch({
+    type: ANALYSES_TYPES.UPDATE_ANALYSE_ERROR,
+    payload: error,
+   });
+   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+  }
+ };
+
+export const deleteAnalyseById =
+ (id: string) => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  dispatch({
+   type: ANALYSES_TYPES.LOADING_ANALYSE,
+  });
+  try {
+   const res = await axios.delete(`/api/analyse/${id}`);
+   dispatch({
+    type: ANALYSES_TYPES.DELETE_ANALYSE,
+    payload: res.data,
+   });
+  } catch (err: any) {
+   const error = err.response.data.errors
+    ? err.response.data.errors[0] || Object(err.response.data.msg)
+    : Object(err.response.data.msg);
+   dispatch({
+    type: ANALYSES_TYPES.DELETE_ANALYSE_ERROR,
+    payload: error,
+   });
+   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+  }
+ };
+
+export const selectAnalyse =
+ (type: IAnalyse) =>
+ async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  dispatch({
+   type: ANALYSES_TYPES.SELECT_ANALYSE,
+   payload: type,
+  });
+ };
+
+export const clearSelectedAnalyse =
+ () => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+  dispatch({
+   type: ANALYSES_TYPES.CLEAR_SELECTED_ANALYSE,
+  });
+ };
 
 //! ANALYSE TYPES ------------------------------------------------------
 

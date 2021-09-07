@@ -2,13 +2,20 @@ import { ConnectedProps, connect } from 'react-redux';
 import { AppState } from '../../store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AnalyseModal from '../Modals/AnalyseModal';
+import { selectAnalyse, clearSelectedAnalyse } from '../../actions/analyses';
 
 import done from '../../assets/done.png';
 import waiting from '../../assets/waiting.png';
 import gears from '../../assets/gears.png';
+import Spinner from '../layout/Spinner';
+import moment from 'moment';
+import { IAnalyse } from '../../reducers/analyses';
 
 export const MesPatients = ({
  analyses: { loading, analyses },
+ profile,
+ selectAnalyse,
+ clearSelectedAnalyse,
 }: PropsFromRedux) => {
  const handleOpenModal = () => {
   var elmnt = document.getElementById('AnalyseModal');
@@ -32,6 +39,84 @@ export const MesPatients = ({
   }
  };
 
+ const handleOnClick = (a: IAnalyse) => {
+  selectAnalyse(a);
+  setTimeout(() => {
+   var elmnt = document.getElementById('AnalyseModal');
+   if (elmnt) {
+    var inst = M.Modal.getInstance(elmnt);
+    inst.options = {
+     ...inst.options,
+     dismissible: true,
+     onCloseEnd: () => {
+      clearSelectedAnalyse();
+     },
+     onOpenEnd: () => {
+      var elem = document.querySelector('#AnalyseModal .tabs');
+      if (elem) {
+       M.Tabs.init(elem, {
+        swipeable: true,
+        onShow: (e) => {
+         //  console.log(e);
+        },
+       });
+      }
+     },
+    };
+    inst.open();
+   }
+  }, 1000);
+ };
+
+ const display = (type: number) => {
+  var elem = document.querySelector('#AnalyseModal .tabs');
+  if (elem) {
+   M.Tabs.init(elem, {
+    swipeable: true,
+    onShow: (e) => {
+     //  console.log(e);
+    },
+   });
+  }
+  if (!loading) {
+   if (profile && analyses && analyses.length > 0) {
+    const temp = analyses.filter(
+     (a) => a.etat === type && a.user._id.match(profile._id)
+    );
+    if (temp.length > 0)
+     return temp.map((a) => (
+      <div
+       key={a._id}
+       onClick={() => handleOnClick(a)}
+       className="collection-item tooltipped"
+       data-position="bottom"
+       data-tooltip={a.description}
+      >
+       <span className="type">{a.type.nom}</span>
+       <p className="nom">{a.patient.nom + ' ' + a.patient.prenom}</p>
+       <div className="row sub-info">
+        {type !== 1 ? (
+         <span className="date col s3 offset-s9">
+          {moment(a.date).format('DD/MM/YYYY')}
+         </span>
+        ) : (
+         <>
+          <span className={`col s3 ${a.positive ? 'red-text' : ''}`}>
+           {a.positive ? 'Positive' : 'Négative'}
+          </span>
+          <span className="date col s3 offset-s6">
+           {moment(a.date).format('DD/MM/YYYY')}
+          </span>
+         </>
+        )}
+       </div>
+      </div>
+     ));
+    else return <p className="empty-list">Liste vide</p>;
+   }
+  } else return <Spinner />;
+ };
+
  return (
   <div className="section col s12">
    <AnalyseModal />
@@ -45,58 +130,45 @@ export const MesPatients = ({
      <FontAwesomeIcon size="lg" icon={['fas', 'plus']} />
     </a>
    </div>
-   <div className="tab col m4 s12">
-    <div className="collection with-header">
-     <h4 className="collection-header">
-      <img src={waiting} alt="waiting" className="circle" />
-      En attente
-     </h4>
-     <div className="collection-item">
-      <span className="type">type</span>
-      <p className="nom">Nom et prénom</p>
-      <div className="row sub-info">
-       <span className="date col s2 offset-s10">26/06</span>
-      </div>
+   <>
+    <div className="tab col m4 s12">
+     <div className="collection with-header">
+      <h4 className="collection-header">
+       <img src={waiting} alt="waiting" className="circle" />
+       En attente
+      </h4>
+      {display(-1)}
      </div>
-     <div className="collection-item">Alvin</div>
     </div>
-   </div>
-   <div className="tab col m4 s12">
-    <div className="collection with-header">
-     <h4 className="collection-header">
-      <img src={gears} alt="gears" className="circle" />
-      En cours
-     </h4>
-     <div className="collection-item">
-      <span className="title">Title</span>
-      <p>
-       First Line <br />
-       Second Line
-      </p>
+    <div className="tab col m4 s12">
+     <div className="collection with-header">
+      <h4 className="collection-header">
+       <img src={gears} alt="gears" className="circle" />
+       En cours
+      </h4>
+      {display(0)}
      </div>
-     <div className="collection-item">Alvin</div>
-     <div className="collection-item">Alvin</div>
-     <div className="collection-item">Alvin</div>
     </div>
-   </div>
-   <div className="tab col m4 s12">
-    <div className="collection with-header">
-     <h4 className="collection-header">
-      <img src={done} alt="done" className="circle" />
-      Terminé
-     </h4>
-     <p className="empty-list">Liste vide</p>
+    <div className="tab col m4 s12">
+     <div className="collection with-header">
+      <h4 className="collection-header">
+       <img src={done} alt="done" className="circle" />
+       Terminé
+      </h4>
+      {display(1)}
+     </div>
     </div>
-   </div>
+   </>
   </div>
  );
 };
 
 const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
+ profile: state.profile.profile,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { selectAnalyse, clearSelectedAnalyse };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

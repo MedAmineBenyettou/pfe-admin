@@ -15,7 +15,7 @@ import { AlertTypes } from '../reducers/alerts';
 
 export type AnalyseStateForm = Omit<
  IAnalyse,
- '_id' | 'user' | 'type' | 'patient'
+ '_id' | 'user' | 'type' | 'patient' | 'date'
 > & {
  type: string;
  patient: string;

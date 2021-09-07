@@ -26,6 +26,7 @@ export interface IAnalyse {
  positive: boolean;
  description?: string;
  notes?: string;
+ date: Date;
 }
 
 export interface IAnalyseAction {
@@ -72,6 +73,32 @@ export default function analysesReducer(
 ): AnalyseState {
  const { type, payload } = action;
  switch (type) {
+  case ANALYSES_TYPES.GET_ANALYSES:
+  case ANALYSES_TYPES.ADD_ANALYSE:
+  case ANALYSES_TYPES.UPDATE_ANALYSE:
+  case ANALYSES_TYPES.DELETE_ANALYSE:
+   return {
+    ...state,
+    loading: false,
+    error: null,
+    analyses: payload as IAnalyse[],
+   };
+  case ANALYSES_TYPES.SELECT_ANALYSE:
+   return {
+    ...state,
+    selection: {
+     ...state.selection,
+     analyse: payload as IAnalyse,
+    },
+   };
+  case ANALYSES_TYPES.CLEAR_SELECTED_ANALYSE:
+   return {
+    ...state,
+    selection: {
+     ...state.selection,
+     analyse: null,
+    },
+   };
   case ANALYSES_TYPES.GET_TYPES:
   case ANALYSES_TYPES.ADD_TYPE:
   case ANALYSES_TYPES.UPDATE_TYPE:
@@ -139,6 +166,10 @@ export default function analysesReducer(
   case ANALYSES_TYPES.DELETE_GENE_ERROR:
   case ANALYSES_TYPES.UPDATE_TYPE_ERROR:
   case ANALYSES_TYPES.DELETE_TYPE_ERROR:
+  case ANALYSES_TYPES.GET_ANALYSES_ERROR:
+  case ANALYSES_TYPES.ADD_ANALYSE_ERROR:
+  case ANALYSES_TYPES.UPDATE_ANALYSE_ERROR:
+  case ANALYSES_TYPES.DELETE_ANALYSE_ERROR:
    return {
     ...state,
     loading: false,

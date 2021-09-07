@@ -1,7 +1,6 @@
 import { ConnectedProps, connect } from 'react-redux';
 import { AppState } from '../../store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import AnalyseModal from '../Modals/AnalyseModal';
 import { selectAnalyse, clearSelectedAnalyse } from '../../actions/analyses';
 
 import done from '../../assets/done.png';

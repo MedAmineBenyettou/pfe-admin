@@ -1,6 +1,5 @@
 import { ConnectedProps, connect } from 'react-redux';
 import { AppState } from '../../store';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { selectAnalyse, clearSelectedAnalyse } from '../../actions/analyses';
 
 import done from '../../assets/done.png';
@@ -16,28 +15,6 @@ export const ToutLesPatients = ({
  selectAnalyse,
  clearSelectedAnalyse,
 }: PropsFromRedux) => {
- const handleOpenModal = () => {
-  var elmnt = document.getElementById('AnalyseModal');
-  if (elmnt) {
-   var inst = M.Modal.init(elmnt, {
-    dismissible: true,
-    onCloseEnd: () => {
-     //    setTargetProfile(null);
-    },
-   });
-   inst.open();
-   var elem = document.querySelector('#AnalyseModal .tabs');
-   if (elem) {
-    M.Tabs.init(elem, {
-     swipeable: true,
-     onShow: (e) => {
-      //  console.log(e);
-     },
-    });
-   }
-  }
- };
-
  const handleOnClick = (a: IAnalyse) => {
   selectAnalyse(a);
   setTimeout(() => {
@@ -72,9 +49,6 @@ export const ToutLesPatients = ({
   if (elem) {
    M.Tabs.init(elem, {
     swipeable: true,
-    onShow: (e) => {
-     //  console.log(e);
-    },
    });
   }
   if (!loading) {
@@ -119,13 +93,6 @@ export const ToutLesPatients = ({
   <div className="section col s12">
    <div className="section-header row">
     <h5 className="col s4">Tous les patients:</h5>
-    <a
-     href="#AnalyseModal"
-     className="btn-floating btn-large waves-effect waves-light right"
-     onClick={handleOpenModal}
-    >
-     <FontAwesomeIcon size="lg" icon={['fas', 'plus']} />
-    </a>
    </div>
    <>
     <div className="tab col m4 s12">

@@ -14,7 +14,7 @@ function Lform({ login, setAlert }: ReduxProps) {
  const onSubmit = (e: any) => {
   e.preventDefault();
   if (password.length >= 6) {
-   formData.username = formData.username.trim().toLowerCase();
+   formData.username = formData.username.trim();
    login(formData);
   } else {
    setAlert(

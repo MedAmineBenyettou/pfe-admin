@@ -210,12 +210,12 @@ const AnalyseModal = ({
         </label>
        </div>
        <FormControl className="col s12">
-        <InputLabel id="input_type3">Type d'analyse</InputLabel>
+        <InputLabel id="input_etat">Etat de l'analyse</InputLabel>
         <Select
          name="etat"
          value={etat}
          onChange={onChange}
-         labelId="input_type3"
+         labelId="input_etat"
         >
          <MenuItem value={-1}>En attente</MenuItem>
          <MenuItem value={0}>En cours de traitement</MenuItem>

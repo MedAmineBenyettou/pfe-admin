@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { ANALYSES_TYPES } from '../actions/types';
 import { IError } from '../general/Common';
 import { IProfile } from './profile';
@@ -81,7 +82,10 @@ export default function analysesReducer(
     ...state,
     loading: false,
     error: null,
-    analyses: payload as IAnalyse[],
+    analyses: (payload as IAnalyse[]).sort(
+     //@ts-ignore
+     (a, b) => Date(a.date) - Date(b.date)
+    ),
    };
   case ANALYSES_TYPES.SELECT_ANALYSE:
    return {

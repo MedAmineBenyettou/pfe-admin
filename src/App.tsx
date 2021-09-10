@@ -15,7 +15,7 @@ import AdminModal from './components/Modals/AdminModal';
 import AnalyseTypeModal from './components/Modals/AnalyseTypeModal';
 import UserModal from './components/Modals/UserModal';
 import Patients from './components/patients/Patients';
-import { Stats } from './components/stats/Stats';
+import Stats from './components/stats/Stats';
 import { useComponentWillMount } from './global';
 import { Options } from './components/options/Options';
 import { getAnalyseTypes, getGenes } from './actions/analyses';

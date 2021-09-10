@@ -1,12 +1,22 @@
-import { useEffect, useState } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { AppState } from '../../store';
-import Spinner from '../layout/Spinner';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { getAllUsersProfiles } from '../../actions/userProfiles';
+import { getAnalyses } from '../../actions/analyses';
+
 import AdminsActivity from './charts/AdminsActivity';
+import AnalysesActivity from './charts/AnalysesActivity';
+import AnalyseTypesActivity from './charts/AnalyseTypesActivity';
+import GenesActivity from './charts/GenesActivity';
+import UsersActivity from './charts/UsersActivity';
 
 import '../../css/stats/stats.css';
 
-export const Stats = () => {
+const Stats = ({ getAllUsersProfiles, getAnalyses }: any) => {
+ useEffect(() => {
+  getAllUsersProfiles();
+  getAnalyses();
+ }, [getAllUsersProfiles, getAnalyses]);
+
  return (
   <div className="stats row">
    <div className="header col s12 center">
@@ -16,8 +26,27 @@ export const Stats = () => {
     </p>
    </div>
    <div className="content col s12 row">
-    <AdminsActivity />
+    <div className="col s12">
+     <AdminsActivity />
+    </div>
+    <div className="col s12">
+     <AnalysesActivity />
+    </div>
+    <div className="col s6">
+     <AnalyseTypesActivity />
+    </div>
+    <div
+     className="col s6"
+     style={{ borderLeft: '1px solid blue', paddingLeft: '20px' }}
+    >
+     <GenesActivity />
+    </div>
+    <div className="col s12">
+     <UsersActivity />
+    </div>
    </div>
   </div>
  );
 };
+
+export default connect(null, { getAllUsersProfiles, getAnalyses })(Stats);

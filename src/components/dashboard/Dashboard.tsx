@@ -11,7 +11,7 @@ const Dashboard = ({ getAllUsersProfiles, getAnalyses }: any) => {
  useEffect(() => {
   getAllUsersProfiles();
   getAnalyses();
- }, [getAllUsersProfiles]);
+ }, [getAllUsersProfiles, getAnalyses]);
  return (
   <div className="dashboard row">
    <MesPatients />

@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { AppState } from '../../../store';
 import Spinner from '../../layout/Spinner';
-import { Bar } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 import { CHARTBORDERCOLORS, CHARTCOLORS } from '../../../general/Common';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import moment from 'moment';
 import { shuffle } from '../../../global';
 
-const AdminsActivity = ({ analyses, userProfile, profile }: PropsFromRedux) => {
+const GenesActivity = ({ analyses, userProfile, profile }: PropsFromRedux) => {
  const [chartData, setChartData] = useState({});
- const [adminsActivity, setAdminsActivity] = useState<number[]>([]);
- const [admins, setAdmins] = useState<string[]>([]);
+ //  const [GenesActivity, setGenesActivity] = useState<number[]>([]);
+ //  const [jours, setJours] = useState<string[]>([]);
  const [temps, setTemps] = useState(-1);
 
  const Chart = () => {
@@ -21,28 +21,31 @@ const AdminsActivity = ({ analyses, userProfile, profile }: PropsFromRedux) => {
     : moment(a.date).isAfter(moment().subtract(temps === 0 ? 7 : 30, 'days'))
   );
 
-  var tadmins: string[] = [];
-  var tactivity: number[] = [];
+  var tx: string[] = [];
+  var ty: number[] = [];
 
   filtered.forEach((a) => {
-   if (!tadmins.includes(a.user.user.username))
-    tadmins.push(a.user.user.username);
+   a.type.genes.forEach((g) => {
+    var t = g.nom;
+    if (!tx.includes(t)) tx.push(t);
+   });
   });
-  tadmins.forEach((a) => {
-   tactivity.push(
-    filtered.filter((an) => an.user.user.username.match(a)).length
+  tx.forEach((a) => {
+   ty.push(
+    filtered.filter((an) => an.type.genes.filter((gn) => gn.nom.match(a)))
+     .length
    );
   });
 
-  //    setAdmins(tadmins);
-  //    setAdminsActivity(tactivity);
+  // setJours(tx);
+  // setGenesActivity(ty);
 
   setChartData({
-   labels: tadmins,
+   labels: tx,
    datasets: [
     {
-     label: 'Analyses',
-     data: tactivity,
+     label: 'Gênes',
+     data: ty,
      backgroundColor: shuffle(CHARTCOLORS),
      borderColor: shuffle(CHARTBORDERCOLORS),
      borderWidth: 1,
@@ -60,17 +63,17 @@ const AdminsActivity = ({ analyses, userProfile, profile }: PropsFromRedux) => {
  };
 
  return (
-  <div className="adminsActivity row">
+  <div className="GenesActivity row">
    {!analyses.loading ? (
     <>
-     <h4>Activité des administrateurs:</h4>
+     <h5>Gênes apparus dans le laboratoire:</h5>
      <FormControl className="col s4">
-      <InputLabel id="input_temps_adminsActivity">Période :</InputLabel>
+      <InputLabel id="input_temps_GenesActivity">Période :</InputLabel>
       <Select
        name="temps"
        value={temps}
        onChange={onChange}
-       labelId="input_temps_adminsActivity"
+       labelId="input_temps_GenesActivity"
       >
        <MenuItem value={-1}>Tous les temps</MenuItem>
        <MenuItem value={0}>Derniers 7 jours</MenuItem>
@@ -78,13 +81,13 @@ const AdminsActivity = ({ analyses, userProfile, profile }: PropsFromRedux) => {
       </Select>
      </FormControl>
      <div className="col s10 offset-s1">
-      <Bar
+      <Pie
        data={chartData}
        height={75}
        options={{
         responsive: true,
         title: {
-         text: `Analyses faites par les administrateurs dans ${
+         text: `Gênes apparus dans le laboratoire dans ${
           temps === -1
            ? 'tous les temps'
            : temps === 0
@@ -116,4 +119,4 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default connector(AdminsActivity);
+export default connector(GenesActivity);

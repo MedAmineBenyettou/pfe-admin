@@ -8,12 +8,14 @@ import '../../css/stats/stats.css';
 
 export const Stats = () => {
  return (
-  <div className="stats">
-   <p className="header-desc">
-    Ajouter, modifier ou supprimer les types de gênes traités et types
-    d'analyses proposer par le laboratoire
-   </p>
-   <div className="content">
+  <div className="stats row">
+   <div className="header col s12 center">
+    <p className="header-desc col s8 offset-s2">
+     Sur cette page, vous pouvez analyser les statistiques concernant les
+     patients, les administrateurs et les analyses.
+    </p>
+   </div>
+   <div className="content col s12 row">
     <AdminsActivity />
    </div>
   </div>

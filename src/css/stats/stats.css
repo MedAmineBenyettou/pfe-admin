@@ -1,1 +1,8 @@
-/* No CSS *//*# sourceMappingURL=stats.css.map */
+.stats {
+  padding-top: 10px;
+}
+
+.stats .content {
+  margin-top: 20px;
+}
+/*# sourceMappingURL=stats.css.map */

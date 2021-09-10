@@ -30,6 +30,9 @@ export const Navbar = ({
      <li>
       <Link to={`/patients`}>Patients</Link>
      </li>
+     <li>
+      <Link to={`/stats`}>Statistiques</Link>
+     </li>
     </>
    )}
    <li onClick={logout} className="red lighten-2">
@@ -56,6 +59,9 @@ export const Navbar = ({
       </Link>
       <Link to={`/patients`} className="sidenav-close">
        Patients
+      </Link>
+      <Link to={`/stats`} className="sidenav-close">
+       Statistiques
       </Link>
      </>
     )}

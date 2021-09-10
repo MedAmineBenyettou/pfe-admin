@@ -72,6 +72,15 @@ td.is-selected.is-today {
   padding-top: 45px;
 }
 
+.header-desc {
+  margin: auto;
+  background-color: #cccccc;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-weight: lighter;
+  font-size: 1.2rem;
+}
+
 .modal {
   top: 10%;
   width: 85% !important;

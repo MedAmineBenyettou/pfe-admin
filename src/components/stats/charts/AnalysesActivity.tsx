@@ -8,14 +8,9 @@ import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import moment from 'moment';
 import { shuffle } from '../../../global';
 
-const AnalysesActivity = ({
- analyses,
- userProfile,
- profile,
-}: PropsFromRedux) => {
+const AnalysesActivity = ({ analyses }: PropsFromRedux) => {
  const [chartData, setChartData] = useState({});
- //  const [analysesActivity, setAnalysesActivity] = useState<number[]>([]);
- //  const [jours, setJours] = useState<string[]>([]);
+
  const [temps, setTemps] = useState(-1);
 
  const Chart = () => {
@@ -37,12 +32,6 @@ const AnalysesActivity = ({
     filtered.filter((an) => moment(an.date).format('DD MMM Y').match(a)).length
    );
   });
-
-  // setJours(tx);
-  // setAnalysesActivity(ty);
-
-  //@ts-ignore
-  tx = tx.sort((a, b) => Date(a) - Date(b));
 
   setChartData({
    labels: tx,
@@ -118,8 +107,6 @@ const AnalysesActivity = ({
 
 const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
- userProfile: state.userProfile,
- profile: state.profile,
 });
 
 const mapDispatchToProps = {};

@@ -70,7 +70,7 @@ const UsersActivity = ({ analyses, userProfile, profile }: PropsFromRedux) => {
   <div className="UsersActivity row">
    {!analyses.loading ? (
     <>
-     <h4>Trafique des patients:</h4>
+     <h4>Trafic des patients:</h4>
      <FormControl className="col s4">
       <InputLabel id="input_temps_UsersActivity">Période :</InputLabel>
       <Select
@@ -91,7 +91,7 @@ const UsersActivity = ({ analyses, userProfile, profile }: PropsFromRedux) => {
        options={{
         responsive: true,
         title: {
-         text: `Trafique des patients dans ${
+         text: `Trafic des patients dans ${
           temps === -1
            ? 'tous les temps'
            : temps === 0

@@ -32,8 +32,9 @@ const GenesActivity = ({ analyses, userProfile, profile }: PropsFromRedux) => {
   });
   tx.forEach((a) => {
    ty.push(
-    filtered.filter((an) => an.type.genes.filter((gn) => gn.nom.match(a)))
-     .length
+    filtered.filter(
+     (an) => an.type.genes.filter((gn) => gn.nom.match(a)).length > 0
+    ).length
    );
   });
 

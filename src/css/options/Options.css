@@ -176,15 +176,6 @@ td.is-selected.is-today {
   color: rgba(233, 30, 30, 0.5);
 }
 
-.options-main .laboratoire .header-desc {
-  margin: auto;
-  background-color: #cccccc;
-  padding: 5px 10px;
-  border-radius: 8px;
-  font-weight: lighter;
-  font-size: 1.2rem;
-}
-
 .options-main .laboratoire table {
   font-size: small !important;
   border: 0.5px solid #4082d4;

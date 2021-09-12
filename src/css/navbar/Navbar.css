@@ -178,6 +178,22 @@ td.is-selected.is-today {
   color: white !important;
 }
 
+.sidenav::before {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+  background-image: url("../../assets/sidenav_background.svg");
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
+}
+
 @media only screen and (max-width: 992px) {
   #navbar .sidenav-trigger {
     height: 45px !important;

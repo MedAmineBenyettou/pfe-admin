@@ -1,4 +1,5 @@
 import './css/App.css';
+import { useEffect } from 'react';
 // Redux
 import { connect, ConnectedProps } from 'react-redux';
 import { AppState } from './store';
@@ -16,7 +17,6 @@ import AnalyseTypeModal from './components/Modals/AnalyseTypeModal';
 import UserModal from './components/Modals/UserModal';
 import Patients from './components/patients/Patients';
 import Stats from './components/stats/Stats';
-import { useComponentWillMount } from './global';
 import { Options } from './components/options/Options';
 import { getAnalyseTypes, getGenes } from './actions/analyses';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -31,12 +31,17 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 
 library.add(fas);
 
-const App = ({ auth, loadUser, getAnalyseTypes, getGenes }: PropsFromRedux) => {
- useComponentWillMount(() => {
+const App = ({
+ auth: { isAuthenticated },
+ loadUser,
+ getAnalyseTypes,
+ getGenes,
+}: PropsFromRedux) => {
+ useEffect(() => {
   loadUser();
   getAnalyseTypes();
   getGenes();
- });
+ }, [isAuthenticated]);
 
  return (
   <MuiPickersUtilsProvider locale={fr} utils={DateFnsUtils}>

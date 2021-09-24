@@ -28,6 +28,7 @@ import './css/App.css';
 // Font-awesome:
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import Analyses from './components/analyses/Analyses';
 
 library.add(fas);
 
@@ -58,6 +59,7 @@ const App = ({
        <Route path="/login" component={Login} />
        <PrivateRoute path="/options" component={Options} />
        <PrivateRoute path="/patients" component={Patients} />
+       <PrivateRoute path="/analyses" component={Analyses} />
        <PrivateRoute path="/stats" component={Stats} />
        <PrivateRoute path="/" component={Dashboard} />
       </Switch>

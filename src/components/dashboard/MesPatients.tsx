@@ -10,6 +10,7 @@ import gears from '../../assets/gears.png';
 import Spinner from '../layout/Spinner';
 import moment from 'moment';
 import { IAnalyse } from '../../reducers/analyses';
+import { Link } from 'react-router-dom';
 
 export const MesPatients = ({
  analyses: { loading, analyses },
@@ -122,13 +123,21 @@ export const MesPatients = ({
    <AnalyseModal />
    <div className="section-header row">
     <h5 className="col s4">Mes patients:</h5>
-    <a
-     href="#AnalyseModal"
-     className="btn-floating btn-large waves-effect waves-light right"
-     onClick={handleOpenModal}
-    >
-     <FontAwesomeIcon size="lg" icon={['fas', 'plus']} />
-    </a>
+    <div className="right buttons">
+     <a
+      href="#AnalyseModal"
+      className="btn-floating btn-large waves-effect waves-light"
+      onClick={handleOpenModal}
+     >
+      <FontAwesomeIcon size="lg" icon={['fas', 'plus']} />
+     </a>
+     <Link
+      to={{ pathname: '/analyses', state: { mine: true } }}
+      className="btn waves-effect waves-light allanalyses-btn"
+     >
+      Afficher tout
+     </Link>
+    </div>
    </div>
    <>
     <div className="tab col m4 s12">

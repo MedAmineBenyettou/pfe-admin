@@ -61,27 +61,55 @@ td.is-selected.is-today {
   background-color: #8bc34a !important;
 }
 
-.dashboard .btn-floating {
-  background-color: #58ce3d;
+.dashboard .buttons,
+.analyses .buttons {
   margin-top: 10px;
-  margin-right: 30px;
+  margin-right: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.dashboard .btn-floating:hover {
+.dashboard .buttons .allanalyses-btn,
+.analyses .buttons .allanalyses-btn {
+  background-color: #4082d4;
+  border-radius: 20px;
+  font-weight: normal;
+}
+
+.dashboard .buttons .allanalyses-btn:hover,
+.analyses .buttons .allanalyses-btn:hover {
+  background-color: rgba(64, 130, 212, 0.9);
+}
+
+.dashboard .btn-floating,
+.analyses .btn-floating {
+  background-color: #58ce3d;
+  margin-right: 15px;
+}
+
+.dashboard .btn-floating:hover,
+.analyses .btn-floating:hover {
   background-color: #4082d4;
 }
 
-.dashboard .section-header {
+.dashboard .section-header,
+.analyses .section-header {
   font-weight: lighter;
   font-size: 2.2rem;
 }
 
-.dashboard .collection {
+.dashboard .collection,
+.analyses .collection {
   padding: 0;
   border-radius: 15px;
 }
 
-.dashboard .collection .empty-list {
+.dashboard .collection .empty-list,
+.analyses .collection .empty-list {
   text-align: center;
   padding: 15px 0;
   font-size: large;
@@ -89,12 +117,14 @@ td.is-selected.is-today {
   color: #58ce3d;
 }
 
-.dashboard .collection-header {
+.dashboard .collection-header,
+.analyses .collection-header {
   margin: 0;
   color: #4082d4;
 }
 
-.dashboard .collection-item {
+.dashboard .collection-item,
+.analyses .collection-item {
   -webkit-transition: 0.25s;
   transition: 0.25s;
   cursor: pointer;
@@ -102,21 +132,25 @@ td.is-selected.is-today {
   color: black !important;
 }
 
-.dashboard .collection-item .sub-info {
+.dashboard .collection-item .sub-info,
+.analyses .collection-item .sub-info {
   margin: 0;
   color: #818181;
   font-weight: lighter;
 }
 
-.dashboard .collection-item .sub-info .col {
+.dashboard .collection-item .sub-info .col,
+.analyses .collection-item .sub-info .col {
   padding: 0;
 }
 
-.dashboard .collection-item:hover {
+.dashboard .collection-item:hover,
+.analyses .collection-item:hover {
   color: #4082d4 !important;
 }
 
-.dashboard .collection-item:active {
+.dashboard .collection-item:active,
+.analyses .collection-item:active {
   color: #58ce3d !important;
 }
 /*# sourceMappingURL=dashboard.css.map */

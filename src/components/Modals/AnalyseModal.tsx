@@ -154,7 +154,9 @@ const AnalyseModal = ({
       </ul>
       <div id="lier-compte" className="col s12">
        <FormControl className="col s12">
-        <InputLabel id="input_compte_client">Compte du patient</InputLabel>
+        <InputLabel id="input_compte_client" className="col s12">
+         Compte du patient
+        </InputLabel>
         {displayUsersEmails()}
        </FormControl>
       </div>
@@ -168,7 +170,9 @@ const AnalyseModal = ({
       </div>
       <div className="main-form">
        <FormControl className="col s12">
-        <InputLabel id="input_type">Type d'analyse</InputLabel>
+        <InputLabel id="input_type" className="col s12">
+         Type d'analyse
+        </InputLabel>
         {displayAnalyseTypes()}
        </FormControl>
        <div className="input-field col s12">
@@ -210,7 +214,9 @@ const AnalyseModal = ({
         </label>
        </div>
        <FormControl className="col s12">
-        <InputLabel id="input_etat">Etat de l'analyse</InputLabel>
+        <InputLabel id="input_etat" className="col s12">
+         Etat de l'analyse
+        </InputLabel>
         <Select
          name="etat"
          value={etat}

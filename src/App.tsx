@@ -29,6 +29,7 @@ import './css/App.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import Analyses from './components/analyses/Analyses';
+import AnalyseModal from './components/Modals/AnalyseModal';
 
 library.add(fas);
 
@@ -54,6 +55,8 @@ const App = ({
      <AdminModal />
      <AnalyseTypeModal />
      <UserModal />
+     <AnalyseModal />
+
      <div className="main">
       <Switch>
        <Route path="/login" component={Login} />

@@ -13,7 +13,6 @@ import gears from '../../assets/gears.png';
 import Spinner from '../layout/Spinner';
 import moment from 'moment';
 import { IAnalyse } from '../../reducers/analyses';
-import AnalyseModal from '../Modals/AnalyseModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const Analyses = ({
@@ -26,7 +25,7 @@ export const Analyses = ({
  const { state }: any = useLocation();
 
  useEffect(() => {
-  if (state) getAnalyses();
+  getAnalyses();
  }, []);
 
  const handleOpenModal = () => {
@@ -57,25 +56,27 @@ export const Analyses = ({
    var elmnt = document.getElementById('AnalyseModal');
    if (elmnt) {
     var inst = M.Modal.getInstance(elmnt);
-    inst.options = {
-     ...inst.options,
-     dismissible: true,
-     onCloseEnd: () => {
-      clearSelectedAnalyse();
-     },
-     onOpenEnd: () => {
-      var elem = document.querySelector('#AnalyseModal .tabs');
-      if (elem) {
-       M.Tabs.init(elem, {
-        swipeable: true,
-        onShow: (e) => {
-         //  console.log(e);
-        },
-       });
-      }
-     },
-    };
-    inst.open();
+    if (inst) {
+     inst.options = {
+      ...inst.options,
+      dismissible: true,
+      onCloseEnd: () => {
+       clearSelectedAnalyse();
+      },
+      onOpenEnd: () => {
+       var elem = document.querySelector('#AnalyseModal .tabs');
+       if (elem) {
+        M.Tabs.init(elem, {
+         swipeable: true,
+         onShow: (e) => {
+          //  console.log(e);
+         },
+        });
+       }
+      },
+     };
+     inst.open();
+    }
    }
   }, 1000);
  };
@@ -136,7 +137,6 @@ export const Analyses = ({
  return (
   <div className="row analyses">
    <div className="section col s12">
-    <AnalyseModal />
     <div className="section-header row">
      <h5 className="col s4">
       {state && state.mine ? 'Mes ' : 'Tous les '}patients:

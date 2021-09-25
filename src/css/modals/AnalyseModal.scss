@@ -1,6 +1,9 @@
 @import '../Common';
 
 #AnalyseModal {
+ .MuiFormControl-root {
+  width: 100%;
+ }
  width: 93% !important;
  $height: 90%;
  height: $height !important;

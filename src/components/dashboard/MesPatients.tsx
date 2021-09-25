@@ -1,7 +1,6 @@
 import { ConnectedProps, connect } from 'react-redux';
 import { AppState } from '../../store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import AnalyseModal from '../Modals/AnalyseModal';
 import {
  selectAnalyse,
  clearSelectedAnalyse,
@@ -51,25 +50,27 @@ export const MesPatients = ({
    var elmnt = document.getElementById('AnalyseModal');
    if (elmnt) {
     var inst = M.Modal.getInstance(elmnt);
-    inst.options = {
-     ...inst.options,
-     dismissible: true,
-     onCloseEnd: () => {
-      clearSelectedAnalyse();
-     },
-     onOpenEnd: () => {
-      var elem = document.querySelector('#AnalyseModal .tabs');
-      if (elem) {
-       M.Tabs.init(elem, {
-        swipeable: true,
-        onShow: (e) => {
-         //  console.log(e);
-        },
-       });
-      }
-     },
-    };
-    inst.open();
+    if (inst) {
+     inst.options = {
+      ...inst.options,
+      dismissible: true,
+      onCloseEnd: () => {
+       clearSelectedAnalyse();
+      },
+      onOpenEnd: () => {
+       var elem = document.querySelector('#AnalyseModal .tabs');
+       if (elem) {
+        M.Tabs.init(elem, {
+         swipeable: true,
+         onShow: (e) => {
+          //  console.log(e);
+         },
+        });
+       }
+      },
+     };
+     inst.open();
+    }
    }
   }, 1000);
  };
@@ -179,7 +180,6 @@ export const MesPatients = ({
 
  return (
   <div className="mespatients section col s12">
-   <AnalyseModal />
    <div className="section-header">
     <h5>Mes patients:</h5>
     <div className="analysesPagination">{displayPagination()}</div>

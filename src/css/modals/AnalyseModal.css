@@ -68,6 +68,10 @@ td.is-selected.is-today {
   top: 5% !important;
 }
 
+#AnalyseModal .MuiFormControl-root {
+  width: 100%;
+}
+
 #AnalyseModal .modal-content {
   padding: 10px 0;
 }

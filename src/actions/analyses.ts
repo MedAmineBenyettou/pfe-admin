@@ -10,8 +10,13 @@ import axios from 'axios';
 import { CONFIG } from '../general/Common';
 import { setAlert } from './alerts';
 import { AlertTypes } from '../reducers/alerts';
+import { AppState } from '../store';
 
 //! ANALYSES ------------------------------------------------------
+
+interface IAnalysePaginationOptions {
+ page: number;
+}
 
 export type AnalyseStateForm = Omit<
  IAnalyse,
@@ -22,7 +27,7 @@ export type AnalyseStateForm = Omit<
 };
 
 export const getAnalyses =
- (options?: { page: number }) =>
+ (options?: IAnalysePaginationOptions) =>
  async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
   dispatch({
    type: ANALYSES_TYPES.LOADING_ANALYSE,
@@ -49,9 +54,13 @@ export const getAnalyses =
 
 export const addAnalyse =
  (form: Partial<AnalyseStateForm>) =>
- async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+ async (
+  dispatch: ThunkDispatch<{}, {}, IAnalyseAction>,
+  getState: () => AppState
+ ) => {
+  const params = getState().analyses.analyses.params;
   try {
-   const res = await axios.post('/api/analyse', form, CONFIG);
+   const res = await axios.post('/api/analyse', form, { ...CONFIG, params });
    dispatch({
     type: ANALYSES_TYPES.ADD_ANALYSE,
     payload: res.data,
@@ -71,9 +80,16 @@ export const addAnalyse =
 
 export const updateAnalyseById =
  (id: string, type: Partial<AnalyseStateForm>) =>
- async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+ async (
+  dispatch: ThunkDispatch<{}, {}, IAnalyseAction>,
+  getState: () => AppState
+ ) => {
   try {
-   const res = await axios.put(`/api/analyse/${id}`, type, CONFIG);
+   const params = getState().analyses.analyses.params;
+   const res = await axios.put(`/api/analyse/${id}`, type, {
+    ...CONFIG,
+    params,
+   });
    dispatch({
     type: ANALYSES_TYPES.UPDATE_ANALYSE,
     payload: res.data,
@@ -92,12 +108,17 @@ export const updateAnalyseById =
  };
 
 export const deleteAnalyseById =
- (id: string) => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+ (id: string) =>
+ async (
+  dispatch: ThunkDispatch<{}, {}, IAnalyseAction>,
+  getState: () => AppState
+ ) => {
   dispatch({
    type: ANALYSES_TYPES.LOADING_ANALYSE,
   });
   try {
-   const res = await axios.delete(`/api/analyse/${id}`);
+   const params = getState().analyses.analyses.params;
+   const res = await axios.delete(`/api/analyse/${id}`, { params });
    dispatch({
     type: ANALYSES_TYPES.DELETE_ANALYSE,
     payload: res.data,

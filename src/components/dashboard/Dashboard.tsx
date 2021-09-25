@@ -10,7 +10,7 @@ import '../../css/dashboard/dashboard.css';
 const Dashboard = ({ getAllUsersProfiles, getAnalyses }: any) => {
  useEffect(() => {
   getAllUsersProfiles();
-  getAnalyses();
+  getAnalyses({ page: 1 });
  }, [getAllUsersProfiles, getAnalyses]);
  return (
   <div className="dashboard row">

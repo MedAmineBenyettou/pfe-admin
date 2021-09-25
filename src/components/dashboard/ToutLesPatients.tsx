@@ -53,8 +53,8 @@ export const ToutLesPatients = ({
    });
   }
   if (!loading) {
-   if (profile && analyses && analyses.length > 0) {
-    const temp = analyses.filter((a) => a.etat === type);
+   if (profile && analyses.data && analyses.data.length > 0) {
+    const temp = analyses.data.filter((a) => a.etat === type);
     if (temp.length > 0)
      return temp.map((a) => (
       <div

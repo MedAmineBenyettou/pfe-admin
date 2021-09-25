@@ -15,7 +15,7 @@ const UsersActivity = ({ analyses, userProfile, profile }: PropsFromRedux) => {
  const [temps, setTemps] = useState(-1);
 
  const Chart = () => {
-  var filtered = analyses.analyses.filter((a) =>
+  var filtered = analyses.analyses.data.filter((a) =>
    temps === -1
     ? true
     : moment(a.date).isAfter(moment().subtract(temps === 0 ? 7 : 30, 'days'))

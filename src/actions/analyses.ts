@@ -22,12 +22,15 @@ export type AnalyseStateForm = Omit<
 };
 
 export const getAnalyses =
- () => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+ (options?: { page: number }) =>
+ async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
   dispatch({
    type: ANALYSES_TYPES.LOADING_ANALYSE,
   });
   try {
-   const res = await axios.get('/api/analyse');
+   const res = await axios.get('/api/analyse', {
+    params: options,
+   });
    dispatch({
     type: ANALYSES_TYPES.GET_ANALYSES,
     payload: res.data,

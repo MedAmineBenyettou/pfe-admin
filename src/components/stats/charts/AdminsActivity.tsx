@@ -10,12 +10,10 @@ import { shuffle } from '../../../global';
 
 const AdminsActivity = ({ analyses, userProfile, profile }: PropsFromRedux) => {
  const [chartData, setChartData] = useState({});
- const [adminsActivity, setAdminsActivity] = useState<number[]>([]);
- const [admins, setAdmins] = useState<string[]>([]);
  const [temps, setTemps] = useState(-1);
 
  const Chart = () => {
-  var filtered = analyses.analyses.filter((a) =>
+  var filtered = analyses.analyses.data.filter((a) =>
    temps === -1
     ? true
     : moment(a.date).isAfter(moment().subtract(temps === 0 ? 7 : 30, 'days'))
@@ -41,7 +39,7 @@ const AdminsActivity = ({ analyses, userProfile, profile }: PropsFromRedux) => {
    labels: tadmins,
    datasets: [
     {
-     label: 'Analyses',
+     label: '.data',
      data: tactivity,
      backgroundColor: shuffle(CHARTCOLORS),
      borderColor: shuffle(CHARTBORDERCOLORS),

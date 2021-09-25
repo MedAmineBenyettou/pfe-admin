@@ -61,6 +61,36 @@ td.is-selected.is-today {
   background-color: #8bc34a !important;
 }
 
+.dashboard .mespatients .section-header,
+.analyses .mespatients .section-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.dashboard .mespatients .section-header .pagination,
+.analyses .mespatients .section-header .pagination {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  font-size: medium;
+}
+
 .dashboard .buttons,
 .analyses .buttons {
   margin-top: 10px;

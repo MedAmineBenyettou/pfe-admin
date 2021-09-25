@@ -2,7 +2,11 @@ import { ConnectedProps, connect } from 'react-redux';
 import { AppState } from '../../store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AnalyseModal from '../Modals/AnalyseModal';
-import { selectAnalyse, clearSelectedAnalyse } from '../../actions/analyses';
+import {
+ selectAnalyse,
+ clearSelectedAnalyse,
+ getAnalyses,
+} from '../../actions/analyses';
 
 import done from '../../assets/done.png';
 import waiting from '../../assets/waiting.png';
@@ -17,6 +21,7 @@ export const MesPatients = ({
  profile,
  selectAnalyse,
  clearSelectedAnalyse,
+ getAnalyses,
 }: PropsFromRedux) => {
  const handleOpenModal = () => {
   var elmnt = document.getElementById('AnalyseModal');
@@ -69,6 +74,60 @@ export const MesPatients = ({
   }, 1000);
  };
 
+ const displayPagination = () => {
+  if (analyses.params) {
+   let temps = [];
+   for (let i = 1; i <= analyses.params.totalPages; i++)
+    temps.push(
+     <li
+      key={i}
+      onClick={(e) => {
+       getAnalyses({ page: i });
+      }}
+      className={analyses.params.page === i ? 'active' : 'waves-effect'}
+     >
+      <Link to="#!">{i}</Link>
+     </li>
+    );
+   const handlePageChevrons = (next: boolean) => {
+    if (!next) {
+     if (analyses.params && analyses.params.prevPage !== null)
+      getAnalyses({ page: analyses.params.prevPage });
+    } else if (analyses.params && analyses.params.nextPage !== null)
+     getAnalyses({ page: analyses.params.nextPage });
+   };
+   return (
+    <ul className="pagination">
+     <li
+      onClick={() => handlePageChevrons(false)}
+      className={
+       !(analyses.params && analyses.params.prevPage !== null)
+        ? 'disabled'
+        : 'waves-effect'
+      }
+     >
+      <Link to="#!">
+       <FontAwesomeIcon size="xs" icon={['fas', 'chevron-left']} />
+      </Link>
+     </li>
+     {temps}
+     <li
+      onClick={() => handlePageChevrons(true)}
+      className={
+       !(analyses.params && analyses.params.nextPage !== null)
+        ? 'disabled'
+        : 'waves-effect'
+      }
+     >
+      <Link to="#!">
+       <FontAwesomeIcon size="xs" icon={['fas', 'chevron-right']} />
+      </Link>
+     </li>
+    </ul>
+   );
+  } else return <></>;
+ };
+
  const display = (type: number) => {
   var elem = document.querySelector('#AnalyseModal .tabs');
   if (elem) {
@@ -80,8 +139,8 @@ export const MesPatients = ({
    });
   }
   if (!loading) {
-   if (profile && analyses && analyses.length > 0) {
-    const temp = analyses.filter(
+   if (profile && analyses.data && analyses.data.length > 0) {
+    const temp = analyses.data.filter(
      (a) => a.etat === type && a.user._id.match(profile._id)
     );
     if (temp.length > 0)
@@ -119,11 +178,12 @@ export const MesPatients = ({
  };
 
  return (
-  <div className="section col s12">
+  <div className="mespatients section col s12">
    <AnalyseModal />
-   <div className="section-header row">
-    <h5 className="col s4">Mes patients:</h5>
-    <div className="right buttons">
+   <div className="section-header">
+    <h5>Mes patients:</h5>
+    <div className="analysesPagination">{displayPagination()}</div>
+    <div className="buttons">
      <a
       href="#AnalyseModal"
       className="btn-floating btn-large waves-effect waves-light"
@@ -177,7 +237,7 @@ const mapStateToProps = (state: AppState) => ({
  profile: state.profile.profile,
 });
 
-const mapDispatchToProps = { selectAnalyse, clearSelectedAnalyse };
+const mapDispatchToProps = { selectAnalyse, clearSelectedAnalyse, getAnalyses };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

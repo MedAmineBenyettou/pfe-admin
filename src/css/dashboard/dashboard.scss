@@ -2,6 +2,20 @@
 
 .dashboard,
 .analyses {
+ .mespatients {
+  .section-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: max-content;
+    font-size: medium;
+   }
+  }
+ }
  .buttons {
   margin-top: 10px;
   margin-right: 10px;

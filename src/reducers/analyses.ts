@@ -30,6 +30,18 @@ export interface IAnalyse {
  date: Date;
 }
 
+interface IResponse<T> {
+ data: T;
+ params: {
+  totalPages: number;
+  totalDocs: number;
+  limit: number;
+  nextPage: number | null;
+  prevPage: number | null;
+  page: number;
+ } | null;
+}
+
 export interface IAnalyseAction {
  type: ANALYSES_TYPES;
  payload?:
@@ -39,7 +51,8 @@ export interface IAnalyseAction {
   | IGene[]
   | IAnalyseType
   | IGene
-  | IAnalyse;
+  | IAnalyse
+  | IResponse<IAnalyse[]>;
 }
 
 export type AnalyseState = {
@@ -47,7 +60,7 @@ export type AnalyseState = {
  error: IError | null;
  types: IAnalyseType[];
  genes: IGene[];
- analyses: IAnalyse[];
+ analyses: IResponse<IAnalyse[]>;
  selection: {
   type: IAnalyseType | null;
   gene: IGene | null;
@@ -60,7 +73,10 @@ const initialState: AnalyseState = {
  error: null,
  types: [],
  genes: [],
- analyses: [],
+ analyses: {
+  data: [],
+  params: null,
+ },
  selection: {
   type: null,
   gene: null,
@@ -82,10 +98,7 @@ export default function analysesReducer(
     ...state,
     loading: false,
     error: null,
-    analyses: (payload as IAnalyse[]).sort(
-     //@ts-ignore
-     (a, b) => Date(a.date) - Date(b.date)
-    ),
+    analyses: payload as IResponse<IAnalyse[]>,
    };
   case ANALYSES_TYPES.SELECT_ANALYSE:
    return {

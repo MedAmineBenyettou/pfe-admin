@@ -91,11 +91,13 @@ export const Analyses = ({
    });
   }
   if (!loading) {
-   if (profile && analyses && analyses.length > 0) {
+   if (profile && analyses.data && analyses.data.length > 0) {
     const temp =
      state && state.mine
-      ? analyses.filter((a) => a.etat === type && a.user._id.match(profile._id))
-      : analyses.filter((a) => a.etat === type);
+      ? analyses.data.filter(
+         (a) => a.etat === type && a.user._id.match(profile._id)
+        )
+      : analyses.data.filter((a) => a.etat === type);
     if (temp.length > 0)
      return temp.map((a) => (
       <div

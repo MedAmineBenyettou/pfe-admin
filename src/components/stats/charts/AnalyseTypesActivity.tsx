@@ -17,8 +17,8 @@ const AnalyseTypesActivity = ({ analyses }: PropsFromRedux) => {
  const Chart = () => {
   var filtered =
    temps === -1
-    ? analyses.analyses
-    : analyses.analyses.filter((a) =>
+    ? analyses.analyses.data
+    : analyses.analyses.data.filter((a) =>
        moment(a.date).isAfter(moment().subtract(temps === 0 ? 7 : 30, 'days'))
       );
   //    console.log(filtered);

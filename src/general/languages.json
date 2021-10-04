@@ -1,0 +1,7 @@
+[
+ {
+  "dict": { "language": "English", "lang": "en" },
+  "messages": [{ "code": "0", "message": "message" }],
+  "alerts": [{ "code": "0", "message": "message" }]
+ }
+]

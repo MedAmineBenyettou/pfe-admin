@@ -4,6 +4,7 @@ import alerts from './alerts';
 import profile from './profile';
 import userProfile from './userProfiles';
 import analyses from './analyses';
+import lang from './lang';
 
 export default combineReducers({
  auth,
@@ -11,4 +12,5 @@ export default combineReducers({
  profile,
  analyses,
  userProfile,
+ lang,
 });

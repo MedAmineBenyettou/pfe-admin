@@ -20,15 +20,27 @@ export type LangState = {
  lang: ILang;
 };
 
-const findLang = (lang: string) => {
- const t = langs.find((l) => l.dict.lang.toLowerCase() === lang.toLowerCase());
- if (t) return t;
- else return langs[0];
+const findLang = (lang: string | null) => {
+ if (lang) {
+  const t = langs.find((l) => l.dict.lang.toLowerCase() === lang.toLowerCase());
+  if (t) return t;
+ }
+ setLocalLang(langs[0].dict.lang);
+ return langs[0];
+};
+
+const getLocalLang = () => {
+ const l = localStorage.getItem('lang');
+ return findLang(l);
 };
 
 const initialState: LangState = {
  langs: langs.map((l) => l.dict),
- lang: findLang('en'),
+ lang: getLocalLang(),
+};
+
+const setLocalLang = (lang: string) => {
+ localStorage.setItem('lang', lang);
 };
 
 export default function LangsReducer(
@@ -38,6 +50,7 @@ export default function LangsReducer(
  const { type, payload } = action;
  switch (type) {
   case LANG_TYPES.CHANGE_LANG:
+   setLocalLang(payload);
    return { ...state, lang: findLang(payload) };
   default:
    return state;

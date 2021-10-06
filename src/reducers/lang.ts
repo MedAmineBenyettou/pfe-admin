@@ -20,6 +20,10 @@ export type LangState = {
  lang: ILang;
 };
 
+const setLocalLang = (lang: string) => {
+ localStorage.setItem('lang', lang);
+};
+
 const findLang = (lang: string | null) => {
  if (lang) {
   const t = langs.find((l) => l.dict.lang.toLowerCase() === lang.toLowerCase());
@@ -37,10 +41,6 @@ const getLocalLang = () => {
 const initialState: LangState = {
  langs: langs.map((l) => l.dict),
  lang: getLocalLang(),
-};
-
-const setLocalLang = (lang: string) => {
- localStorage.setItem('lang', lang);
 };
 
 export default function LangsReducer(

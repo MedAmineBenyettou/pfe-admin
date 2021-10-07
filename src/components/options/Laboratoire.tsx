@@ -15,6 +15,7 @@ import {
 } from '../../actions/analyses';
 import { IAnalyseType, IGene } from '../../reducers/analyses';
 import { initMaterialize } from '../../general/initMaterialize';
+import { getLangMessage } from '../../actions/lang';
 
 export const Laboratoire = ({
  analyses,
@@ -26,6 +27,7 @@ export const Laboratoire = ({
  deleteTypeById,
  selectType,
  getAnalyseTypes,
+ getLangMessage,
 }: PropsFromRedux) => {
  useEffect(() => {
   getGenes();
@@ -212,15 +214,12 @@ export const Laboratoire = ({
 
  return (
   <div className="laboratoire">
-   <p className="header-desc">
-    Ajouter, modifier ou supprimer les types de gênes traités et types
-    d'analyses proposer par le laboratoire
-   </p>
-   <h1 className="header">Laboratoire</h1>
+   <p className="header-desc">{getLangMessage(53)}</p>
+   <h1 className="header">{getLangMessage(54)}</h1>
    <div className="content row">
     <ul className="collection with-header genes">
      <li className="collection-header row">
-      <h4 className="col s8 m10">Gênes</h4>
+      <h4 className="col s8 m10">{getLangMessage(55)}</h4>
       <a
        className="btn-floating btn-large waves-effect waves-light right modal-trigger"
        href="#GeneModal"
@@ -233,7 +232,7 @@ export const Laboratoire = ({
     <div className="divider"></div>
     <ul className="collection with-header types">
      <li className="collection-header row">
-      <h4 className="col s8 m10">Types d'analyses</h4>
+      <h4 className="col s8 m10">{getLangMessage(56)}</h4>
       <a
        href="#AnalyseTypeModal"
        className="btn-floating btn-large waves-effect waves-light right modal-trigger"
@@ -248,11 +247,9 @@ export const Laboratoire = ({
    <div id="confirmDeleteGene" className="modal">
     <div className="modal-content">
      <h4 className="warning">
-      Voulez vous vraiment supprimer ce gene "{analyses.selection.gene?.nom}"?
+      {getLangMessage(57)} "{analyses.selection.gene?.nom}"?
      </h4>
-     <p>
-      Une fois supprimer, vous ne pourrez plus l'utilisez dans les analyses!
-     </p>
+     <p>{getLangMessage(58)}</p>
     </div>
     <div className="modal-footer">
      <button
@@ -261,10 +258,10 @@ export const Laboratoire = ({
       }}
       className="modal-close waves-effect btn-flat"
      >
-      Confirmer
+      {getLangMessage(59)}
      </button>
      <button className="modal-close waves-effect btn-flat white black-text">
-      Annuler
+      {getLangMessage(22)}
      </button>
     </div>
    </div>
@@ -272,11 +269,9 @@ export const Laboratoire = ({
    <div id="confirmDeleteType" className="modal">
     <div className="modal-content">
      <h4 className="warning">
-      Voulez vous vraiment supprimer ce type "{analyses.selection.type?.nom}"?
+      {getLangMessage(60)} "{analyses.selection.type?.nom}"?
      </h4>
-     <p>
-      Une fois supprimer, vous ne pourrez plus l'utilisez dans les analyses!
-     </p>
+     <p>{getLangMessage(58)}</p>
     </div>
     <div className="modal-footer">
      <button
@@ -285,10 +280,10 @@ export const Laboratoire = ({
       }}
       className="modal-close waves-effect btn-flat"
      >
-      Confirmer
+      {getLangMessage(59)}
      </button>
      <button className="modal-close waves-effect btn-flat white black-text">
-      Annuler
+      {getLangMessage(22)}
      </button>
     </div>
    </div>
@@ -309,6 +304,7 @@ const mapDispatchToProps = {
  clearSelectedType,
  deleteTypeById,
  getAnalyseTypes,
+ getLangMessage,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

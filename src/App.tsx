@@ -17,7 +17,7 @@ import AnalyseTypeModal from './components/Modals/AnalyseTypeModal';
 import UserModal from './components/Modals/UserModal';
 import Patients from './components/patients/Patients';
 import Stats from './components/stats/Stats';
-import { Options } from './components/options/Options';
+import Options from './components/options/Options';
 import { getAnalyseTypes, getGenes } from './actions/analyses';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';

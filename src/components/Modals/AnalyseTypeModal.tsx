@@ -5,6 +5,7 @@ import { AppState } from '../../store';
 import Spinner from '../layout/Spinner';
 import M from 'materialize-css';
 import { IAnalyseType } from '../../reducers/analyses';
+import { getLangMessage } from '../../actions/lang';
 
 const AnalyseTypeModal = ({
  analyses: {
@@ -14,6 +15,7 @@ const AnalyseTypeModal = ({
  },
  updateAnalyseTypeById,
  addAnalyseTypes,
+ getLangMessage,
 }: PropsFromRedux) => {
  const [form, setForm] = useState<
   Pick<IAnalyseType, 'nom' | 'description' | 'genes'>
@@ -37,7 +39,6 @@ const AnalyseTypeModal = ({
     genes: [],
    });
  }, [type, loading]);
-
  useEffect(() => {
   var elem = document.getElementById('analyseTypeModal-select');
   if (elem) {
@@ -102,7 +103,7 @@ const AnalyseTypeModal = ({
     <>
      <div className="modal-content">
       <h4>
-       {type ? 'Modifier' : 'Ajouter'} un type d'analyse{' '}
+       {type ? getLangMessage(16) : getLangMessage(17)} {getLangMessage(39)}{' '}
        {type ? `(${type.nom})` : ''}
       </h4>
       <div className="form row">
@@ -115,7 +116,7 @@ const AnalyseTypeModal = ({
          onChange={onChange}
         />
         <label htmlFor="analyseTypeModal-nom" className="active">
-         Nom*
+         {getLangMessage(18)}*
         </label>
        </div>
        <div className="input-field col s12">
@@ -127,30 +128,30 @@ const AnalyseTypeModal = ({
          onChange={onChange}
         />
         <label htmlFor="analyseTypeModal-description" className="active">
-         Description
+         {getLangMessage(19)}
         </label>
        </div>
        <div className="input-field col s12">
         <select multiple={true} name="mygenes" id="analyseTypeModal-select">
          {displayAllGenes()}
         </select>
-        <label>Selectioner les gênes</label>
+        <label>{getLangMessage(40)}</label>
        </div>
       </div>
      </div>
      <div className="modal-footer">
-      <p className="red-text left">* sont nécéssaires</p>
+      <p className="red-text left">* {getLangMessage(20)}</p>
       <button
        className="modal-close waves-effect waves-green btn-flat"
        onClick={handleClick}
       >
-       {type ? 'Modifier' : 'Ajouter'}
+       {type ? getLangMessage(16) : getLangMessage(17)}
       </button>
       <button
        onClick={close}
        className="modal-close waves-effect btn-flat white black-text"
       >
-       Annuler
+       {getLangMessage(22)}
       </button>
      </div>
     </>
@@ -163,7 +164,11 @@ const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
 });
 
-const mapDispatchToProps = { addAnalyseTypes, updateAnalyseTypeById };
+const mapDispatchToProps = {
+ addAnalyseTypes,
+ updateAnalyseTypeById,
+ getLangMessage,
+};
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

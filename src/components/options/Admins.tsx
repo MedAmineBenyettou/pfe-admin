@@ -8,11 +8,13 @@ import Spinner from '../layout/Spinner';
 import { IProfile } from '../../reducers/profile';
 import M from 'materialize-css';
 import { setTimeout } from 'timers';
+import { getLangMessage } from '../../actions/lang';
 
 export const Admins = ({
  profile: { loading, profiles, profile },
  getAllProfiles,
  setTargetProfile,
+ getLangMessage,
 }: PropsFromRedux) => {
  useEffect(() => {
   getAllProfiles();
@@ -48,7 +50,7 @@ export const Admins = ({
       <td>{p.phoneNumber}</td>
       <td>{moment(p.date).format('DD/MM/YYYY')}</td>
       <td className={`${p.user.isEnabled ? 'green-text' : 'red-text'}`}>
-       {p.user.isEnabled ? 'Activé' : 'Desactivé'}
+       {p.user.isEnabled ? getLangMessage(28) : getLangMessage(47)}
       </td>
      </tr>
     );
@@ -60,7 +62,7 @@ export const Admins = ({
     <td></td>
     <td></td>
     <td></td>
-    <td className="error">Pas d'utilisateur</td>
+    <td className="error">{getLangMessage(48)}</td>
     <td></td>
     <td></td>
     <td></td>
@@ -72,12 +74,12 @@ export const Admins = ({
  return (
   <div className="admins">
    <div className="header">
-    <h1>Listes des administrateurs</h1>
+    <h1>{getLangMessage(49)}</h1>
     <a
      className="btn light-green waves-effect waves-light right modal-trigger"
      href="#AdminModal"
     >
-     Ajouter un administrateur
+     {getLangMessage(50)}
     </a>
    </div>
    <div className="content row">
@@ -85,13 +87,13 @@ export const Admins = ({
      <thead>
       <tr>
        {/* <th>ID</th> */}
-       <th>Nom d'utilisateur</th>
-       <th>Nom</th>
-       <th>Prenom</th>
-       <th>Fonction</th>
-       <th>Numéro de téléphone</th>
-       <th>A rejoint le</th>
-       <th>Etat</th>
+       <th>{getLangMessage(14)}</th>
+       <th>{getLangMessage(18)}</th>
+       <th>{getLangMessage(24)}</th>
+       <th>{getLangMessage(26)}</th>
+       <th>{getLangMessage(45)}</th>
+       <th>{getLangMessage(52)}</th>
+       <th>{getLangMessage(51)}</th>
       </tr>
      </thead>
      <tbody>{display()}</tbody>
@@ -105,7 +107,7 @@ const mapStateToProps = (state: AppState) => ({
  profile: state.profile,
 });
 
-const mapDispatchToProps = { getAllProfiles, setTargetProfile };
+const mapDispatchToProps = { getAllProfiles, setTargetProfile, getLangMessage };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

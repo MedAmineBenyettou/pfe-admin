@@ -14,6 +14,7 @@ import Spinner from '../layout/Spinner';
 import moment from 'moment';
 import { IAnalyse } from '../../reducers/analyses';
 import { Link } from 'react-router-dom';
+import { getLangMessage } from '../../actions/lang';
 
 export const MesPatients = ({
  analyses: { loading, analyses },
@@ -21,6 +22,7 @@ export const MesPatients = ({
  selectAnalyse,
  clearSelectedAnalyse,
  getAnalyses,
+ getLangMessage,
 }: PropsFromRedux) => {
  const handleOpenModal = () => {
   var elmnt = document.getElementById('AnalyseModal');
@@ -173,7 +175,7 @@ export const MesPatients = ({
        </div>
       </div>
      ));
-    else return <p className="empty-list">Liste vide</p>;
+    else return <p className="empty-list">{getLangMessage(0)}</p>;
    }
   } else return <Spinner />;
  };
@@ -195,7 +197,7 @@ export const MesPatients = ({
       to={{ pathname: '/analyses', state: { mine: true } }}
       className="btn waves-effect waves-light allanalyses-btn"
      >
-      Afficher tout
+      {getLangMessage(1)}
      </Link>
     </div>
    </div>
@@ -204,7 +206,7 @@ export const MesPatients = ({
      <div className="collection with-header">
       <h4 className="collection-header">
        <img src={waiting} alt="waiting" className="circle" />
-       En attente
+       {getLangMessage(2)}
       </h4>
       {display(-1)}
      </div>
@@ -213,7 +215,7 @@ export const MesPatients = ({
      <div className="collection with-header">
       <h4 className="collection-header">
        <img src={gears} alt="gears" className="circle" />
-       En cours
+       {getLangMessage(3)}
       </h4>
       {display(0)}
      </div>
@@ -222,7 +224,7 @@ export const MesPatients = ({
      <div className="collection with-header">
       <h4 className="collection-header">
        <img src={done} alt="done" className="circle" />
-       Terminé
+       {getLangMessage(4)}
       </h4>
       {display(1)}
      </div>
@@ -237,7 +239,12 @@ const mapStateToProps = (state: AppState) => ({
  profile: state.profile.profile,
 });
 
-const mapDispatchToProps = { selectAnalyse, clearSelectedAnalyse, getAnalyses };
+const mapDispatchToProps = {
+ selectAnalyse,
+ clearSelectedAnalyse,
+ getAnalyses,
+ getLangMessage,
+};
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

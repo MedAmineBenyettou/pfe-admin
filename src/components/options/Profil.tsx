@@ -7,12 +7,14 @@ import person from '../../assets/person.png';
 import Spinner from '../../components/layout/Spinner';
 import { updateProfile } from '../../actions/profile';
 import { updateUser } from '../../actions/auth';
+import { getLangMessage } from '../../actions/lang';
 
 export const Profil = ({
  profile: { profile, error, loading },
  auth,
  updateProfile,
  updateUser,
+ getLangMessage,
 }: PropsFromRedux) => {
  const [authData, setAuthData] = useState<{
   username?: string;
@@ -52,7 +54,7 @@ export const Profil = ({
   const { username, password } = authData;
   return (
    <div className="profil">
-    <h1 className="header">Options du profil :</h1>
+    <h1 className="header">{getLangMessage(63)} :</h1>
     <div className="content">
      <div className="row">
       <div className="input-field col s12">
@@ -64,7 +66,7 @@ export const Profil = ({
         onChange={onChange}
        />
        <label htmlFor="nom" className="active">
-        Nom
+        {getLangMessage(18)}
        </label>
       </div>
       <div className="input-field col s12">
@@ -76,7 +78,7 @@ export const Profil = ({
         onChange={onChange}
        />
        <label htmlFor="prenom" className="active">
-        Prenom
+        {getLangMessage(24)}
        </label>
       </div>
       <div className="input-field col s12">
@@ -88,7 +90,7 @@ export const Profil = ({
         onChange={onChange}
        />
        <label htmlFor="phoneNumber" className="active">
-        Numéro de téléphone
+        {getLangMessage(25)}
        </label>
       </div>
       <div className="input-field col s12">
@@ -100,7 +102,7 @@ export const Profil = ({
         onChange={onChange}
        />
        <label htmlFor="fonction" className="active">
-        Fonction
+        {getLangMessage(26)}
        </label>
       </div>
       <div className=" col s12 valign-wrapper">
@@ -109,13 +111,13 @@ export const Profil = ({
         className="btn col m4 s5 offset-m8 offset-s7 light-blue"
         onClick={handleProfile}
        >
-        Enregistrer
+        {getLangMessage(64)}
        </button>
       </div>
      </div>
      <div className="divider"></div>
      <div className="row">
-      <h1 className="header">Avancé</h1>
+      <h1 className="header">{getLangMessage(65)}</h1>
      </div>
      <div className="row">
       <div className="input-field col s12">
@@ -129,7 +131,7 @@ export const Profil = ({
         autoComplete="false"
        />
        <label htmlFor="username" className="active">
-        Nom d'utilisateur
+        {getLangMessage(14)}
        </label>
        <div className="prefix">
         <img src={person} alt="person" />
@@ -146,7 +148,7 @@ export const Profil = ({
         minLength={6}
        />
        <label htmlFor="password" className="active">
-        Mot de passe
+        {getLangMessage(15)}
        </label>
        <div className="prefix">
         <img src={lock} alt="lock" />
@@ -158,7 +160,7 @@ export const Profil = ({
         className="btn col m4 s5 offset-m8 offset-s7 light-blue"
         onClick={handleAuth}
        >
-        Enregistrer
+        {getLangMessage(64)}
        </button>
       </div>
      </div>
@@ -173,7 +175,7 @@ const mapStateToProps = (state: AppState) => ({
  profile: state.profile,
 });
 
-const mapDispatchToProps = { updateProfile, updateUser };
+const mapDispatchToProps = { updateProfile, updateUser, getLangMessage };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

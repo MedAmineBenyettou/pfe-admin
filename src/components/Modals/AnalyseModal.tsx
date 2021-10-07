@@ -11,6 +11,7 @@ import {
  AnalyseStateForm,
  updateAnalyseById,
 } from '../../actions/analyses';
+import { getLangMessage } from '../../actions/lang';
 
 const AnalyseModal = ({
  analyses: {
@@ -22,6 +23,7 @@ const AnalyseModal = ({
  setTargetUserProfile,
  updateAnalyseById,
  addAnalyse,
+ getLangMessage,
 }: PropsFromRedux) => {
  const [form, setForm] = useState<AnalyseStateForm>({
   description: analyse ? analyse.description : '',
@@ -114,7 +116,7 @@ const AnalyseModal = ({
       ))}
      </Select>
     );
-   else return <p>Pas de comptes patients :/</p>;
+   else return <p>{getLangMessage(29)} :/</p>;
   else return <Spinner />;
  };
 
@@ -130,7 +132,7 @@ const AnalyseModal = ({
       ))}
      </Select>
     );
-   else return <p>Pas de types d'analyses :/</p>;
+   else return <p>{getLangMessage(30)} :/</p>;
   else return <Spinner />;
  };
 
@@ -141,7 +143,9 @@ const AnalyseModal = ({
    ) : (
     <>
      <div className="modal-content">
-      <h4>{analyse ? 'Modifier' : 'Ajouter'} une analyse</h4>
+      <h4>
+       {analyse ? 'Modifier' : 'Ajouter'} {getLangMessage(31)}
+      </h4>
       <ul className="tabs tabs-fixed-width z-depth-1">
        <li className="tab">
         <a className="active" href="#lier-compte">
@@ -155,7 +159,7 @@ const AnalyseModal = ({
       <div id="lier-compte" className="col s12">
        <FormControl className="col s12">
         <InputLabel id="input_compte_client" className="col s12">
-         Compte du patient
+         {getLangMessage(32)}
         </InputLabel>
         {displayUsersEmails()}
        </FormControl>
@@ -165,13 +169,13 @@ const AnalyseModal = ({
         className="btn btn-flat waves-effect blue"
         onClick={openUserModal}
        >
-        Nouveau Compte
+        {getLangMessage(33)}
        </button>
       </div>
       <div className="main-form">
        <FormControl className="col s12">
         <InputLabel id="input_type" className="col s12">
-         Type d'analyse
+         {getLangMessage(34)}
         </InputLabel>
         {displayAnalyseTypes()}
        </FormControl>
@@ -184,7 +188,7 @@ const AnalyseModal = ({
          onChange={onChange}
         />
         <label htmlFor="analyseModal-locationDePrelevement" className="active">
-         Location Du Prélèvement*
+         {getLangMessage(35)}*
         </label>
        </div>
        <div className="input-field col s12">
@@ -197,7 +201,7 @@ const AnalyseModal = ({
          onChange={onChange}
         />
         <label htmlFor="analyseModal-description" className="active">
-         Description
+         {getLangMessage(19)}
         </label>
        </div>
        <div className="input-field col s12">
@@ -210,12 +214,12 @@ const AnalyseModal = ({
          onChange={onChange}
         />
         <label htmlFor="analyseModal-notes" className="active">
-         Notes
+         {getLangMessage(36)}
         </label>
        </div>
        <FormControl className="col s12">
         <InputLabel id="input_etat" className="col s12">
-         Etat de l'analyse
+         {getLangMessage(37)}
         </InputLabel>
         <Select
          name="etat"
@@ -223,14 +227,14 @@ const AnalyseModal = ({
          onChange={onChange}
          labelId="input_etat"
         >
-         <MenuItem value={-1}>En attente</MenuItem>
-         <MenuItem value={0}>En cours de traitement</MenuItem>
-         <MenuItem value={1}>Terminé</MenuItem>
+         <MenuItem value={-1}>{getLangMessage(2)}</MenuItem>
+         <MenuItem value={0}>{getLangMessage(3)}</MenuItem>
+         <MenuItem value={1}>{getLangMessage(4)}</MenuItem>
         </Select>
        </FormControl>
        <div className="switch">
         <label>
-         Positive
+         {getLangMessage(38)}
          <input
           name="positive"
           type="checkbox"
@@ -243,18 +247,18 @@ const AnalyseModal = ({
       </div>
      </div>
      <div className="modal-footer">
-      <p className="red-text left">* sont nécéssaires</p>
+      <p className="red-text left">* {getLangMessage(20)}</p>
       <button
        className="modal-close waves-effect waves-green btn-flat"
        onClick={handleClick}
       >
-       {analyse ? 'Modifier' : 'Ajouter'}
+       {analyse ? getLangMessage(16) : getLangMessage(17)}
       </button>
       <button
        onClick={close}
        className="modal-close waves-effect btn-flat white black-text"
       >
-       Annuler
+       {getLangMessage(22)}
       </button>
      </div>
     </>
@@ -272,6 +276,7 @@ const mapDispatchToProps = {
  setTargetUserProfile,
  updateAnalyseById,
  addAnalyse,
+ getLangMessage,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

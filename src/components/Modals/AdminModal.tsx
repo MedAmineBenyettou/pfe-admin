@@ -7,6 +7,7 @@ import { register } from '../../actions/auth';
 import { updateProfileById } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
 import '../../css/modals/AdminModal.css';
+import { getLangMessage } from '../../actions/lang';
 
 const AdminModal = ({
  profile: {
@@ -14,6 +15,7 @@ const AdminModal = ({
  },
  updateProfileById,
  register,
+ getLangMessage,
 }: PropsFromRedux) => {
  const [authForm, setAuthForm] = useState<{
   username?: string;
@@ -88,7 +90,9 @@ const AdminModal = ({
    ) : (
     <>
      <div className="modal-content">
-      <h4>{profile ? 'Modifier' : 'Ajouter'} un administrateur</h4>
+      <h4>
+       {profile ? getLangMessage(16) : getLangMessage(17)} {getLangMessage(23)}
+      </h4>
       <div className="row">
        <div className="input-field col s12">
         <input
@@ -100,7 +104,7 @@ const AdminModal = ({
          autoComplete="false"
         />
         <label htmlFor="AdminModal-username" className="active">
-         Nom d'utilisateur
+         {getLangMessage(14)}
         </label>
         <div className="prefix">
          <img src={person} alt="person" />
@@ -117,7 +121,7 @@ const AdminModal = ({
          minLength={6}
         />
         <label htmlFor="AdminModal-password" className="active">
-         Mot de passe
+         {getLangMessage(15)}
         </label>
         <div className="prefix">
          <img src={lock} alt="lock" />
@@ -136,7 +140,7 @@ const AdminModal = ({
           onChange={onChange}
          />
          <label htmlFor="AdminModal-nom" className="active">
-          Nom
+          {getLangMessage(18)}
          </label>
         </div>
         <div className="input-field col s12">
@@ -148,7 +152,7 @@ const AdminModal = ({
           onChange={onChange}
          />
          <label htmlFor="AdminModal-prenom" className="active">
-          Prenom
+          {getLangMessage(24)}
          </label>
         </div>
         <div className="input-field col s12">
@@ -160,7 +164,7 @@ const AdminModal = ({
           onChange={onChange}
          />
          <label htmlFor="AdminModal-phoneNumber" className="active">
-          Numéro de téléphone
+          {getLangMessage(25)}
          </label>
         </div>
         <div className="input-field col s12">
@@ -172,12 +176,12 @@ const AdminModal = ({
           onChange={onChange}
          />
          <label htmlFor="AdminModal-fonction" className="active">
-          Fonction
+          {getLangMessage(26)}
          </label>
         </div>
         <div className="switch">
          <label>
-          Compte: Desactivé
+          {getLangMessage(27)}
           <input
            name="isEnabled"
            type="checkbox"
@@ -186,25 +190,25 @@ const AdminModal = ({
            onChange={onChange}
           />
           <span className="lever"></span>
-          Activé
+          {getLangMessage(28)}
          </label>
         </div>
        </div>
       )}
      </div>
      <div className="modal-footer">
-      <p className="red-text left">* sont nécéssaires</p>
+      <p className="red-text left">* {getLangMessage(20)}</p>
       <button
        onClick={handleBtn}
        className="modal-close waves-effect waves-green btn-flat"
       >
-       {profile ? 'Modifier' : 'Ajouter'}
+       {profile ? getLangMessage(16) : getLangMessage(17)}
       </button>
       <button
        onClick={close}
        className="modal-close waves-effect btn-flat white black-text"
       >
-       Annuler
+       {getLangMessage(22)}
       </button>
      </div>
     </>
@@ -217,7 +221,7 @@ const mapStateToProps = (state: AppState) => ({
  profile: state.profile,
 });
 
-const mapDispatchToProps = { updateProfileById, register };
+const mapDispatchToProps = { updateProfileById, register, getLangMessage };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

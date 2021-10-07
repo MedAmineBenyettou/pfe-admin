@@ -3,13 +3,14 @@ import { connect, ConnectedProps } from 'react-redux';
 import { setAlert } from '../../actions/alerts';
 import { login } from '../../actions/auth';
 import { AlertTypes } from '../../reducers/alerts';
+import { getLangMessage } from '../../actions/lang';
 import lock from '../../assets/lock.png';
 import person from '../../assets/person.png';
 
 import '../../css/Login/LForm.css';
 import { Logo } from '../layout/Logo';
 
-function Lform({ login, setAlert }: ReduxProps) {
+function Lform({ login, setAlert, getLangMessage }: ReduxProps) {
  const [formData, setFormData] = useState({ username: '', password: '' });
  const onSubmit = (e: any) => {
   e.preventDefault();
@@ -33,7 +34,7 @@ function Lform({ login, setAlert }: ReduxProps) {
    <div className="col s6 left-side">
     {/*//! Header */}
     <div className="LRheader col s12 container">
-     <h3 className="col s12 ">Se connecter</h3>
+     <h3 className="col s12 ">{getLangMessage(6)}</h3>
     </div>
     <hr className="col s8 offset-s2" />
     <div className="Lform col s12">
@@ -42,7 +43,7 @@ function Lform({ login, setAlert }: ReduxProps) {
        <div className="input-field col s11">
         <input
          name="username"
-         placeholder="Nom d'utilisateur"
+         placeholder={getLangMessage(14)}
          defaultValue={username}
          onChange={onChange}
          required
@@ -55,7 +56,7 @@ function Lform({ login, setAlert }: ReduxProps) {
         <input
          type="password"
          name="password"
-         placeholder="Mot de passe"
+         placeholder={getLangMessage(15)}
          defaultValue={password}
          onChange={onChange}
          required
@@ -68,16 +69,16 @@ function Lform({ login, setAlert }: ReduxProps) {
      </form>
      {/*//! down form  */}
      <div className=" col s12 valign-wrapper">
-      <span>Pas de compte? Contactez un administrateur pour avoir accèe.</span>
+      <span>{getLangMessage(7)}</span>
       <button type="submit" form="loginForm" className="btn light-blue col s12">
-       Se connecter
+       {getLangMessage(6)}
       </button>
      </div>
     </div>
    </div>
    <div className="col s6 right-side">
     <Logo />
-    <p className="col s12 ">Commencez votre journée productive</p>
+    <p className="col s12 ">{getLangMessage(8)}</p>
    </div>
   </div>
  );
@@ -86,6 +87,7 @@ function Lform({ login, setAlert }: ReduxProps) {
 const mapDispatch = {
  login,
  setAlert,
+ getLangMessage,
 };
 
 const connector = connect(null, mapDispatch);

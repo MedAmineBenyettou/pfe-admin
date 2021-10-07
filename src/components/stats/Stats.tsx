@@ -8,10 +8,11 @@ import AnalysesActivity from './charts/AnalysesActivity';
 import AnalyseTypesActivity from './charts/AnalyseTypesActivity';
 import GenesActivity from './charts/GenesActivity';
 import UsersActivity from './charts/UsersActivity';
+import { getLangMessage } from '../../actions/lang';
 
 import '../../css/stats/stats.css';
 
-const Stats = ({ getAllUsersProfiles, getAnalyses }: any) => {
+const Stats = ({ getAllUsersProfiles, getAnalyses, getLangMessage }: any) => {
  useEffect(() => {
   getAllUsersProfiles();
   getAnalyses();
@@ -20,10 +21,7 @@ const Stats = ({ getAllUsersProfiles, getAnalyses }: any) => {
  return (
   <div className="stats row">
    <div className="header col s12 center">
-    <p className="header-desc col s8 offset-s2">
-     Sur cette page, vous pouvez analyser les statistiques concernant les
-     patients, les administrateurs et les analyses.
-    </p>
+    <p className="header-desc col s8 offset-s2">{getLangMessage(70)}</p>
    </div>
    <div className="content col s12 row">
     <div className="col s12">
@@ -49,4 +47,8 @@ const Stats = ({ getAllUsersProfiles, getAnalyses }: any) => {
  );
 };
 
-export default connect(null, { getAllUsersProfiles, getAnalyses })(Stats);
+export default connect(null, {
+ getAllUsersProfiles,
+ getAnalyses,
+ getLangMessage,
+})(Stats);

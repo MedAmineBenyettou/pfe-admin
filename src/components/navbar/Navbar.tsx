@@ -6,12 +6,14 @@ import { logout } from '../../actions/auth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Logo } from '../layout/Logo';
 import { initMaterialize } from '../../general/initMaterialize';
+import { getLangMessage } from '../../actions/lang';
 
 import '../../css/navbar/Navbar.css';
 
 export const Navbar = ({
  auth: { isAuthenticated, loading },
  logout,
+ getLangMessage,
 }: PropsFromRedux) => {
  useEffect(() => {
   initMaterialize();
@@ -20,25 +22,25 @@ export const Navbar = ({
  const RightMenu = () => (
   <ul className="right-options right hide-on-med-and-down">
    <li>
-    <Link to="/">Home</Link>
+    <Link to="/">{getLangMessage(9)}</Link>
    </li>
    {isAuthenticated && !loading && (
     <>
      <li>
-      <Link to={`/options`}>Options</Link>
+      <Link to={`/options`}>{getLangMessage(10)}</Link>
      </li>
      <li>
-      <Link to={`/patients`}>Patients</Link>
+      <Link to={`/patients`}>{getLangMessage(11)}</Link>
      </li>
      <li>
-      <Link to={`/stats`}>Statistiques</Link>
+      <Link to={`/stats`}>{getLangMessage(12)}</Link>
      </li>
     </>
    )}
    <li onClick={logout} className="red lighten-2">
     {' '}
     <Link className="sidenav-close" to="#">
-     Se deconnecter
+     {getLangMessage(13)}
     </Link>
    </li>
   </ul>
@@ -48,20 +50,20 @@ export const Navbar = ({
   <ul className="sidenav" id="mobile">
    <li>
     <Link className="sidenav-close" to="/">
-     Home
+     {getLangMessage(9)}
     </Link>
    </li>
    <li>
     {isAuthenticated && !loading && (
      <>
       <Link to={`/options`} className="sidenav-close">
-       Options
+       {getLangMessage(10)}
       </Link>
       <Link to={`/patients`} className="sidenav-close">
-       Patients
+       {getLangMessage(11)}
       </Link>
       <Link to={`/stats`} className="sidenav-close">
-       Statistiques
+       {getLangMessage(12)}
       </Link>
      </>
     )}
@@ -69,7 +71,7 @@ export const Navbar = ({
 
    <li onClick={logout} className="red lighten-2">
     <Link className="sidenav-close" to="#">
-     Se deconnecter
+     {getLangMessage(13)}
     </Link>
    </li>
   </ul>
@@ -101,7 +103,7 @@ const mapStateToProps = (state: AppState) => ({
  profile: state.profile,
 });
 
-const mapDispatchToProps = { logout };
+const mapDispatchToProps = { logout, getLangMessage };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

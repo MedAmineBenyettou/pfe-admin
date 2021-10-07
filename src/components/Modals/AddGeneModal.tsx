@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { addGene, updateGeneById } from '../../actions/analyses';
 import { AppState } from '../../store';
+import { getLangMessage } from '../../actions/lang';
+
 import Spinner from '../layout/Spinner';
 import M from 'materialize-css';
 
@@ -12,6 +14,7 @@ const AddGeneModal = ({
  },
  addGene,
  updateGeneById,
+ getLangMessage,
 }: PropsFromRedux) => {
  const [form, setForm] = useState({
   nom: gene ? gene.nom : '',
@@ -49,7 +52,6 @@ const AddGeneModal = ({
    inst.close();
   }
  };
-
  return (
   <div id="GeneModal" className="modal modal-fixed-footer">
    {loading ? (
@@ -58,7 +60,8 @@ const AddGeneModal = ({
     <>
      <div className="modal-content">
       <h4>
-       {gene ? 'Modifier' : 'Ajouter'} un gêne {gene ? `(${gene.nom})` : ''}
+       {gene ? getLangMessage(16) : getLangMessage(17)} {getLangMessage(21)}{' '}
+       {gene ? `(${gene.nom})` : ''}
       </h4>
       <div className="form row">
        <div className="input-field col s12">
@@ -70,7 +73,7 @@ const AddGeneModal = ({
          onChange={onChange}
         />
         <label htmlFor="GeneModal-nom" className="active">
-         Nom*
+         {getLangMessage(18)}*
         </label>
        </div>
        <div className="input-field col s12">
@@ -82,24 +85,24 @@ const AddGeneModal = ({
          onChange={onChange}
         />
         <label htmlFor="GeneModal-description" className="active">
-         Description
+         {getLangMessage(19)}
         </label>
        </div>
       </div>
      </div>
      <div className="modal-footer">
-      <p className="red-text left">* sont nécéssaires</p>
+      <p className="red-text left">* {getLangMessage(20)}</p>
       <button
        className="modal-close waves-effect waves-green btn-flat"
        onClick={handleClick}
       >
-       {gene ? 'Modifier' : 'Ajouter'}
+       {gene ? getLangMessage(16) : getLangMessage(17)}
       </button>
       <button
        onClick={close}
        className="modal-close waves-effect btn-flat white black-text"
       >
-       Annuler
+       {getLangMessage(22)}
       </button>
      </div>
     </>
@@ -112,7 +115,7 @@ const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
 });
 
-const mapDispatchToProps = { addGene, updateGeneById };
+const mapDispatchToProps = { addGene, updateGeneById, getLangMessage };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

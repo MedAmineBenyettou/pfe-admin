@@ -12,11 +12,13 @@ import {
 import { IUserProfile } from '../../reducers/userProfiles';
 
 import '../../css/patients/patients.css';
+import { getLangMessage } from '../../actions/lang';
 
 export const Patients = ({
  profile: { loading, userProfiles },
  setTargetUserProfile,
  getAllUsersProfiles,
+ getLangMessage,
 }: PropsFromRedux) => {
  useEffect(() => {
   getAllUsersProfiles();
@@ -65,7 +67,7 @@ export const Patients = ({
     <td></td>
     <td></td>
     <td></td>
-    <td className="error">Pas d'utilisateur</td>
+    <td className="error">{getLangMessage(48)}</td>
     <td></td>
     <td></td>
     <td></td>
@@ -77,12 +79,12 @@ export const Patients = ({
  return (
   <div className="patients">
    <div className="header">
-    <h1>Listes des patients</h1>
+    <h1>{getLangMessage(66)}</h1>
     <a
      className="btn light-green waves-effect waves-light right modal-trigger"
      href="#UserModal"
     >
-     Ajouter un compte patient
+     {getLangMessage(67)}
     </a>
    </div>
    <div className="content row">
@@ -90,13 +92,13 @@ export const Patients = ({
      <thead>
       <tr>
        {/* <th>ID</th> */}
-       <th>Nom</th>
-       <th>Prenom</th>
-       <th>Email</th>
-       <th>Adresse</th>
-       <th>Date et Lieu de naissance</th>
-       <th>Numéro de téléphone</th>
-       <th>Crée le</th>
+       <th>{getLangMessage(18)}</th>
+       <th>{getLangMessage(24)}</th>
+       <th>{getLangMessage(43)}</th>
+       <th>{getLangMessage(46)}</th>
+       <th>{getLangMessage(68)}</th>
+       <th>{getLangMessage(25)}</th>
+       <th>{getLangMessage(69)}</th>
        {/* <th>Etat</th> */}
       </tr>
      </thead>
@@ -111,7 +113,11 @@ const mapStateToProps = (state: AppState) => ({
  profile: state.userProfile,
 });
 
-const mapDispatchToProps = { setTargetUserProfile, getAllUsersProfiles };
+const mapDispatchToProps = {
+ setTargetUserProfile,
+ getAllUsersProfiles,
+ getLangMessage,
+};
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

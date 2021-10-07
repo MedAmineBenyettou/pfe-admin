@@ -11,6 +11,7 @@ import { registerUser } from '../../actions/user';
 import { updateUserProfileById } from '../../actions/userProfiles';
 import { setAlert } from '../../actions/alerts';
 import { AlertTypes } from '../../reducers/alerts';
+import { getLangMessage } from '../../actions/lang';
 
 const UserModal = ({
  userProfiles: {
@@ -19,6 +20,7 @@ const UserModal = ({
  registerUser,
  updateUserProfileById,
  setAlert,
+ getLangMessage,
 }: PropsFromRedux) => {
  const [authForm, setAuthForm] = useState<
   Pick<IUser, 'email' | 'isEnabled'> & { password: string }
@@ -103,9 +105,7 @@ const UserModal = ({
    ) : (
     <>
      <div className="modal-content">
-      <h4>
-       {userProfile ? 'Modifier un' : 'Ajouter un nouveau'} compte de patient
-      </h4>
+      <h4>{userProfile ? getLangMessage(41) : getLangMessage(42)}</h4>
       <div className="row">
        <div className="input-field col s12">
         <input
@@ -117,7 +117,7 @@ const UserModal = ({
          autoComplete="false"
         />
         <label htmlFor="UserModal-email" className="active">
-         Email*
+         {getLangMessage(43)}*
         </label>
         <div className="prefix">
          <img src={mail} alt="mail" />
@@ -134,7 +134,7 @@ const UserModal = ({
          minLength={6}
         />
         <label htmlFor="UserModal-password" className="active">
-         Mot de passe*
+         {getLangMessage(15)}*
         </label>
         <div className="prefix">
          <img src={lock} alt="lock" />
@@ -153,7 +153,7 @@ const UserModal = ({
           onChange={onChange}
          />
          <label htmlFor="UserModal-nom" className="active">
-          Nom*
+          {getLangMessage(18)}*
          </label>
         </div>
         <div className="input-field col s12">
@@ -165,7 +165,7 @@ const UserModal = ({
           onChange={onChange}
          />
          <label htmlFor="UserModal-prenom" className="active">
-          Prenom*
+          {getLangMessage(24)}*
          </label>
         </div>
         <div className="input-field col s5">
@@ -181,7 +181,7 @@ const UserModal = ({
           disableFuture={true}
          />
          <label htmlFor="UserModal-dateOfBirth" className="active">
-          Date de naissance*
+          {getLangMessage(44)}*
          </label>
         </div>
         <div className="input-field col s5 offset-s1">
@@ -193,7 +193,7 @@ const UserModal = ({
           onChange={onChange}
          />
          <label htmlFor="UserModal-birthLocation" className="active">
-          Lieu de naissance*
+          {getLangMessage(45)}*
          </label>
         </div>
         <div className="input-field col s12">
@@ -205,7 +205,7 @@ const UserModal = ({
           onChange={onChange}
          />
          <label htmlFor="UserModal-phoneNumber" className="active">
-          Numéro de téléphone*
+          {getLangMessage(25)}*
          </label>
         </div>
         <div className="input-field col s12">
@@ -217,7 +217,7 @@ const UserModal = ({
           onChange={onChange}
          />
          <label htmlFor="UserModal-adresse" className="active">
-          Adresse*
+          {getLangMessage(46)}*
          </label>
         </div>
         {/* {userProfile && (
@@ -240,18 +240,18 @@ const UserModal = ({
       }
      </div>
      <div className="modal-footer">
-      <p className="red-text left">* sont nécéssaires</p>
+      <p className="red-text left">* {getLangMessage(20)}</p>
       <button
        onClick={handleBtn}
        className="modal-close waves-effect waves-green btn-flat"
       >
-       {userProfile ? 'Modifier' : 'Ajouter'}
+       {userProfile ? getLangMessage(16) : getLangMessage(17)}
       </button>
       <button
        onClick={close}
        className="modal-close waves-effect btn-flat white black-text"
       >
-       Annuler
+       {getLangMessage(22)}
       </button>
      </div>
     </>
@@ -268,6 +268,7 @@ const mapDispatchToProps = {
  updateUserProfileById,
  setAlert,
  registerUser,
+ getLangMessage,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

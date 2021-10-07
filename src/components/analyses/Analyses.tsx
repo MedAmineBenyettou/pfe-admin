@@ -14,6 +14,7 @@ import Spinner from '../layout/Spinner';
 import moment from 'moment';
 import { IAnalyse } from '../../reducers/analyses';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getLangMessage } from '../../actions/lang';
 
 export const Analyses = ({
  analyses: { loading, analyses },
@@ -21,9 +22,9 @@ export const Analyses = ({
  selectAnalyse,
  clearSelectedAnalyse,
  getAnalyses,
+ getLangMessage,
 }: PropsFromRedux) => {
  const { state }: any = useLocation();
-
  useEffect(() => {
   getAnalyses();
  }, []);
@@ -129,7 +130,7 @@ export const Analyses = ({
        </div>
       </div>
      ));
-    else return <p className="empty-list">Liste vide</p>;
+    else return <p className="empty-list">{getLangMessage(0)}</p>;
    }
   } else return <Spinner />;
  };
@@ -139,7 +140,8 @@ export const Analyses = ({
    <div className="section col s12">
     <div className="section-header row">
      <h5 className="col s4">
-      {state && state.mine ? 'Mes ' : 'Tous les '}patients:
+      {state && state.mine ? 'Mes ' : 'Tous les '}
+      {getLangMessage(11).toLowerCase()}:
      </h5>
      <div className="right buttons">
       <a
@@ -156,7 +158,7 @@ export const Analyses = ({
       <div className="collection with-header">
        <h4 className="collection-header">
         <img src={waiting} alt="waiting" className="circle" />
-        En attente
+        {getLangMessage(2)}
        </h4>
        {display(-1)}
       </div>
@@ -165,7 +167,7 @@ export const Analyses = ({
       <div className="collection with-header">
        <h4 className="collection-header">
         <img src={gears} alt="gears" className="circle" />
-        En cours
+        {getLangMessage(3)}
        </h4>
        {display(0)}
       </div>
@@ -174,7 +176,7 @@ export const Analyses = ({
       <div className="collection with-header">
        <h4 className="collection-header">
         <img src={done} alt="done" className="circle" />
-        Terminé
+        {getLangMessage(4)}
        </h4>
        {display(1)}
       </div>
@@ -190,7 +192,12 @@ const mapStateToProps = (state: AppState) => ({
  profile: state.profile.profile,
 });
 
-const mapDispatchToProps = { selectAnalyse, clearSelectedAnalyse, getAnalyses };
+const mapDispatchToProps = {
+ selectAnalyse,
+ clearSelectedAnalyse,
+ getAnalyses,
+ getLangMessage,
+};
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

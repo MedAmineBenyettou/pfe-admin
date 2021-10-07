@@ -7,8 +7,9 @@ import { CHARTBORDERCOLORS, CHARTCOLORS } from '../../../general/Common';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import moment from 'moment';
 import { shuffle } from '../../../global';
+import { getLangMessage } from '../../../actions/lang';
 
-const UsersActivity = ({ analyses, userProfile, profile }: PropsFromRedux) => {
+const UsersActivity = ({ analyses, getLangMessage }: PropsFromRedux) => {
  const [chartData, setChartData] = useState({});
  //  const [UsersActivity, setUsersActivity] = useState<number[]>([]);
  //  const [jours, setJours] = useState<string[]>([]);
@@ -48,7 +49,7 @@ const UsersActivity = ({ analyses, userProfile, profile }: PropsFromRedux) => {
    labels: tx,
    datasets: [
     {
-     label: 'Patients',
+     label: getLangMessage(11),
      data: ty,
      backgroundColor: shuffle(CHARTCOLORS),
      borderColor: shuffle(CHARTBORDERCOLORS),
@@ -70,18 +71,20 @@ const UsersActivity = ({ analyses, userProfile, profile }: PropsFromRedux) => {
   <div className="UsersActivity row">
    {!analyses.loading ? (
     <>
-     <h4>Trafic des patients:</h4>
+     <h4>{getLangMessage(82)}:</h4>
      <FormControl className="col s4">
-      <InputLabel id="input_temps_UsersActivity">Période :</InputLabel>
+      <InputLabel id="input_temps_AnalyseTypesActivity">
+       {getLangMessage(80)} :
+      </InputLabel>
       <Select
        name="temps"
        value={temps}
        onChange={onChange}
        labelId="input_temps_UsersActivity"
       >
-       <MenuItem value={-1}>Tous les temps</MenuItem>
-       <MenuItem value={0}>Derniers 7 jours</MenuItem>
-       <MenuItem value={1}>Derniers 30 jours</MenuItem>
+       <MenuItem value={-1}>{getLangMessage(72)}</MenuItem>
+       <MenuItem value={0}>{getLangMessage(73)}</MenuItem>
+       <MenuItem value={1}>{getLangMessage(74)}</MenuItem>
       </Select>
      </FormControl>
      <div className="col s10 offset-s1">
@@ -91,12 +94,12 @@ const UsersActivity = ({ analyses, userProfile, profile }: PropsFromRedux) => {
        options={{
         responsive: true,
         title: {
-         text: `Trafic des patients dans ${
+         text: `${getLangMessage(75)} ${
           temps === -1
-           ? 'tous les temps'
+           ? getLangMessage(72)
            : temps === 0
-           ? 'derniers 7 jours'
-           : 'derniers 30 jours'
+           ? getLangMessage(73)
+           : getLangMessage(74)
          }`,
          display: true,
         },
@@ -118,11 +121,9 @@ const UsersActivity = ({ analyses, userProfile, profile }: PropsFromRedux) => {
 
 const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
- userProfile: state.userProfile,
- profile: state.profile,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { getLangMessage };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

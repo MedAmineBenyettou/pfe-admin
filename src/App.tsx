@@ -43,7 +43,7 @@ const App = ({
   loadUser();
   getAnalyseTypes();
   getGenes();
- }, [isAuthenticated]);
+ }, [isAuthenticated, loadUser, getAnalyseTypes, getGenes]);
 
  return (
   <MuiPickersUtilsProvider locale={fr} utils={DateFnsUtils}>

@@ -9,54 +9,49 @@ import moment from 'moment';
 import { shuffle } from '../../../global';
 import { getLangMessage } from '../../../actions/lang';
 
-const AdminsActivity = ({
- analyses,
- userProfile,
- profile,
- getLangMessage,
-}: PropsFromRedux) => {
+const AdminsActivity = ({ analyses, getLangMessage }: PropsFromRedux) => {
  const [chartData, setChartData] = useState({});
  const [temps, setTemps] = useState(-1);
- const Chart = () => {
-  var filtered = analyses.analyses.data.filter((a) =>
-   temps === -1
-    ? true
-    : moment(a.date).isAfter(moment().subtract(temps === 0 ? 7 : 30, 'days'))
-  );
-
-  var tadmins: string[] = [];
-  var tactivity: number[] = [];
-
-  filtered.forEach((a) => {
-   if (!tadmins.includes(a.user.user.username))
-    tadmins.push(a.user.user.username);
-  });
-  tadmins.forEach((a) => {
-   tactivity.push(
-    filtered.filter((an) => an.user.user.username.match(a)).length
-   );
-  });
-
-  //    setAdmins(tadmins);
-  //    setAdminsActivity(tactivity);
-
-  setChartData({
-   labels: tadmins,
-   datasets: [
-    {
-     label: '.data',
-     data: tactivity,
-     backgroundColor: shuffle(CHARTCOLORS),
-     borderColor: shuffle(CHARTBORDERCOLORS),
-     borderWidth: 1,
-    },
-   ],
-  });
- };
 
  useEffect(() => {
+  const Chart = () => {
+   var filtered = analyses.analyses.data.filter((a) =>
+    temps === -1
+     ? true
+     : moment(a.date).isAfter(moment().subtract(temps === 0 ? 7 : 30, 'days'))
+   );
+
+   var tadmins: string[] = [];
+   var tactivity: number[] = [];
+
+   filtered.forEach((a) => {
+    if (!tadmins.includes(a.user.user.username))
+     tadmins.push(a.user.user.username);
+   });
+   tadmins.forEach((a) => {
+    tactivity.push(
+     filtered.filter((an) => an.user.user.username.match(a)).length
+    );
+   });
+
+   //    setAdmins(tadmins);
+   //    setAdminsActivity(tactivity);
+
+   setChartData({
+    labels: tadmins,
+    datasets: [
+     {
+      label: '.data',
+      data: tactivity,
+      backgroundColor: shuffle(CHARTCOLORS),
+      borderColor: shuffle(CHARTBORDERCOLORS),
+      borderWidth: 1,
+     },
+    ],
+   });
+  };
   Chart();
- }, [temps]);
+ }, [temps, analyses.analyses.data, getLangMessage]);
 
  const onChange = (e: any) => {
   setTemps(e.target.value);
@@ -111,8 +106,6 @@ const AdminsActivity = ({
 
 const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
- userProfile: state.userProfile,
- profile: state.profile,
 });
 
 const mapDispatchToProps = { getLangMessage };

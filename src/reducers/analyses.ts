@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { ANALYSES_TYPES } from '../actions/types';
 import { IError } from '../general/Common';
 import { IProfile } from './profile';

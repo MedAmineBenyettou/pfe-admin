@@ -15,50 +15,49 @@ const GenesActivity = ({ analyses, getLangMessage }: PropsFromRedux) => {
  //  const [jours, setJours] = useState<string[]>([]);
  const [temps, setTemps] = useState(-1);
 
- const Chart = () => {
-  var filtered = analyses.analyses.data.filter((a) =>
-   temps === -1
-    ? true
-    : moment(a.date).isAfter(moment().subtract(temps === 0 ? 7 : 30, 'days'))
-  );
-
-  var tx: string[] = [];
-  var ty: number[] = [];
-
-  filtered.forEach((a) => {
-   a.type.genes.forEach((g) => {
-    var t = g.nom;
-    if (!tx.includes(t)) tx.push(t);
-   });
-  });
-  tx.forEach((a) => {
-   ty.push(
-    filtered.filter(
-     (an) => an.type.genes.filter((gn) => gn.nom.match(a)).length > 0
-    ).length
-   );
-  });
-
-  // setJours(tx);
-  // setGenesActivity(ty);
-
-  setChartData({
-   labels: tx,
-   datasets: [
-    {
-     label: getLangMessage(55),
-     data: ty,
-     backgroundColor: shuffle(CHARTCOLORS),
-     borderColor: shuffle(CHARTBORDERCOLORS),
-     borderWidth: 1,
-    },
-   ],
-  });
- };
-
  useEffect(() => {
+  const Chart = () => {
+   var filtered = analyses.analyses.data.filter((a) =>
+    temps === -1
+     ? true
+     : moment(a.date).isAfter(moment().subtract(temps === 0 ? 7 : 30, 'days'))
+   );
+
+   var tx: string[] = [];
+   var ty: number[] = [];
+
+   filtered.forEach((a) => {
+    a.type.genes.forEach((g) => {
+     var t = g.nom;
+     if (!tx.includes(t)) tx.push(t);
+    });
+   });
+   tx.forEach((a) => {
+    ty.push(
+     filtered.filter(
+      (an) => an.type.genes.filter((gn) => gn.nom.match(a)).length > 0
+     ).length
+    );
+   });
+
+   // setJours(tx);
+   // setGenesActivity(ty);
+
+   setChartData({
+    labels: tx,
+    datasets: [
+     {
+      label: getLangMessage(55),
+      data: ty,
+      backgroundColor: shuffle(CHARTCOLORS),
+      borderColor: shuffle(CHARTBORDERCOLORS),
+      borderWidth: 1,
+     },
+    ],
+   });
+  };
   Chart();
- }, [temps]);
+ }, [temps, analyses.analyses.data, getLangMessage]);
 
  const onChange = (e: any) => {
   setTemps(e.target.value);

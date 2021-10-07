@@ -14,43 +14,42 @@ const AnalysesActivity = ({ analyses, getLangMessage }: PropsFromRedux) => {
 
  const [temps, setTemps] = useState(-1);
 
- const Chart = () => {
-  var filtered = analyses.analyses.data.filter((a) =>
-   temps === -1
-    ? true
-    : moment(a.date).isAfter(moment().subtract(temps === 0 ? 7 : 30, 'days'))
-  );
-
-  var tx: string[] = [];
-  var ty: number[] = [];
-
-  filtered.forEach((a) => {
-   var t = moment(a.date).format('DD MMM Y');
-   if (!tx.includes(t)) tx.push(t);
-  });
-  tx.forEach((a) => {
-   ty.push(
-    filtered.filter((an) => moment(an.date).format('DD MMM Y').match(a)).length
-   );
-  });
-
-  setChartData({
-   labels: tx,
-   datasets: [
-    {
-     label: getLangMessage(76),
-     data: ty,
-     backgroundColor: shuffle(CHARTCOLORS),
-     borderColor: shuffle(CHARTBORDERCOLORS),
-     borderWidth: 1,
-    },
-   ],
-  });
- };
-
  useEffect(() => {
+  const Chart = () => {
+   var filtered = analyses.analyses.data.filter((a) =>
+    temps === -1
+     ? true
+     : moment(a.date).isAfter(moment().subtract(temps === 0 ? 7 : 30, 'days'))
+   );
+
+   var tx: string[] = [];
+   var ty: number[] = [];
+
+   filtered.forEach((a) => {
+    var t = moment(a.date).format('DD MMM Y');
+    if (!tx.includes(t)) tx.push(t);
+   });
+   tx.forEach((a) => {
+    ty.push(
+     filtered.filter((an) => moment(an.date).format('DD MMM Y').match(a)).length
+    );
+   });
+
+   setChartData({
+    labels: tx,
+    datasets: [
+     {
+      label: getLangMessage(76),
+      data: ty,
+      backgroundColor: shuffle(CHARTCOLORS),
+      borderColor: shuffle(CHARTBORDERCOLORS),
+      borderWidth: 1,
+     },
+    ],
+   });
+  };
   Chart();
- }, [temps]);
+ }, [temps, analyses.analyses.data, getLangMessage]);
 
  const onChange = (e: any) => {
   setTemps(e.target.value);

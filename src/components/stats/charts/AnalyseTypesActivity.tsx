@@ -15,43 +15,43 @@ const AnalyseTypesActivity = ({ analyses, getLangMessage }: PropsFromRedux) => {
  //  const [jours, setJours] = useState<string[]>([]);
  const [temps, setTemps] = useState(-1);
 
- const Chart = () => {
-  var filtered =
-   temps === -1
-    ? analyses.analyses.data
-    : analyses.analyses.data.filter((a) =>
-       moment(a.date).isAfter(moment().subtract(temps === 0 ? 7 : 30, 'days'))
-      );
-  //    console.log(filtered);
-  var tx: string[] = [];
-  var ty: number[] = [];
-
-  filtered.forEach((a) => {
-   var t = a.type.nom;
-   if (!tx.includes(t)) tx.push(t);
-  });
-  //    console.log(tx);
-  tx.forEach((a) => {
-   ty.push(filtered.filter((an) => an.type.nom.match(a)).length);
-  });
-
-  setChartData({
-   labels: tx,
-   datasets: [
-    {
-     label: getLangMessage(78),
-     data: ty,
-     backgroundColor: shuffle(CHARTCOLORS),
-     borderColor: shuffle(CHARTBORDERCOLORS),
-     borderWidth: 1,
-    },
-   ],
-  });
- };
-
  useEffect(() => {
+  const Chart = () => {
+   var filtered =
+    temps === -1
+     ? analyses.analyses.data
+     : analyses.analyses.data.filter((a) =>
+        moment(a.date).isAfter(moment().subtract(temps === 0 ? 7 : 30, 'days'))
+       );
+   //    console.log(filtered);
+   var tx: string[] = [];
+   var ty: number[] = [];
+
+   filtered.forEach((a) => {
+    var t = a.type.nom;
+    if (!tx.includes(t)) tx.push(t);
+   });
+   //    console.log(tx);
+   tx.forEach((a) => {
+    ty.push(filtered.filter((an) => an.type.nom.match(a)).length);
+   });
+
+   setChartData({
+    labels: tx,
+    datasets: [
+     {
+      label: getLangMessage(78),
+      data: ty,
+      backgroundColor: shuffle(CHARTCOLORS),
+      borderColor: shuffle(CHARTBORDERCOLORS),
+      borderWidth: 1,
+     },
+    ],
+   });
+  };
+
   Chart();
- }, [temps]);
+ }, [temps, analyses.analyses.data, getLangMessage]);
 
  const onChange = (e: any) => {
   setTemps(e.target.value);

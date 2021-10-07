@@ -27,7 +27,7 @@ export const Analyses = ({
  const { state }: any = useLocation();
  useEffect(() => {
   getAnalyses();
- }, []);
+ }, [getAnalyses]);
 
  const handleOpenModal = () => {
   var elmnt = document.getElementById('AnalyseModal');

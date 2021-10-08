@@ -78,7 +78,7 @@ export const Navbar = ({
  );
 
  //!---------------------------- RETURN ----------------------------------
- if (isAuthenticated && !loading) {
+ if (isAuthenticated) {
   return (
    <>
     <nav id="navbar">

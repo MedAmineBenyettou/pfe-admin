@@ -17,7 +17,7 @@ interface IAuthState {
 
 export interface IAuthAction {
  type: AUTH_TYPES | PROFILE_TYPES;
- payload?: Partial<IAuthState>;
+ payload?: Partial<IAuthState> | IError;
 }
 
 const initialState: IAuthState = {
@@ -34,6 +34,11 @@ export default function authReducer(
 ): IAuthState {
  const { type, payload } = action;
  switch (type) {
+  case AUTH_TYPES.LOADING_USER:
+   return {
+    ...state,
+    loading: true,
+   };
   case AUTH_TYPES.LOGIN_FAIL:
   case AUTH_TYPES.AUTH_ERROR:
   case AUTH_TYPES.LOGOUT:
@@ -51,7 +56,7 @@ export default function authReducer(
   case AUTH_TYPES.REGISTER_FAIL:
    return { ...state, error: payload as IError };
   case AUTH_TYPES.LOGIN_SUCCESS:
-   if (payload?.token) localStorage.setItem('token', payload.token);
+   localStorage.setItem('token', (payload as any).token);
    return {
     ...state,
     ...payload,
@@ -63,10 +68,10 @@ export default function authReducer(
   case AUTH_TYPES.USER_UPDATED:
    return {
     ...state,
+    user: payload as IAdmin,
     loading: false,
     isAuthenticated: true,
     error: null,
-    user: payload as IAdmin,
    };
   default:
    return state;

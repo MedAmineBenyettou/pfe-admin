@@ -12,13 +12,14 @@ const langExists = (lang: string) => {
 };
 
 export const setLang =
- (lang: string) => (dispatch: ThunkDispatch<{}, {}, ILangAction>) => {
+ (lang: string) =>
+ (dispatch: ThunkDispatch<{}, {}, ILangAction>, getState: () => AppState) => {
   if (langExists(lang))
    dispatch({
     type: LANG_TYPES.CHANGE_LANG,
     payload: lang,
    });
-  else dispatch(setAlert('Language not found', AlertTypes.WARNING));
+  else setAlert('400-3', AlertTypes.WARNING)(dispatch, getState);
  };
 
 export const getLangMessage =

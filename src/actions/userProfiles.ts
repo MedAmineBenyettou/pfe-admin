@@ -5,6 +5,7 @@ import { CONFIG } from '../general/Common';
 import { AlertTypes } from '../reducers/alerts';
 import { IUserProfile, IUserProfileAction } from '../reducers/userProfiles';
 import { ThunkDispatch } from 'redux-thunk';
+import { AppState } from '../store';
 
 export interface IUserProfileFormData {
  user?: {
@@ -19,47 +20,26 @@ export interface IUserProfileFormData {
  phoneNumber?: string;
 }
 
-//* Create User Profile
-// export const createUserProfile =
-//  (formData: IUserProfileFormData) =>
-//  async (dispatch: ThunkDispatch<{}, {}, IUserProfileAction>) => {
-//   try {
-//    const res = await axios.post('/api/profile', formData, CONFIG);
-//    dispatch({
-//     type: USER_PROFILE_TYPES.USER_PROFILE_CREATION_SUCCESS,
-//     payload: res.data,
-//    });
-//   } catch (err: any) {
-//    const errors = err.response.data.errors;
-//    if (errors) {
-//     errors.forEach((e: any) => {
-//      dispatch(setAlert(e.msg, AlertTypes.DANGER));
-//     });
-//    }
-//    dispatch({
-//     type: USER_PROFILE_TYPES.USER_PROFILE_CREATION_FAIL,
-//     payload: { msg: err.response.statusText },
-//    });
-//   }
-//  };
-
 //* Update profile
 export const updateUserProfileById =
  (id: string, formData: Partial<IUserProfileFormData>) =>
- async (dispatch: ThunkDispatch<{}, {}, IUserProfileAction>) => {
+ async (
+  dispatch: ThunkDispatch<{}, {}, IUserProfileAction>,
+  getState: () => AppState
+ ) => {
   try {
    const res = await axios.put(`/api/profile/${id}`, formData, CONFIG);
    dispatch({
     type: USER_PROFILE_TYPES.USER_PROFILE_UPDATE_SUCCESS,
     payload: res.data,
    });
-   dispatch(setAlert(`Profil d'utilisateur mis à jour`, AlertTypes.SUCCESS));
-   dispatch(getAllUsersProfiles());
+   setAlert('200-3', AlertTypes.SUCCESS)(dispatch, getState);
+   getAllUsersProfiles()(dispatch, getState);
   } catch (err: any) {
    const errors = err.response.data.errors;
    if (errors) {
     errors.forEach((e: any) => {
-     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+     setAlert(e.msg, AlertTypes.DANGER)(dispatch, getState);
     });
    }
 
@@ -72,7 +52,11 @@ export const updateUserProfileById =
 
 //* Get All Profiles
 export const getAllUsersProfiles =
- () => async (dispatch: ThunkDispatch<{}, {}, IUserProfileAction>) => {
+ () =>
+ async (
+  dispatch: ThunkDispatch<{}, {}, IUserProfileAction>,
+  getState: () => AppState
+ ) => {
   try {
    dispatch({
     type: USER_PROFILE_TYPES.GETTING_USER_PROFILES,
@@ -86,7 +70,7 @@ export const getAllUsersProfiles =
    const errs = err.response ? err.response.data.errors : [err];
    if (errs)
     errs.forEach((e: any) => {
-     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+     setAlert(e.msg, AlertTypes.DANGER)(dispatch, getState);
     });
    console.error(err);
    dispatch({

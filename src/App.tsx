@@ -34,16 +34,21 @@ import AnalyseModal from './components/Modals/AnalyseModal';
 library.add(fas);
 
 const App = ({
- auth: { isAuthenticated },
+ auth: { isAuthenticated, user },
  loadUser,
  getAnalyseTypes,
  getGenes,
 }: PropsFromRedux) => {
  useEffect(() => {
   loadUser();
-  getAnalyseTypes();
-  getGenes();
- }, [isAuthenticated, loadUser, getAnalyseTypes, getGenes]);
+ }, [loadUser]);
+
+ useEffect(() => {
+  if (isAuthenticated) {
+   getAnalyseTypes();
+   getGenes();
+  }
+ }, [isAuthenticated, getAnalyseTypes, getGenes]);
 
  return (
   <MuiPickersUtilsProvider locale={fr} utils={DateFnsUtils}>

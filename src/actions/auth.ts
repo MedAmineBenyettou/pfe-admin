@@ -7,6 +7,7 @@ import { IAuthAction, IAdmin } from '../reducers/auth';
 import { ThunkDispatch } from 'redux-thunk';
 import { getCurrentProfile, createProfileById } from './profile';
 import { CONFIG } from '../general/Common';
+import { AppState } from '../store';
 
 //* Register User
 interface IRegisterForm {
@@ -15,7 +16,10 @@ interface IRegisterForm {
 }
 export const register =
  ({ username, password }: IRegisterForm) =>
- async (dispatch: ThunkDispatch<{}, {}, IAuthAction>) => {
+ async (
+  dispatch: ThunkDispatch<{}, {}, IAuthAction>,
+  getState: () => AppState
+ ) => {
   const body = JSON.stringify({ password, username });
   try {
    const res = await axios.post('/api/admin/admins', body, CONFIG);
@@ -23,13 +27,13 @@ export const register =
     type: AUTH_TYPES.REGISTER_SUCCESS,
    });
    const user = res.data.find((p: IAdmin) => p.username === username);
-   dispatch(createProfileById(user._id));
-   dispatch(setAlert('Utilisateur enregistré avec succès', AlertTypes.SUCCESS));
+   createProfileById(user._id)(dispatch, getState);
+   setAlert('200-1', AlertTypes.SUCCESS)(dispatch, getState);
   } catch (err: any) {
    const errs = err.response ? err.response.data.errors : [err];
    if (errs)
     errs.forEach((e: any) => {
-     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+     setAlert(e.msg, AlertTypes.DANGER)(dispatch, getState);
     });
    console.error(err);
    dispatch({
@@ -41,24 +45,27 @@ export const register =
 
 //* Load User
 export const loadUser =
- () => async (dispatch: ThunkDispatch<{}, {}, IAuthAction>) => {
+ () =>
+ async (
+  dispatch: ThunkDispatch<{}, {}, IAuthAction>,
+  getState: () => AppState
+ ) => {
   const token = localStorage.getItem('token');
   if (token) {
    setAuthToken(token);
   }
 
   try {
+   dispatch({ type: AUTH_TYPES.LOADING_USER });
    const res = await axios.get('/api/admin/auth');
    if (!res.data) throw new Error();
    dispatch({
     type: AUTH_TYPES.USER_LOADED,
     payload: res.data,
    });
-   dispatch(getCurrentProfile());
+   getCurrentProfile()(dispatch, getState);
   } catch (err: any) {
-   dispatch(
-    setAlert("Erreur lors du chargement de l'utilisateur", AlertTypes.DANGER)
-   );
+   setAlert('400-0', AlertTypes.DANGER)(dispatch, getState);
    dispatch({
     type: AUTH_TYPES.AUTH_ERROR,
     payload: { error: { msg: "Erreur lors du chargement de l'utilisateur" } },
@@ -73,7 +80,10 @@ interface ILoginForm {
 }
 export const login =
  ({ username, password }: ILoginForm) =>
- async (dispatch: ThunkDispatch<{}, {}, IAuthAction>) => {
+ async (
+  dispatch: ThunkDispatch<{}, {}, IAuthAction>,
+  getState: () => AppState
+ ) => {
   const config = {
    headers: {
     'Content-Type': 'application/json',
@@ -87,16 +97,19 @@ export const login =
     type: AUTH_TYPES.LOGIN_SUCCESS,
     payload: res.data,
    });
-
-   dispatch(setAlert('Utilisateur connecté avec succès', AlertTypes.SUCCESS));
-   dispatch(loadUser());
+   setAlert('200-0', AlertTypes.SUCCESS)(dispatch, getState);
+   //  const init = async () => {
+   //    await getAnalyseTypes()(dispatch, getState);
+   //    await getGenes()(dispatch, getState);
+   //   };
+   loadUser()(dispatch, getState);
   } catch (err: any) {
    const errs = err.response.data.errors;
    if (errs)
     errs.forEach((e: any) => {
-     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+     setAlert(e.msg, AlertTypes.DANGER)(dispatch, getState);
     });
-   else dispatch(setAlert('Erreur de login', AlertTypes.DANGER));
+   else setAlert('400-1', AlertTypes.DANGER)(dispatch, getState);
    dispatch({
     type: AUTH_TYPES.LOGIN_FAIL,
    });
@@ -110,7 +123,10 @@ interface IUpdateForm {
 }
 export const updateUser =
  ({ username, password }: IUpdateForm) =>
- async (dispatch: ThunkDispatch<{}, {}, IAuthAction>) => {
+ async (
+  dispatch: ThunkDispatch<{}, {}, IAuthAction>,
+  getState: () => AppState
+ ) => {
   const config = {
    headers: {
     'Content-Type': 'application/json',
@@ -124,18 +140,14 @@ export const updateUser =
     type: AUTH_TYPES.USER_UPDATED,
     payload: res.data,
    });
-
-   dispatch(setAlert('Options modifiées avec succès', AlertTypes.SUCCESS));
+   setAlert('200-2', AlertTypes.SUCCESS)(dispatch, getState);
   } catch (err: any) {
    const errs = err.response.data.errors;
    if (errs)
     errs.forEach((e: any) => {
-     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+     setAlert(e.msg, AlertTypes.DANGER)(dispatch, getState);
     });
-   else
-    dispatch(
-     setAlert('Erreur lors de la modification du profil', AlertTypes.DANGER)
-    );
+   else setAlert('400-2', AlertTypes.DANGER)(dispatch, getState);
   }
  };
 

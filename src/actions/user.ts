@@ -11,6 +11,7 @@ import { ThunkDispatch } from 'redux-thunk';
 // import { getCurrentProfile, createProfileById } from './profile';
 import { CONFIG } from '../general/Common';
 import { getAllUsersProfiles } from './userProfiles';
+import { AppState } from '../store';
 
 //* Register User
 interface IRegisterUserForm
@@ -29,7 +30,10 @@ export const registerUser =
   phoneNumber,
   prenom,
  }: IRegisterUserForm) =>
- async (dispatch: ThunkDispatch<{}, {}, IUserProfileAction>) => {
+ async (
+  dispatch: ThunkDispatch<{}, {}, IUserProfileAction>,
+  getState: () => AppState
+ ) => {
   const body = JSON.stringify({
    email,
    password,
@@ -45,13 +49,13 @@ export const registerUser =
    dispatch({
     type: USER_AUTH_TYPES.USER_REGISTER_SUCCESS,
    });
-   dispatch(setAlert('Utilisateur enregistré avec succès', AlertTypes.SUCCESS));
-   dispatch(getAllUsersProfiles());
+   setAlert('200-1', AlertTypes.SUCCESS)(dispatch, getState);
+   getAllUsersProfiles()(dispatch, getState);
   } catch (err: any) {
    const errs = err.response ? err.response.data.errors : [err];
    if (errs)
     errs.forEach((e: any) => {
-     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+     setAlert(e.msg, AlertTypes.DANGER)(dispatch, getState);
     });
    console.error(err);
    dispatch({

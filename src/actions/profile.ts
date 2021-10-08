@@ -5,10 +5,15 @@ import { CONFIG } from '../general/Common';
 import { AlertTypes } from '../reducers/alerts';
 import { IProfile, IProfileAction } from '../reducers/profile';
 import { ThunkDispatch } from 'redux-thunk';
+import { AppState } from '../store';
 
 //* Get Current User's Profile
 export const getCurrentProfile =
- () => async (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
+ () =>
+ async (
+  dispatch: ThunkDispatch<{}, {}, IProfileAction>,
+  getState: () => AppState
+ ) => {
   try {
    const res = await axios.get('/api/admin/profile/me');
    if (!res) createProfile();
@@ -20,7 +25,7 @@ export const getCurrentProfile =
    const errors = err.response.data.errors;
    if (errors) {
     errors.forEach((e: any) => {
-     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+     setAlert(e.msg, AlertTypes.DANGER)(dispatch, getState);
     });
    }
    dispatch({
@@ -44,7 +49,10 @@ export interface IProfileFormData {
 
 export const createProfile =
  (formData?: IProfileFormData) =>
- async (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
+ async (
+  dispatch: ThunkDispatch<{}, {}, IProfileAction>,
+  getState: () => AppState
+ ) => {
   try {
    const res = await axios.post('/api/admin/profile', formData, CONFIG);
    dispatch({
@@ -55,7 +63,7 @@ export const createProfile =
    const errors = err.response.data.errors;
    if (errors) {
     errors.forEach((e: any) => {
-     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+     setAlert(e.msg, AlertTypes.DANGER)(dispatch, getState);
     });
    }
    dispatch({
@@ -67,7 +75,10 @@ export const createProfile =
 
 export const createProfileById =
  (id: string, formData?: IProfileFormData) =>
- async (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
+ async (
+  dispatch: ThunkDispatch<{}, {}, IProfileAction>,
+  getState: () => AppState
+ ) => {
   try {
    const res = await axios.post(`/api/admin/profile/${id}`, formData, CONFIG);
    dispatch({
@@ -78,7 +89,7 @@ export const createProfileById =
    const errors = err.response.data.errors;
    if (errors) {
     errors.forEach((e: any) => {
-     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+     setAlert(e.msg, AlertTypes.DANGER)(dispatch, getState);
     });
    }
    dispatch({
@@ -91,19 +102,22 @@ export const createProfileById =
 //* Update profile
 export const updateProfile =
  (formData: Partial<IProfileFormData>) =>
- async (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
+ async (
+  dispatch: ThunkDispatch<{}, {}, IProfileAction>,
+  getState: () => AppState
+ ) => {
   try {
    const res = await axios.put('/api/admin/profile', formData, CONFIG);
    dispatch({
     type: PROFILE_TYPES.PROFILE_UPDATE_SUCCESS,
     payload: res.data,
    });
-   dispatch(setAlert('Profil mis à jour', AlertTypes.SUCCESS));
+   setAlert('Profil mis à jour', AlertTypes.SUCCESS)(dispatch, getState);
   } catch (err: any) {
    const errors = err.response.data.errors;
    if (errors) {
     errors.forEach((e: any) => {
-     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+     setAlert(e.msg, AlertTypes.DANGER)(dispatch, getState);
     });
    }
 
@@ -115,19 +129,22 @@ export const updateProfile =
  };
 export const updateProfileById =
  (id: string, formData: Partial<IProfileFormData>) =>
- async (dispatch: ThunkDispatch<{}, {}, IProfileAction>) => {
+ async (
+  dispatch: ThunkDispatch<{}, {}, IProfileAction>,
+  getState: () => AppState
+ ) => {
   try {
    const res = await axios.put(`/api/admin/profile/${id}`, formData, CONFIG);
    dispatch({
     type: PROFILE_TYPES.OTHER_PROFILE_UPDATE_SUCCESS,
     payload: res.data,
    });
-   dispatch(setAlert('Profil mis à jour', AlertTypes.SUCCESS));
+   setAlert('Profil mis à jour', AlertTypes.SUCCESS)(dispatch, getState);
   } catch (err: any) {
    const errors = err.response.data.errors;
    if (errors) {
     errors.forEach((e: any) => {
-     dispatch(setAlert(e.msg, AlertTypes.DANGER));
+     setAlert(e.msg, AlertTypes.DANGER)(dispatch, getState);
     });
    }
    dispatch({

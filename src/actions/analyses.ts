@@ -28,7 +28,10 @@ export type AnalyseStateForm = Omit<
 
 export const getAnalyses =
  (options?: IAnalysePaginationOptions) =>
- async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+ async (
+  dispatch: ThunkDispatch<{}, {}, IAnalyseAction>,
+  getState: () => AppState
+ ) => {
   dispatch({
    type: ANALYSES_TYPES.LOADING_ANALYSE,
   });
@@ -48,7 +51,7 @@ export const getAnalyses =
     type: ANALYSES_TYPES.GET_ANALYSES_ERROR,
     payload: error,
    });
-   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+   setAlert(error.msg, AlertTypes.DANGER)(dispatch, getState);
   }
  };
 
@@ -65,7 +68,7 @@ export const addAnalyse =
     type: ANALYSES_TYPES.ADD_ANALYSE,
     payload: res.data,
    });
-   dispatch(setAlert(`Analyse ajoutée avec succès`, AlertTypes.SUCCESS));
+   setAlert('200-4', AlertTypes.SUCCESS)(dispatch, getState);
   } catch (err: any) {
    const error = err.response.data.errors
     ? err.response.data.errors[0] || Object(err.response.data.msg)
@@ -74,7 +77,7 @@ export const addAnalyse =
     type: ANALYSES_TYPES.ADD_ANALYSE_ERROR,
     payload: error,
    });
-   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+   setAlert(error.msg, AlertTypes.DANGER)(dispatch, getState);
   }
  };
 
@@ -94,7 +97,7 @@ export const updateAnalyseById =
     type: ANALYSES_TYPES.UPDATE_ANALYSE,
     payload: res.data,
    });
-   dispatch(setAlert(`Analyse modifiée avec succès`, AlertTypes.SUCCESS));
+   setAlert('200-5', AlertTypes.SUCCESS)(dispatch, getState);
   } catch (err: any) {
    const error = err.response.data.errors
     ? err.response.data.errors[0] || Object(err.response.data.msg)
@@ -103,7 +106,7 @@ export const updateAnalyseById =
     type: ANALYSES_TYPES.UPDATE_ANALYSE_ERROR,
     payload: error,
    });
-   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+   setAlert(error.msg, AlertTypes.DANGER)(dispatch, getState);
   }
  };
 
@@ -131,7 +134,7 @@ export const deleteAnalyseById =
     type: ANALYSES_TYPES.DELETE_ANALYSE_ERROR,
     payload: error,
    });
-   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+   setAlert(error.msg, AlertTypes.DANGER)(dispatch, getState);
   }
  };
 
@@ -154,7 +157,11 @@ export const clearSelectedAnalyse =
 //! ANALYSE TYPES ------------------------------------------------------
 
 export const getAnalyseTypes =
- () => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+ () =>
+ async (
+  dispatch: ThunkDispatch<{}, {}, IAnalyseAction>,
+  getState: () => AppState
+ ) => {
   dispatch({
    type: ANALYSES_TYPES.LOADING_ANALYSE,
   });
@@ -172,25 +179,23 @@ export const getAnalyseTypes =
     type: ANALYSES_TYPES.GET_TYPES_ERROR,
     payload: error,
    });
-   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+   setAlert(error.msg, AlertTypes.DANGER)(dispatch, getState);
   }
  };
 
 export const addAnalyseTypes =
  (type: Pick<IAnalyseType, 'nom' | 'description' | 'genes'>) =>
- async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+ async (
+  dispatch: ThunkDispatch<{}, {}, IAnalyseAction>,
+  getState: () => AppState
+ ) => {
   try {
    const res = await axios.post('/api/analyseTypes', type, CONFIG);
    dispatch({
     type: ANALYSES_TYPES.ADD_TYPE,
     payload: res.data,
    });
-   dispatch(
-    setAlert(
-     `Type d'analyse "${type.nom}" ajouté avec succès`,
-     AlertTypes.SUCCESS
-    )
-   );
+   setAlert('200-6', AlertTypes.SUCCESS)(dispatch, getState);
   } catch (err: any) {
    const error = err.response.data.errors
     ? err.response.data.errors[0] || Object(err.response.data.msg)
@@ -199,7 +204,7 @@ export const addAnalyseTypes =
     type: ANALYSES_TYPES.ADD_TYPE_ERROR,
     payload: error,
    });
-   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+   setAlert(error.msg, AlertTypes.DANGER)(dispatch, getState);
   }
  };
 
@@ -208,19 +213,17 @@ export const updateAnalyseTypeById =
   id: string,
   type: Partial<Pick<IAnalyseType, 'nom' | 'description' | 'genes'>>
  ) =>
- async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+ async (
+  dispatch: ThunkDispatch<{}, {}, IAnalyseAction>,
+  getState: () => AppState
+ ) => {
   try {
    const res = await axios.put(`/api/analyseTypes/${id}`, type, CONFIG);
    dispatch({
     type: ANALYSES_TYPES.UPDATE_TYPE,
     payload: res.data,
    });
-   dispatch(
-    setAlert(
-     `Type d'analyse "${type.nom}" modifié avec succès`,
-     AlertTypes.SUCCESS
-    )
-   );
+   setAlert('200-7', AlertTypes.SUCCESS)(dispatch, getState);
   } catch (err: any) {
    const error = err.response.data.errors
     ? err.response.data.errors[0] || Object(err.response.data.msg)
@@ -229,12 +232,16 @@ export const updateAnalyseTypeById =
     type: ANALYSES_TYPES.UPDATE_TYPE_ERROR,
     payload: error,
    });
-   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+   setAlert(error.msg, AlertTypes.DANGER)(dispatch, getState);
   }
  };
 
 export const deleteTypeById =
- (id: string) => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+ (id: string) =>
+ async (
+  dispatch: ThunkDispatch<{}, {}, IAnalyseAction>,
+  getState: () => AppState
+ ) => {
   dispatch({
    type: ANALYSES_TYPES.LOADING_ANALYSE,
   });
@@ -252,7 +259,7 @@ export const deleteTypeById =
     type: ANALYSES_TYPES.DELETE_TYPE_ERROR,
     payload: error,
    });
-   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+   setAlert(error.msg, AlertTypes.DANGER)(dispatch, getState);
   }
  };
 
@@ -275,7 +282,11 @@ export const clearSelectedType =
 //! GENES  ------------------------------------------------------------
 
 export const getGenes =
- () => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+ () =>
+ async (
+  dispatch: ThunkDispatch<{}, {}, IAnalyseAction>,
+  getState: () => AppState
+ ) => {
   dispatch({
    type: ANALYSES_TYPES.LOADING_ANALYSE,
   });
@@ -293,12 +304,16 @@ export const getGenes =
     type: ANALYSES_TYPES.GET_GENES_ERROR,
     payload: error,
    });
-   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+   setAlert(error.msg, AlertTypes.DANGER)(dispatch, getState);
   }
  };
 
 export const deleteGeneById =
- (id: string) => async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+ (id: string) =>
+ async (
+  dispatch: ThunkDispatch<{}, {}, IAnalyseAction>,
+  getState: () => AppState
+ ) => {
   dispatch({
    type: ANALYSES_TYPES.LOADING_ANALYSE,
   });
@@ -316,13 +331,16 @@ export const deleteGeneById =
     type: ANALYSES_TYPES.DELETE_GENE_ERROR,
     payload: error,
    });
-   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+   setAlert(error.msg, AlertTypes.DANGER)(dispatch, getState);
   }
  };
 
 export const addGene =
  (type: Pick<IGene, 'nom' | 'description'>) =>
- async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+ async (
+  dispatch: ThunkDispatch<{}, {}, IAnalyseAction>,
+  getState: () => AppState
+ ) => {
   dispatch({
    type: ANALYSES_TYPES.LOADING_ANALYSE,
   });
@@ -332,9 +350,7 @@ export const addGene =
     type: ANALYSES_TYPES.ADD_GENE,
     payload: res.data,
    });
-   dispatch(
-    setAlert(`Gene "${type.nom}" ajouté avec succès`, AlertTypes.SUCCESS)
-   );
+   setAlert('200-8', AlertTypes.SUCCESS)(dispatch, getState);
   } catch (err: any) {
    const error = err.response.data.errors
     ? err.response.data.errors[0] || Object(err.response.data.msg)
@@ -344,13 +360,16 @@ export const addGene =
     type: ANALYSES_TYPES.ADD_GENE_ERROR,
     payload: error,
    });
-   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+   setAlert(error.msg, AlertTypes.DANGER)(dispatch, getState);
   }
  };
 
 export const updateGeneById =
  (id: string, type: Partial<Pick<IGene, 'nom' | 'description'>>) =>
- async (dispatch: ThunkDispatch<{}, {}, IAnalyseAction>) => {
+ async (
+  dispatch: ThunkDispatch<{}, {}, IAnalyseAction>,
+  getState: () => AppState
+ ) => {
   dispatch({
    type: ANALYSES_TYPES.LOADING_ANALYSE,
   });
@@ -360,9 +379,7 @@ export const updateGeneById =
     type: ANALYSES_TYPES.UPDATE_GENE,
     payload: res.data,
    });
-   dispatch(
-    setAlert(`Gene "${type.nom}" modifié avec succès`, AlertTypes.SUCCESS)
-   );
+   setAlert('200-9', AlertTypes.SUCCESS)(dispatch, getState);
   } catch (err: any) {
    const error = err.response.data.errors
     ? err.response.data.errors[0] || Object(err.response.data.msg)
@@ -372,7 +389,7 @@ export const updateGeneById =
     type: ANALYSES_TYPES.UPDATE_GENE_ERROR,
     payload: error,
    });
-   dispatch(setAlert(error.msg, AlertTypes.DANGER));
+   setAlert(error.msg, AlertTypes.DANGER)(dispatch, getState);
   }
  };
 

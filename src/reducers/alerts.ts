@@ -7,14 +7,14 @@ export enum AlertTypes {
  INFO = 'INFO',
 }
 export interface IAlert {
- msg: string;
+ msg: string | number;
  alertType: AlertTypes;
  id: string;
 }
 
 export interface IAlertAction {
  type: ALERT_TYPES;
- payload?: IAlert | string;
+ payload: IAlert | string;
 }
 
 export type AlertState = IAlert[];

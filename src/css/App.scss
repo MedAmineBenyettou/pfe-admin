@@ -50,6 +50,15 @@
  text-align: center !important;
 }
 
+.translation-btn {
+ background: none !important;
+ //  box-shadow: none !important;
+ //  height: 100%;
+ img {
+  height: 32px;
+ }
+}
+
 button.mymodal-trigger {
  background: none;
  border: none;

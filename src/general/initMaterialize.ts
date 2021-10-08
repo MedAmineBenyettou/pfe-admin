@@ -9,6 +9,9 @@ export const initMaterialize = () => {
   });
   M.Modal.init(document.querySelectorAll('.modal'));
   initDatePickers();
+  //   M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'), {
+  //    hover: false,
+  //   });
   console.log('init Materialize!');
  }, 500);
 };

@@ -116,6 +116,14 @@ td.is-selected.is-today {
   text-align: center !important;
 }
 
+.translation-btn {
+  background: none !important;
+}
+
+.translation-btn img {
+  height: 32px;
+}
+
 button.mymodal-trigger {
   background: none;
   border: none;

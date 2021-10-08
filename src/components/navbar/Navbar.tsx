@@ -9,9 +9,11 @@ import { initMaterialize } from '../../general/initMaterialize';
 import { getLangMessage } from '../../actions/lang';
 
 import '../../css/navbar/Navbar.css';
+import LangSwitcher from './LangSwitcher';
 
 export const Navbar = ({
  auth: { isAuthenticated, loading },
+ lang: { lang, langs },
  logout,
  getLangMessage,
 }: PropsFromRedux) => {
@@ -35,6 +37,9 @@ export const Navbar = ({
      <li>
       <Link to={`/stats`}>{getLangMessage(12)}</Link>
      </li>
+     <li>
+      <LangSwitcher />
+     </li>
     </>
    )}
    <li onClick={logout} className="red lighten-2">
@@ -48,6 +53,9 @@ export const Navbar = ({
 
  const Mobile = () => (
   <ul className="sidenav" id="mobile">
+   <div className="center-align">
+    <LangSwitcher />
+   </div>
    <li>
     <Link className="sidenav-close" to="/">
      {getLangMessage(9)}
@@ -65,14 +73,13 @@ export const Navbar = ({
       <Link to={`/stats`} className="sidenav-close">
        {getLangMessage(12)}
       </Link>
+      <li onClick={logout} className="red lighten-2">
+       <Link className="sidenav-close" to="#">
+        {getLangMessage(13)}
+       </Link>
+      </li>
      </>
     )}
-   </li>
-
-   <li onClick={logout} className="red lighten-2">
-    <Link className="sidenav-close" to="#">
-     {getLangMessage(13)}
-    </Link>
    </li>
   </ul>
  );
@@ -101,6 +108,7 @@ export const Navbar = ({
 const mapStateToProps = (state: AppState) => ({
  auth: state.auth,
  profile: state.profile,
+ lang: state.lang,
 });
 
 const mapDispatchToProps = { logout, getLangMessage };

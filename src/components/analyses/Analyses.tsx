@@ -14,15 +14,14 @@ import Spinner from '../layout/Spinner';
 import moment from 'moment';
 import { IAnalyse } from '../../reducers/analyses';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getLangMessage } from '../../actions/lang';
 
 export const Analyses = ({
  analyses: { loading, analyses },
  profile,
+ lang,
  selectAnalyse,
  clearSelectedAnalyse,
  getAnalyses,
- getLangMessage,
 }: PropsFromRedux) => {
  const { state }: any = useLocation();
  useEffect(() => {
@@ -130,7 +129,12 @@ export const Analyses = ({
        </div>
       </div>
      ));
-    else return <p className="empty-list">{getLangMessage(0)}</p>;
+    else
+     return (
+      <p className="empty-list">
+       {lang.messages.find((m) => m.code.match(String(0)))?.message}
+      </p>
+     );
    }
   } else return <Spinner />;
  };
@@ -141,7 +145,10 @@ export const Analyses = ({
     <div className="section-header row">
      <h5 className="col s4">
       {state && state.mine ? 'Mes ' : 'Tous les '}
-      {getLangMessage(11).toLowerCase()}:
+      {lang.messages
+       .find((m) => m.code.match(String(11)))
+       ?.message.toLowerCase()}
+      :
      </h5>
      <div className="right buttons">
       <a
@@ -158,7 +165,7 @@ export const Analyses = ({
       <div className="collection with-header">
        <h4 className="collection-header">
         <img src={waiting} alt="waiting" className="circle" />
-        {getLangMessage(2)}
+        {lang.messages.find((m) => m.code.match(String(2)))?.message}
        </h4>
        {display(-1)}
       </div>
@@ -167,7 +174,7 @@ export const Analyses = ({
       <div className="collection with-header">
        <h4 className="collection-header">
         <img src={gears} alt="gears" className="circle" />
-        {getLangMessage(3)}
+        {lang.messages.find((m) => m.code.match(String(3)))?.message}
        </h4>
        {display(0)}
       </div>
@@ -176,7 +183,7 @@ export const Analyses = ({
       <div className="collection with-header">
        <h4 className="collection-header">
         <img src={done} alt="done" className="circle" />
-        {getLangMessage(4)}
+        {lang.messages.find((m) => m.code.match(String(4)))?.message}
        </h4>
        {display(1)}
       </div>
@@ -190,13 +197,13 @@ export const Analyses = ({
 const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
  profile: state.profile.profile,
+ lang: state.lang.lang,
 });
 
 const mapDispatchToProps = {
  selectAnalyse,
  clearSelectedAnalyse,
  getAnalyses,
- getLangMessage,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

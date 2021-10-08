@@ -14,7 +14,6 @@ import Spinner from '../layout/Spinner';
 import moment from 'moment';
 import { IAnalyse } from '../../reducers/analyses';
 import { Link } from 'react-router-dom';
-import { getLangMessage } from '../../actions/lang';
 
 export const MesPatients = ({
  analyses: { loading, analyses },
@@ -22,7 +21,7 @@ export const MesPatients = ({
  selectAnalyse,
  clearSelectedAnalyse,
  getAnalyses,
- getLangMessage,
+ lang,
 }: PropsFromRedux) => {
  const handleOpenModal = () => {
   var elmnt = document.getElementById('AnalyseModal');
@@ -175,7 +174,12 @@ export const MesPatients = ({
        </div>
       </div>
      ));
-    else return <p className="empty-list">{getLangMessage(0)}</p>;
+    else
+     return (
+      <p className="empty-list">
+       {lang.messages.find((m) => m.code.match(String(0)))?.message}
+      </p>
+     );
    }
   } else return <Spinner />;
  };
@@ -197,7 +201,7 @@ export const MesPatients = ({
       to={{ pathname: '/analyses', state: { mine: true } }}
       className="btn waves-effect waves-light allanalyses-btn"
      >
-      {getLangMessage(1)}
+      {lang.messages.find((m) => m.code.match(String(1)))?.message}
      </Link>
     </div>
    </div>
@@ -206,7 +210,7 @@ export const MesPatients = ({
      <div className="collection with-header">
       <h4 className="collection-header">
        <img src={waiting} alt="waiting" className="circle" />
-       {getLangMessage(2)}
+       {lang.messages.find((m) => m.code.match(String(2)))?.message}
       </h4>
       {display(-1)}
      </div>
@@ -215,7 +219,7 @@ export const MesPatients = ({
      <div className="collection with-header">
       <h4 className="collection-header">
        <img src={gears} alt="gears" className="circle" />
-       {getLangMessage(3)}
+       {lang.messages.find((m) => m.code.match(String(3)))?.message}
       </h4>
       {display(0)}
      </div>
@@ -224,7 +228,7 @@ export const MesPatients = ({
      <div className="collection with-header">
       <h4 className="collection-header">
        <img src={done} alt="done" className="circle" />
-       {getLangMessage(4)}
+       {lang.messages.find((m) => m.code.match(String(4)))?.message}
       </h4>
       {display(1)}
      </div>
@@ -237,13 +241,13 @@ export const MesPatients = ({
 const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
  profile: state.profile.profile,
+ lang: state.lang.lang,
 });
 
 const mapDispatchToProps = {
  selectAnalyse,
  clearSelectedAnalyse,
  getAnalyses,
- getLangMessage,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

@@ -8,13 +8,12 @@ import Spinner from '../layout/Spinner';
 import { IProfile } from '../../reducers/profile';
 import M from 'materialize-css';
 import { setTimeout } from 'timers';
-import { getLangMessage } from '../../actions/lang';
 
 export const Admins = ({
  profile: { loading, profiles, profile },
  getAllProfiles,
  setTargetProfile,
- getLangMessage,
+ lang,
 }: PropsFromRedux) => {
  useEffect(() => {
   getAllProfiles();
@@ -50,7 +49,9 @@ export const Admins = ({
       <td>{p.phoneNumber}</td>
       <td>{moment(p.date).format('DD/MM/YYYY')}</td>
       <td className={`${p.user.isEnabled ? 'green-text' : 'red-text'}`}>
-       {p.user.isEnabled ? getLangMessage(28) : getLangMessage(47)}
+       {p.user.isEnabled
+        ? lang.messages.find((m) => m.code.match(String(28)))?.message
+        : lang.messages.find((m) => m.code.match(String(47)))?.message}
       </td>
      </tr>
     );
@@ -62,7 +63,9 @@ export const Admins = ({
     <td></td>
     <td></td>
     <td></td>
-    <td className="error">{getLangMessage(48)}</td>
+    <td className="error">
+     {lang.messages.find((m) => m.code.match(String(48)))?.message}
+    </td>
     <td></td>
     <td></td>
     <td></td>
@@ -74,12 +77,12 @@ export const Admins = ({
  return (
   <div className="admins">
    <div className="header">
-    <h1>{getLangMessage(49)}</h1>
+    <h1>{lang.messages.find((m) => m.code.match(String(49)))?.message}</h1>
     <a
      className="btn light-green waves-effect waves-light right modal-trigger"
      href="#AdminModal"
     >
-     {getLangMessage(50)}
+     {lang.messages.find((m) => m.code.match(String(50)))?.message}
     </a>
    </div>
    <div className="content row">
@@ -87,13 +90,13 @@ export const Admins = ({
      <thead>
       <tr>
        {/* <th>ID</th> */}
-       <th>{getLangMessage(14)}</th>
-       <th>{getLangMessage(18)}</th>
-       <th>{getLangMessage(24)}</th>
-       <th>{getLangMessage(26)}</th>
-       <th>{getLangMessage(45)}</th>
-       <th>{getLangMessage(52)}</th>
-       <th>{getLangMessage(51)}</th>
+       <th>{lang.messages.find((m) => m.code.match(String(14)))?.message}</th>
+       <th>{lang.messages.find((m) => m.code.match(String(18)))?.message}</th>
+       <th>{lang.messages.find((m) => m.code.match(String(24)))?.message}</th>
+       <th>{lang.messages.find((m) => m.code.match(String(26)))?.message}</th>
+       <th>{lang.messages.find((m) => m.code.match(String(45)))?.message}</th>
+       <th>{lang.messages.find((m) => m.code.match(String(52)))?.message}</th>
+       <th>{lang.messages.find((m) => m.code.match(String(51)))?.message}</th>
       </tr>
      </thead>
      <tbody>{display()}</tbody>
@@ -105,9 +108,10 @@ export const Admins = ({
 
 const mapStateToProps = (state: AppState) => ({
  profile: state.profile,
+ lang: state.lang.lang,
 });
 
-const mapDispatchToProps = { getAllProfiles, setTargetProfile, getLangMessage };
+const mapDispatchToProps = { getAllProfiles, setTargetProfile };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

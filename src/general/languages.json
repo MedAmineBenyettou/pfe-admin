@@ -222,5 +222,453 @@
     "message": "Email déjà utilisé par un autre utilisateur!"
    }
   ]
+ },
+ {
+  "dict": { "language": "English", "lang": "en" },
+  "messages": [
+   { "code": "0", "message": "Empty list" },
+   { "code": "1", "message": "Display all" },
+   { "code": "2", "message": "Waiting" },
+   { "code": "3", "message": "In progress" },
+   { "code": "4", "message": "Completed" },
+   { "code": "5", "message": "All patients" },
+   { "code": "6", "message": "Connect" },
+   {
+    "code": "7",
+    "message": "No account? Contact an administrator for access."
+   },
+   { "code": "8", "message": "Start your productive day" },
+   { "code": "9", "message": "Dashboard" },
+   { "code": "10", "message": "Options" },
+   { "code": "11", "message": "Patients" },
+   { "code": "12", "message": "Statistics" },
+   { "code": "13", "message": "Log off" },
+   { "code": "14", "message": "User name" },
+   { "code": "15", "message": "Password" },
+   { "code": "16", "message": "Modify" },
+   { "code": "17", "message": "Add" },
+   { "code": "18", "message": "Name" },
+   { "code": "19", "message": "Description" },
+   { "code": "20", "message": "are needed" },
+   { "code": "21", "message": "a gene" },
+   { "code": "22", "message": "Cancel" },
+   { "code": "23", "message": "an administrator" },
+   { "code": "24", "message": "First name" },
+   { "code": "25", "message": "Phone number" },
+   { "code": "26", "message": "Function" },
+   { "code": "27", "message": "Account: Disabled" },
+   { "code": "28", "message": "Enabled" },
+   { "code": "29", "message": "No patient accounts" },
+   { "code": "30", "message": "No analysis types" },
+   { "code": "31", "message": "a test" },
+   { "code": "32", "message": "Patient account" },
+   { "code": "33", "message": "New Account" },
+   { "code": "34", "message": "Type of analysis" },
+   { "code": "35", "message": "Location Of Collection" },
+   { "code": "36", "message": "Notes" },
+   { "code": "37", "message": "Analysis Status" },
+   { "code": "38", "message": "Positive" },
+   { "code": "39", "message": "a type of analysis" },
+   { "code": "40", "message": "Select genes" },
+   { "code": "41", "message": "Modify a patient account" },
+   { "code": "42", "message": "Add a new patient account" },
+   { "code": "43", "message": "Email" },
+   { "code": "44", "message": "Date of birth" },
+   { "code": "45", "message": "Place of birth" },
+   { "code": "46", "message": "Address" },
+   { "code": "47", "message": "Disabled" },
+   { "code": "48", "message": "No users" },
+   { "code": "49", "message": "List of administrators" },
+   { "code": "50", "message": "Add an administrator" },
+   { "code": "51", "message": "Status" },
+   { "code": "52", "message": "Joined on" },
+   {
+    "code": "53",
+    "message": "Add, modify or delete the types of genes treated and types of analysis proposed by the laboratory"
+   },
+   { "code": "54", "message": "Laboratory" },
+   { "code": "55", "message": "Genes" },
+   { "code": "56", "message": "Types of analysis" },
+   { "code": "57", "message": "Do you really want to delete this gene" },
+   {
+    "code": "58",
+    "message": "Once deleted, you won't be able to use it in the analyses!"
+   },
+   { "code": "59", "message": "Confirm" },
+   { "code": "60", "message": "Do you really want to delete this type" },
+   { "code": "61", "message": "Profile" },
+   { "code": "62", "message": "Admins" },
+   { "code": "63", "message": "Profile options" },
+   { "code": "64", "message": "Save" },
+   { "code": "65", "message": "Advanced" },
+   { "code": "66", "message": "Patient lists" },
+   { "code": "67", "message": "Add a patient account" },
+   { "code": "68", "message": "Date and place of birth" },
+   { "code": "69", "message": "Create it" },
+   {
+    "code": "70",
+    "message": "On this page you can analyze statistics about patients, administrators and analyses."
+   },
+   { "code": "71", "message": "Administrator activity" },
+   { "code": "72", "message": "All times" },
+   { "code": "73", "message": "Last 7 days" },
+   { "code": "74", "message": "Last 30 days" },
+   { "code": "75", "message": "Analyses made by the administrators in" },
+   { "code": "76", "message": "Analyses" },
+   { "code": "77", "message": "Analyses made in the laboratory" },
+   { "code": "78", "message": "Type of analyses" },
+   { "code": "79", "message": "Types of analyses done in the laboratory" },
+   { "code": "80", "message": "Period" },
+   { "code": "81", "message": "Trouble in the laboratory" },
+   { "code": "82", "message": "Patient traffic" }
+  ],
+  "alerts": [
+   { "code": "200-0", "message": "User successfully logged in" },
+   { "code": "200-1", "message": "User registered successfully" },
+   { "code": "200-2", "message": "Options successfully modified" },
+   { "code": "200-3", "message": "Profile updated" },
+   { "code": "200-4", "message": "Analysis added successfully" },
+   { "code": "200-5", "message": "Analysis successfully modified" },
+   { "code": "200-6", "message": "Analysis type added successfully" },
+   { "code": "200-7", "message": "Type of analysis successfully modified" },
+   { "code": "200-8", "message": "Gene added successfully" },
+   { "code": "200-9", "message": "Gene modified successfully" },
+   { "code": "400-0", "message": "Error while loading user" },
+   { "code": "400-1", "message": "Login error" },
+   { "code": "400-2", "message": "Error while editing profile" },
+   { "code": "400-3", "message": "Language not found" },
+   {
+    "code": "500-0",
+    "message": "Invalid credentials"
+   },
+   {
+    "code": "500-1",
+    "message": "Account disabled"
+   },
+   {
+    "code": "500-2",
+    "message": "A username is required"
+   },
+   {
+    "code": "500-3",
+    "message": "Password required"
+   },
+   {
+    "code": "500-4",
+    "message": "Password must contain 6 or more characters"
+   },
+   {
+    "code": "500-5",
+    "message": "A user with the same 'Username' already exists"
+   },
+   {
+    "code": "500-6",
+    "message": "User not found"
+   },
+   {
+    "code": "500-7",
+    "message": "User disabled"
+   },
+   {
+    "code": "500-8",
+    "message": "A name for the hindrance is required"
+   },
+   {
+    "code": "500-9",
+    "message": "This type of gene already exists."
+   },
+   {
+    "code": "500-10",
+    "message": "Discomfort not found"
+   },
+   {
+    "code": "500-11",
+    "message": "A gene with the same name already exists"
+   },
+   {
+    "code": "500-12",
+    "message": "Please include a username"
+   },
+   {
+    "code": "500-13",
+    "message": "Please enter a password of 6 characters or more"
+   },
+   {
+    "code": "500-14",
+    "message": "User name already used"
+   },
+   {
+    "code": "500-15",
+    "message": "Profile already exists..."
+   },
+   {
+    "code": "500-16",
+    "message": "No user found..."
+   },
+   {
+    "code": "500-17",
+    "message": "No profile found"
+   },
+   {
+    "code": "500-18",
+    "message": "Analysis not found"
+   },
+   {
+    "code": "500-19",
+    "message": "A name is required"
+   },
+   {
+    "code": "500-20",
+    "message": "This type of analysis already exists."
+   },
+   {
+    "code": "500-21",
+    "message": "Type not found"
+   },
+   {
+    "code": "500-22",
+    "message": "A type with the same name already exists"
+   },
+   {
+    "code": "500-23",
+    "message": "Please include a valid e-mail"
+   },
+   {
+    "code": "500-24",
+    "message": "There is no profile for this user yet"
+   },
+   {
+    "code": "500-25",
+    "message": "A user with the same 'email' already exists"
+   },
+   {
+    "code": "500-26",
+    "message": "Email already used by another user!"
+   }
+  ]
+ },
+ {
+  "dict": { "language": "Dutch", "lang": "de" },
+  "messages": [
+   { "code": "0", "message": "Leere Liste" },
+   { "code": "1", "message": "Alle anzeigen" },
+   { "code": "2", "message": "Warten" },
+   { "code": "3", "message": "In Bearbeitung" },
+   { "code": "4", "message": "Erledigt" },
+   { "code": "5", "message": "Alle Patienten" },
+   { "code": "6", "message": "Verbinden" },
+   {
+    "code": "7",
+    "message": "Kein Konto? Wenden Sie sich für den Zugang an einen Administrator."
+   },
+   { "code": "8", "message": "Beginnen Sie Ihren produktiven Tag" },
+   { "code": "9", "message": "Dashboard" },
+   { "code": "10", "message": "Optionen" },
+   { "code": "11", "message": "Patienten" },
+   { "code": "12", "message": "Statistik" },
+   { "code": "13", "message": "Abmelden" },
+   { "code": "14", "message": "Nutzername" },
+   { "code": "15", "message": "Passwort" },
+   { "code": "16", "message": "Ändern" },
+   { "code": "17", "message": "Hinzufügen" },
+   { "code": "18", "message": "Name" },
+   { "code": "19", "message": "Beschreibung" },
+   { "code": "20", "message": "werden benötigt" },
+   { "code": "21", "message": "ein Gen" },
+   { "code": "22", "message": "Abbrechen" },
+   { "code": "23", "message": "ein Administrator" },
+   { "code": "24", "message": "Vorname" },
+   { "code": "25", "message": "Telefonnummer" },
+   { "code": "26", "message": "Funktion" },
+   { "code": "27", "message": "Konto: Deaktiviert" },
+   { "code": "28", "message": "Aktiviert" },
+   { "code": "29", "message": "Keine Patientenkonten" },
+   { "code": "30", "message": "Keine Testtypen" },
+   { "code": "31", "message": "ein Test" },
+   { "code": "32", "message": "Patientenkonto" },
+   { "code": "33", "message": "Neues Konto" },
+   { "code": "34", "message": "Art der Analyse" },
+   { "code": "35", "message": "Ort der Abholung" },
+   { "code": "36", "message": "Anmerkungen" },
+   { "code": "37", "message": "Analysestatus" },
+   { "code": "38", "message": "Positiv" },
+   { "code": "39", "message": "eine Art von Analyse" },
+   { "code": "40", "message": "Select genes" },
+   { "code": "41", "message": "Ändern eines Patientenkontos" },
+   { "code": "42", "message": "Ein neues Patientenkonto hinzufügen" },
+   { "code": "43", "message": "E-Mail" },
+   { "code": "44", "message": "Geburtsdatum" },
+   { "code": "45", "message": "Geburtsort" },
+   { "code": "46", "message": "Adresse" },
+   { "code": "47", "message": "Deaktiviert" },
+   { "code": "48", "message": "Keine Benutzer" },
+   { "code": "49", "message": "Administratorlisten" },
+   { "code": "50", "message": "Administrator hinzufügen" },
+   { "code": "51", "message": "Status" },
+   { "code": "52", "message": "Joined" },
+   {
+    "code": "53",
+    "message": "Hinzufügen, Ändern oder Streichen der behandelten Genarten und der vom Labor vorgeschlagenen Analysetypen"
+   },
+   { "code": "54", "message": "Labor" },
+   { "code": "55", "message": "Genes" },
+   { "code": "56", "message": "Arten der Analyse" },
+   { "code": "57", "message": "Wollen Sie dieses Gen wirklich löschen" },
+   {
+    "code": "58",
+    "message": "Einmal gelöscht, können Sie es in den Analysen nicht mehr verwenden!"
+   },
+   { "code": "59", "message": "Bestätigen" },
+   { "code": "60", "message": "Wollen Sie diesen Typ wirklich löschen" },
+   { "code": "61", "message": "Profil" },
+   { "code": "62", "message": "Admins" },
+   { "code": "63", "message": "Profiloptionen" },
+   { "code": "64", "message": "Speichern" },
+   { "code": "65", "message": "Advanced" },
+   { "code": "66", "message": "Patientenlisten" },
+   { "code": "67", "message": "Patientenkonto hinzufügen" },
+   { "code": "68", "message": "Datum und Ort der Geburt" },
+   { "code": "69", "message": "Create it" },
+   {
+    "code": "70",
+    "message": "Auf dieser Seite können Sie Statistiken über Patienten, Verwalter und Analysen auswerten."
+   },
+   { "code": "71", "message": "Administrator-Aktivität" },
+   { "code": "72", "message": "Alle Zeiten" },
+   { "code": "73", "message": "Letzte 7 Tage" },
+   { "code": "74", "message": "Letzte 30 Tage" },
+   { "code": "75", "message": "Analysen, die von den Administratoren in" },
+   { "code": "76", "message": "Analysen" },
+   { "code": "77", "message": "Im Labor durchgeführte Analysen" },
+   { "code": "78", "message": "Art der Analysen" },
+   { "code": "79", "message": "Arten der im Labor durchgeführten Analysen" },
+   { "code": "80", "message": "Zeitraum" },
+   { "code": "81", "message": "Ärger im Labor" },
+   { "code": "82", "message": "Patientenverkehr" }
+  ],
+  "alerts": [
+   { "code": "200-0", "message": "Benutzer erfolgreich eingeloggt" },
+   { "code": "200-1", "message": "Benutzer erfolgreich registriert" },
+   { "code": "200-2", "message": "Optionen erfolgreich geändert" },
+   { "code": "200-3", "message": "Profil aktualisiert" },
+   { "code": "200-4", "message": "Analyse erfolgreich hinzugefügt" },
+   { "code": "200-5", "message": "Analyse erfolgreich geändert" },
+   { "code": "200-6", "message": "Analysetyp erfolgreich hinzugefügt" },
+   { "code": "200-7", "message": "Analysis type successfully modified" },
+   { "code": "200-8", "message": "Gen erfolgreich hinzugefügt" },
+   { "code": "200-9", "message": "Gen erfolgreich geändert" },
+   { "code": "400-0", "message": "Fehler beim Laden des Benutzers" },
+   { "code": "400-1", "message": "Anmeldefehler" },
+   { "code": "400-2", "message": "Fehler beim Bearbeiten des Profils" },
+   { "code": "400-3", "message": "Sprache nicht gefunden" },
+   {
+    "code": "500-0",
+    "message": "Ungültige Anmeldedaten"
+   },
+   {
+    "code": "500-1",
+    "message": "Konto deaktiviert"
+   },
+   {
+    "code": "500-2",
+    "message": "Ein Benutzername ist erforderlich"
+   },
+   {
+    "code": "500-3",
+    "message": "Passwort erforderlich"
+   },
+   {
+    "code": "500-4",
+    "message": "Passwort muss 6 oder mehr Zeichen enthalten"
+   },
+   {
+    "code": "500-5",
+    "message": "Ein Benutzer mit demselben 'Username' existiert bereits"
+   },
+   {
+    "code": "500-6",
+    "message": "Benutzer nicht gefunden"
+   },
+   {
+    "code": "500-7",
+    "message": "Benutzer deaktiviert"
+   },
+   {
+    "code": "500-8",
+    "message": "Ein Name für das Hindernis ist erforderlich"
+   },
+   {
+    "code": "500-9",
+    "message": "Diese Art von Gen existiert bereits."
+   },
+   {
+    "code": "500-10",
+    "message": "Unbehagen nicht gefunden"
+   },
+   {
+    "code": "500-11",
+    "message": "Ein Gen mit demselben Namen existiert bereits"
+   },
+   {
+    "code": "500-12",
+    "message": "Bitte geben Sie einen Benutzernamen an"
+   },
+   {
+    "code": "500-13",
+    "message": "Bitte geben Sie ein Passwort mit mindestens 6 Zeichen ein"
+   },
+   {
+    "code": "500-14",
+    "message": "Benutzername bereits verwendet"
+   },
+   {
+    "code": "500-15",
+    "message": "Profil existiert bereits..."
+   },
+   {
+    "code": "500-16",
+    "message": "Kein Benutzer gefunden..."
+   },
+   {
+    "code": "500-17",
+    "message": "Kein Profil gefunden"
+   },
+   {
+    "code": "500-18",
+    "message": "Analyse nicht gefunden"
+   },
+   {
+    "code": "500-19",
+    "message": "Ein Name ist erforderlich"
+   },
+   {
+    "code": "500-20",
+    "message": "Diese Art der Analyse existiert bereits."
+   },
+   {
+    "code": "500-21",
+    "message": "Typ nicht gefunden"
+   },
+   {
+    "code": "500-22",
+    "message": "Ein Typ mit demselben Namen existiert bereits"
+   },
+   {
+    "code": "500-23",
+    "message": "Bitte geben Sie eine gültige E-Mail an"
+   },
+   {
+    "code": "500-24",
+    "message": "Für diesen Benutzer gibt es noch kein Profil"
+   },
+   {
+    "code": "500-25",
+    "message": "Ein Benutzer mit der gleichen 'email' existiert bereits"
+   },
+   {
+    "code": "500-26",
+    "message": "E-Mail bereits von einem anderen Benutzer verwendet!"
+   }
+  ]
  }
 ]

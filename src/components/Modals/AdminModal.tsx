@@ -7,7 +7,6 @@ import { register } from '../../actions/auth';
 import { updateProfileById } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
 import '../../css/modals/AdminModal.css';
-import { getLangMessage } from '../../actions/lang';
 
 const AdminModal = ({
  profile: {
@@ -15,7 +14,7 @@ const AdminModal = ({
  },
  updateProfileById,
  register,
- getLangMessage,
+ lang,
 }: PropsFromRedux) => {
  const [authForm, setAuthForm] = useState<{
   username?: string;
@@ -91,7 +90,10 @@ const AdminModal = ({
     <>
      <div className="modal-content">
       <h4>
-       {profile ? getLangMessage(16) : getLangMessage(17)} {getLangMessage(23)}
+       {profile
+        ? lang.messages.find((m) => m.code.match(String(16)))?.message
+        : lang.messages.find((m) => m.code.match(String(17)))?.message}{' '}
+       {lang.messages.find((m) => m.code.match(String(23)))?.message}
       </h4>
       <div className="row">
        <div className="input-field col s12">
@@ -104,7 +106,7 @@ const AdminModal = ({
          autoComplete="false"
         />
         <label htmlFor="AdminModal-username" className="active">
-         {getLangMessage(14)}
+         {lang.messages.find((m) => m.code.match(String(14)))?.message}
         </label>
         <div className="prefix">
          <img src={person} alt="person" />
@@ -121,7 +123,7 @@ const AdminModal = ({
          minLength={6}
         />
         <label htmlFor="AdminModal-password" className="active">
-         {getLangMessage(15)}
+         {lang.messages.find((m) => m.code.match(String(15)))?.message}
         </label>
         <div className="prefix">
          <img src={lock} alt="lock" />
@@ -140,7 +142,7 @@ const AdminModal = ({
           onChange={onChange}
          />
          <label htmlFor="AdminModal-nom" className="active">
-          {getLangMessage(18)}
+          {lang.messages.find((m) => m.code.match(String(18)))?.message}
          </label>
         </div>
         <div className="input-field col s12">
@@ -152,7 +154,7 @@ const AdminModal = ({
           onChange={onChange}
          />
          <label htmlFor="AdminModal-prenom" className="active">
-          {getLangMessage(24)}
+          {lang.messages.find((m) => m.code.match(String(24)))?.message}
          </label>
         </div>
         <div className="input-field col s12">
@@ -164,7 +166,7 @@ const AdminModal = ({
           onChange={onChange}
          />
          <label htmlFor="AdminModal-phoneNumber" className="active">
-          {getLangMessage(25)}
+          {lang.messages.find((m) => m.code.match(String(25)))?.message}
          </label>
         </div>
         <div className="input-field col s12">
@@ -176,12 +178,12 @@ const AdminModal = ({
           onChange={onChange}
          />
          <label htmlFor="AdminModal-fonction" className="active">
-          {getLangMessage(26)}
+          {lang.messages.find((m) => m.code.match(String(26)))?.message}
          </label>
         </div>
         <div className="switch">
          <label>
-          {getLangMessage(27)}
+          {lang.messages.find((m) => m.code.match(String(27)))?.message}
           <input
            name="isEnabled"
            type="checkbox"
@@ -190,25 +192,29 @@ const AdminModal = ({
            onChange={onChange}
           />
           <span className="lever"></span>
-          {getLangMessage(28)}
+          {lang.messages.find((m) => m.code.match(String(28)))?.message}
          </label>
         </div>
        </div>
       )}
      </div>
      <div className="modal-footer">
-      <p className="red-text left">* {getLangMessage(20)}</p>
+      <p className="red-text left">
+       * {lang.messages.find((m) => m.code.match(String(20)))?.message}
+      </p>
       <button
        onClick={handleBtn}
        className="modal-close waves-effect waves-green btn-flat"
       >
-       {profile ? getLangMessage(16) : getLangMessage(17)}
+       {profile
+        ? lang.messages.find((m) => m.code.match(String(16)))?.message
+        : lang.messages.find((m) => m.code.match(String(17)))?.message}
       </button>
       <button
        onClick={close}
        className="modal-close waves-effect btn-flat white black-text"
       >
-       {getLangMessage(22)}
+       {lang.messages.find((m) => m.code.match(String(22)))?.message}
       </button>
      </div>
     </>
@@ -219,9 +225,10 @@ const AdminModal = ({
 
 const mapStateToProps = (state: AppState) => ({
  profile: state.profile,
+ lang: state.lang.lang,
 });
 
-const mapDispatchToProps = { updateProfileById, register, getLangMessage };
+const mapDispatchToProps = { updateProfileById, register };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

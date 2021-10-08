@@ -5,7 +5,6 @@ import { AppState } from '../../store';
 import Spinner from '../layout/Spinner';
 import M from 'materialize-css';
 import { IAnalyseType } from '../../reducers/analyses';
-import { getLangMessage } from '../../actions/lang';
 
 const AnalyseTypeModal = ({
  analyses: {
@@ -15,7 +14,7 @@ const AnalyseTypeModal = ({
  },
  updateAnalyseTypeById,
  addAnalyseTypes,
- getLangMessage,
+ lang,
 }: PropsFromRedux) => {
  const [form, setForm] = useState<
   Pick<IAnalyseType, 'nom' | 'description' | 'genes'>
@@ -103,7 +102,10 @@ const AnalyseTypeModal = ({
     <>
      <div className="modal-content">
       <h4>
-       {type ? getLangMessage(16) : getLangMessage(17)} {getLangMessage(39)}{' '}
+       {type
+        ? lang.messages.find((m) => m.code.match(String(16)))?.message
+        : lang.messages.find((m) => m.code.match(String(17)))?.message}{' '}
+       {lang.messages.find((m) => m.code.match(String(39)))?.message}{' '}
        {type ? `(${type.nom})` : ''}
       </h4>
       <div className="form row">
@@ -116,7 +118,7 @@ const AnalyseTypeModal = ({
          onChange={onChange}
         />
         <label htmlFor="analyseTypeModal-nom" className="active">
-         {getLangMessage(18)}*
+         {lang.messages.find((m) => m.code.match(String(18)))?.message}*
         </label>
        </div>
        <div className="input-field col s12">
@@ -128,30 +130,36 @@ const AnalyseTypeModal = ({
          onChange={onChange}
         />
         <label htmlFor="analyseTypeModal-description" className="active">
-         {getLangMessage(19)}
+         {lang.messages.find((m) => m.code.match(String(19)))?.message}
         </label>
        </div>
        <div className="input-field col s12">
         <select multiple={true} name="mygenes" id="analyseTypeModal-select">
          {displayAllGenes()}
         </select>
-        <label>{getLangMessage(40)}</label>
+        <label>
+         {lang.messages.find((m) => m.code.match(String(40)))?.message}
+        </label>
        </div>
       </div>
      </div>
      <div className="modal-footer">
-      <p className="red-text left">* {getLangMessage(20)}</p>
+      <p className="red-text left">
+       * {lang.messages.find((m) => m.code.match(String(20)))?.message}
+      </p>
       <button
        className="modal-close waves-effect waves-green btn-flat"
        onClick={handleClick}
       >
-       {type ? getLangMessage(16) : getLangMessage(17)}
+       {type
+        ? lang.messages.find((m) => m.code.match(String(16)))?.message
+        : lang.messages.find((m) => m.code.match(String(17)))?.message}
       </button>
       <button
        onClick={close}
        className="modal-close waves-effect btn-flat white black-text"
       >
-       {getLangMessage(22)}
+       {lang.messages.find((m) => m.code.match(String(22)))?.message}
       </button>
      </div>
     </>
@@ -162,12 +170,12 @@ const AnalyseTypeModal = ({
 
 const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
+ lang: state.lang.lang,
 });
 
 const mapDispatchToProps = {
  addAnalyseTypes,
  updateAnalyseTypeById,
- getLangMessage,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

@@ -5,9 +5,9 @@ import Admins from './Admins';
 import Profil from './Profil';
 import Laboratoire from './Laboratoire';
 import '../../css/options/Options.css';
-import { getLangMessage } from '../../actions/lang';
+import { AppState } from '../../store';
 
-const Options = ({ getLangMessage }: any) => {
+const Options = ({ lang }: any) => {
  const [state, setState] = useState(<Profil />);
 
  const handleClick = (
@@ -25,7 +25,9 @@ const Options = ({ getLangMessage }: any) => {
  return (
   <div className="options row">
    <div className="options-sidenav col l2 m3 s12 row">
-    <p className="col s12">{getLangMessage(10)}</p>
+    <p className="col s12">
+     {lang.messages.find((m: any) => m.code.match(String(10)))?.message}
+    </p>
     <Link
      to="#"
      className="waves-effect waves-light option side-active"
@@ -33,7 +35,7 @@ const Options = ({ getLangMessage }: any) => {
       handleClick(e, <Profil />);
      }}
     >
-     {getLangMessage(61)}
+     {lang.messages.find((m: any) => m.code.match(String(61)))?.message}
     </Link>
     <Link
      to="#"
@@ -42,7 +44,7 @@ const Options = ({ getLangMessage }: any) => {
       handleClick(e, <Admins />);
      }}
     >
-     {getLangMessage(62)}
+     {lang.messages.find((m: any) => m.code.match(String(62)))?.message}
     </Link>
     <Link
      to="#"
@@ -51,7 +53,7 @@ const Options = ({ getLangMessage }: any) => {
       handleClick(e, <Laboratoire />);
      }}
     >
-     {getLangMessage(54)}
+     {lang.messages.find((m: any) => m.code.match(String(54)))?.message}
     </Link>
    </div>
    <div className="options-main col l10 m9 s12 offset-m3 offset-l2">
@@ -60,5 +62,7 @@ const Options = ({ getLangMessage }: any) => {
   </div>
  );
 };
-
-export default connect(null, { getLangMessage })(Options);
+const mapStateToProps = (state: AppState) => ({
+ lang: state.lang.lang,
+});
+export default connect(mapStateToProps)(Options);

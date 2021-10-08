@@ -11,7 +11,6 @@ import { registerUser } from '../../actions/user';
 import { updateUserProfileById } from '../../actions/userProfiles';
 import { setAlert } from '../../actions/alerts';
 import { AlertTypes } from '../../reducers/alerts';
-import { getLangMessage } from '../../actions/lang';
 
 const UserModal = ({
  userProfiles: {
@@ -20,7 +19,7 @@ const UserModal = ({
  registerUser,
  updateUserProfileById,
  setAlert,
- getLangMessage,
+ lang,
 }: PropsFromRedux) => {
  const [authForm, setAuthForm] = useState<
   Pick<IUser, 'email' | 'isEnabled'> & { password: string }
@@ -105,7 +104,11 @@ const UserModal = ({
    ) : (
     <>
      <div className="modal-content">
-      <h4>{userProfile ? getLangMessage(41) : getLangMessage(42)}</h4>
+      <h4>
+       {userProfile
+        ? lang.messages.find((m) => m.code.match(String(41)))?.message
+        : lang.messages.find((m) => m.code.match(String(42)))?.message}
+      </h4>
       <div className="row">
        <div className="input-field col s12">
         <input
@@ -117,7 +120,7 @@ const UserModal = ({
          autoComplete="false"
         />
         <label htmlFor="UserModal-email" className="active">
-         {getLangMessage(43)}*
+         {lang.messages.find((m) => m.code.match(String(43)))?.message}*
         </label>
         <div className="prefix">
          <img src={mail} alt="mail" />
@@ -134,7 +137,7 @@ const UserModal = ({
          minLength={6}
         />
         <label htmlFor="UserModal-password" className="active">
-         {getLangMessage(15)}*
+         {lang.messages.find((m) => m.code.match(String(15)))?.message}*
         </label>
         <div className="prefix">
          <img src={lock} alt="lock" />
@@ -153,7 +156,7 @@ const UserModal = ({
           onChange={onChange}
          />
          <label htmlFor="UserModal-nom" className="active">
-          {getLangMessage(18)}*
+          {lang.messages.find((m) => m.code.match(String(18)))?.message}*
          </label>
         </div>
         <div className="input-field col s12">
@@ -165,7 +168,7 @@ const UserModal = ({
           onChange={onChange}
          />
          <label htmlFor="UserModal-prenom" className="active">
-          {getLangMessage(24)}*
+          {lang.messages.find((m) => m.code.match(String(24)))?.message}*
          </label>
         </div>
         <div className="input-field col s5">
@@ -181,7 +184,7 @@ const UserModal = ({
           disableFuture={true}
          />
          <label htmlFor="UserModal-dateOfBirth" className="active">
-          {getLangMessage(44)}*
+          {lang.messages.find((m) => m.code.match(String(44)))?.message}*
          </label>
         </div>
         <div className="input-field col s5 offset-s1">
@@ -193,7 +196,7 @@ const UserModal = ({
           onChange={onChange}
          />
          <label htmlFor="UserModal-birthLocation" className="active">
-          {getLangMessage(45)}*
+          {lang.messages.find((m) => m.code.match(String(45)))?.message}*
          </label>
         </div>
         <div className="input-field col s12">
@@ -205,7 +208,7 @@ const UserModal = ({
           onChange={onChange}
          />
          <label htmlFor="UserModal-phoneNumber" className="active">
-          {getLangMessage(25)}*
+          {lang.messages.find((m) => m.code.match(String(25)))?.message}*
          </label>
         </div>
         <div className="input-field col s12">
@@ -217,7 +220,7 @@ const UserModal = ({
           onChange={onChange}
          />
          <label htmlFor="UserModal-adresse" className="active">
-          {getLangMessage(46)}*
+          {lang.messages.find((m) => m.code.match(String(46)))?.message}*
          </label>
         </div>
         {/* {userProfile && (
@@ -240,18 +243,22 @@ const UserModal = ({
       }
      </div>
      <div className="modal-footer">
-      <p className="red-text left">* {getLangMessage(20)}</p>
+      <p className="red-text left">
+       * {lang.messages.find((m) => m.code.match(String(20)))?.message}
+      </p>
       <button
        onClick={handleBtn}
        className="modal-close waves-effect waves-green btn-flat"
       >
-       {userProfile ? getLangMessage(16) : getLangMessage(17)}
+       {userProfile
+        ? lang.messages.find((m) => m.code.match(String(16)))?.message
+        : lang.messages.find((m) => m.code.match(String(17)))?.message}
       </button>
       <button
        onClick={close}
        className="modal-close waves-effect btn-flat white black-text"
       >
-       {getLangMessage(22)}
+       {lang.messages.find((m) => m.code.match(String(22)))?.message}
       </button>
      </div>
     </>
@@ -262,13 +269,13 @@ const UserModal = ({
 
 const mapStateToProps = (state: AppState) => ({
  userProfiles: state.userProfile,
+ lang: state.lang.lang,
 });
 
 const mapDispatchToProps = {
  updateUserProfileById,
  setAlert,
  registerUser,
- getLangMessage,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

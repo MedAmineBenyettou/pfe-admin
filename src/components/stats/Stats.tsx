@@ -8,11 +8,11 @@ import AnalysesActivity from './charts/AnalysesActivity';
 import AnalyseTypesActivity from './charts/AnalyseTypesActivity';
 import GenesActivity from './charts/GenesActivity';
 import UsersActivity from './charts/UsersActivity';
-import { getLangMessage } from '../../actions/lang';
 
 import '../../css/stats/stats.css';
+import { AppState } from '../../store';
 
-const Stats = ({ getAllUsersProfiles, getAnalyses, getLangMessage }: any) => {
+const Stats = ({ getAllUsersProfiles, getAnalyses, lang }: any) => {
  useEffect(() => {
   getAllUsersProfiles();
   getAnalyses();
@@ -21,7 +21,9 @@ const Stats = ({ getAllUsersProfiles, getAnalyses, getLangMessage }: any) => {
  return (
   <div className="stats row">
    <div className="header col s12 center">
-    <p className="header-desc col s8 offset-s2">{getLangMessage(70)}</p>
+    <p className="header-desc col s8 offset-s2">
+     {lang.messages.find((m: any) => m.code.match(String(70)))?.message}
+    </p>
    </div>
    <div className="content col s12 row">
     <div className="col s12">
@@ -47,8 +49,11 @@ const Stats = ({ getAllUsersProfiles, getAnalyses, getLangMessage }: any) => {
  );
 };
 
-export default connect(null, {
+const mapStateToProps = (state: AppState) => ({
+ lang: state.lang.lang,
+});
+
+export default connect(mapStateToProps, {
  getAllUsersProfiles,
  getAnalyses,
- getLangMessage,
 })(Stats);

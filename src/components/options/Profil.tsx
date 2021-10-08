@@ -7,14 +7,13 @@ import person from '../../assets/person.png';
 import Spinner from '../../components/layout/Spinner';
 import { updateProfile } from '../../actions/profile';
 import { updateUser } from '../../actions/auth';
-import { getLangMessage } from '../../actions/lang';
 
 export const Profil = ({
  profile: { profile, error, loading },
  auth,
  updateProfile,
  updateUser,
- getLangMessage,
+ lang,
 }: PropsFromRedux) => {
  const [authData, setAuthData] = useState<{
   username?: string;
@@ -54,7 +53,9 @@ export const Profil = ({
   const { username, password } = authData;
   return (
    <div className="profil">
-    <h1 className="header">{getLangMessage(63)} :</h1>
+    <h1 className="header">
+     {lang.messages.find((m) => m.code.match(String(63)))?.message} :
+    </h1>
     <div className="content">
      <div className="row">
       <div className="input-field col s12">
@@ -66,7 +67,7 @@ export const Profil = ({
         onChange={onChange}
        />
        <label htmlFor="nom" className="active">
-        {getLangMessage(18)}
+        {lang.messages.find((m) => m.code.match(String(18)))?.message}
        </label>
       </div>
       <div className="input-field col s12">
@@ -78,7 +79,7 @@ export const Profil = ({
         onChange={onChange}
        />
        <label htmlFor="prenom" className="active">
-        {getLangMessage(24)}
+        {lang.messages.find((m) => m.code.match(String(24)))?.message}
        </label>
       </div>
       <div className="input-field col s12">
@@ -90,7 +91,7 @@ export const Profil = ({
         onChange={onChange}
        />
        <label htmlFor="phoneNumber" className="active">
-        {getLangMessage(25)}
+        {lang.messages.find((m) => m.code.match(String(25)))?.message}
        </label>
       </div>
       <div className="input-field col s12">
@@ -102,7 +103,7 @@ export const Profil = ({
         onChange={onChange}
        />
        <label htmlFor="fonction" className="active">
-        {getLangMessage(26)}
+        {lang.messages.find((m) => m.code.match(String(26)))?.message}
        </label>
       </div>
       <div className=" col s12 valign-wrapper">
@@ -111,13 +112,15 @@ export const Profil = ({
         className="btn col m4 s5 offset-m8 offset-s7 light-blue"
         onClick={handleProfile}
        >
-        {getLangMessage(64)}
+        {lang.messages.find((m) => m.code.match(String(64)))?.message}
        </button>
       </div>
      </div>
      <div className="divider"></div>
      <div className="row">
-      <h1 className="header">{getLangMessage(65)}</h1>
+      <h1 className="header">
+       {lang.messages.find((m) => m.code.match(String(65)))?.message}
+      </h1>
      </div>
      <div className="row">
       <div className="input-field col s12">
@@ -131,7 +134,7 @@ export const Profil = ({
         autoComplete="false"
        />
        <label htmlFor="username" className="active">
-        {getLangMessage(14)}
+        {lang.messages.find((m) => m.code.match(String(14)))?.message}
        </label>
        <div className="prefix">
         <img src={person} alt="person" />
@@ -148,7 +151,7 @@ export const Profil = ({
         minLength={6}
        />
        <label htmlFor="password" className="active">
-        {getLangMessage(15)}
+        {lang.messages.find((m) => m.code.match(String(15)))?.message}
        </label>
        <div className="prefix">
         <img src={lock} alt="lock" />
@@ -160,7 +163,7 @@ export const Profil = ({
         className="btn col m4 s5 offset-m8 offset-s7 light-blue"
         onClick={handleAuth}
        >
-        {getLangMessage(64)}
+        {lang.messages.find((m) => m.code.match(String(64)))?.message}
        </button>
       </div>
      </div>
@@ -173,9 +176,10 @@ export const Profil = ({
 const mapStateToProps = (state: AppState) => ({
  auth: state.auth,
  profile: state.profile,
+ lang: state.lang.lang,
 });
 
-const mapDispatchToProps = { updateProfile, updateUser, getLangMessage };
+const mapDispatchToProps = { updateProfile, updateUser };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

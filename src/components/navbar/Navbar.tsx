@@ -6,16 +6,14 @@ import { logout } from '../../actions/auth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Logo } from '../layout/Logo';
 import { initMaterialize } from '../../general/initMaterialize';
-import { getLangMessage } from '../../actions/lang';
+import LangSwitcher from './LangSwitcher';
 
 import '../../css/navbar/Navbar.css';
-import LangSwitcher from './LangSwitcher';
 
 export const Navbar = ({
  auth: { isAuthenticated, loading },
- lang: { lang, langs },
+ lang,
  logout,
- getLangMessage,
 }: PropsFromRedux) => {
  useEffect(() => {
   initMaterialize();
@@ -24,18 +22,26 @@ export const Navbar = ({
  const RightMenu = () => (
   <ul className="right-options right hide-on-med-and-down">
    <li>
-    <Link to="/">{getLangMessage(9)}</Link>
+    <Link to="/">
+     {lang.messages.find((m) => m.code.match(String(9)))?.message}
+    </Link>
    </li>
    {isAuthenticated && !loading && (
     <>
      <li>
-      <Link to={`/options`}>{getLangMessage(10)}</Link>
+      <Link to={`/options`}>
+       {lang.messages.find((m) => m.code.match(String(10)))?.message}
+      </Link>
      </li>
      <li>
-      <Link to={`/patients`}>{getLangMessage(11)}</Link>
+      <Link to={`/patients`}>
+       {lang.messages.find((m) => m.code.match(String(11)))?.message}
+      </Link>
      </li>
      <li>
-      <Link to={`/stats`}>{getLangMessage(12)}</Link>
+      <Link to={`/stats`}>
+       {lang.messages.find((m) => m.code.match(String(12)))?.message}
+      </Link>
      </li>
      <li>
       <LangSwitcher />
@@ -45,7 +51,7 @@ export const Navbar = ({
    <li onClick={logout} className="red lighten-2">
     {' '}
     <Link className="sidenav-close" to="#">
-     {getLangMessage(13)}
+     {lang.messages.find((m) => m.code.match(String(13)))?.message}
     </Link>
    </li>
   </ul>
@@ -53,33 +59,33 @@ export const Navbar = ({
 
  const Mobile = () => (
   <ul className="sidenav" id="mobile">
-   <div className="center-align">
+   <li className="center-align">
     <LangSwitcher />
-   </div>
+   </li>
    <li>
     <Link className="sidenav-close" to="/">
-     {getLangMessage(9)}
+     {lang.messages.find((m) => m.code.match(String(9)))?.message}
     </Link>
    </li>
    <li>
     {isAuthenticated && !loading && (
      <>
       <Link to={`/options`} className="sidenav-close">
-       {getLangMessage(10)}
+       {lang.messages.find((m) => m.code.match(String(10)))?.message}
       </Link>
       <Link to={`/patients`} className="sidenav-close">
-       {getLangMessage(11)}
+       {lang.messages.find((m) => m.code.match(String(11)))?.message}
       </Link>
       <Link to={`/stats`} className="sidenav-close">
-       {getLangMessage(12)}
+       {lang.messages.find((m) => m.code.match(String(12)))?.message}
       </Link>
-      <li onClick={logout} className="red lighten-2">
-       <Link className="sidenav-close" to="#">
-        {getLangMessage(13)}
-       </Link>
-      </li>
      </>
     )}
+   </li>
+   <li onClick={logout} className="red lighten-2">
+    <Link className="sidenav-close" to="#">
+     {lang.messages.find((m) => m.code.match(String(13)))?.message}
+    </Link>
    </li>
   </ul>
  );
@@ -108,10 +114,10 @@ export const Navbar = ({
 const mapStateToProps = (state: AppState) => ({
  auth: state.auth,
  profile: state.profile,
- lang: state.lang,
+ lang: state.lang.lang,
 });
 
-const mapDispatchToProps = { logout, getLangMessage };
+const mapDispatchToProps = { logout };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

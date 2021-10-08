@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { addGene, updateGeneById } from '../../actions/analyses';
 import { AppState } from '../../store';
-import { getLangMessage } from '../../actions/lang';
 
 import Spinner from '../layout/Spinner';
 import M from 'materialize-css';
@@ -14,7 +13,7 @@ const AddGeneModal = ({
  },
  addGene,
  updateGeneById,
- getLangMessage,
+ lang,
 }: PropsFromRedux) => {
  const [form, setForm] = useState({
   nom: gene ? gene.nom : '',
@@ -60,7 +59,10 @@ const AddGeneModal = ({
     <>
      <div className="modal-content">
       <h4>
-       {gene ? getLangMessage(16) : getLangMessage(17)} {getLangMessage(21)}{' '}
+       {gene
+        ? lang.messages.find((m) => m.code.match(String(16)))?.message
+        : lang.messages.find((m) => m.code.match(String(17)))?.message}{' '}
+       {lang.messages.find((m) => m.code.match(String(21)))?.message}{' '}
        {gene ? `(${gene.nom})` : ''}
       </h4>
       <div className="form row">
@@ -73,7 +75,7 @@ const AddGeneModal = ({
          onChange={onChange}
         />
         <label htmlFor="GeneModal-nom" className="active">
-         {getLangMessage(18)}*
+         {lang.messages.find((m) => m.code.match(String(18)))?.message}*
         </label>
        </div>
        <div className="input-field col s12">
@@ -85,24 +87,28 @@ const AddGeneModal = ({
          onChange={onChange}
         />
         <label htmlFor="GeneModal-description" className="active">
-         {getLangMessage(19)}
+         {lang.messages.find((m) => m.code.match(String(19)))?.message}
         </label>
        </div>
       </div>
      </div>
      <div className="modal-footer">
-      <p className="red-text left">* {getLangMessage(20)}</p>
+      <p className="red-text left">
+       * {lang.messages.find((m) => m.code.match(String(20)))?.message}
+      </p>
       <button
        className="modal-close waves-effect waves-green btn-flat"
        onClick={handleClick}
       >
-       {gene ? getLangMessage(16) : getLangMessage(17)}
+       {gene
+        ? lang.messages.find((m) => m.code.match(String(16)))?.message
+        : lang.messages.find((m) => m.code.match(String(17)))?.message}
       </button>
       <button
        onClick={close}
        className="modal-close waves-effect btn-flat white black-text"
       >
-       {getLangMessage(22)}
+       {lang.messages.find((m) => m.code.match(String(22)))?.message}
       </button>
      </div>
     </>
@@ -113,9 +119,10 @@ const AddGeneModal = ({
 
 const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
+ lang: state.lang.lang,
 });
 
-const mapDispatchToProps = { addGene, updateGeneById, getLangMessage };
+const mapDispatchToProps = { addGene, updateGeneById };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

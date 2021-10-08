@@ -12,13 +12,12 @@ import {
 import { IUserProfile } from '../../reducers/userProfiles';
 
 import '../../css/patients/patients.css';
-import { getLangMessage } from '../../actions/lang';
 
 export const Patients = ({
  profile: { loading, userProfiles },
  setTargetUserProfile,
  getAllUsersProfiles,
- getLangMessage,
+ lang,
 }: PropsFromRedux) => {
  useEffect(() => {
   getAllUsersProfiles();
@@ -67,7 +66,9 @@ export const Patients = ({
     <td></td>
     <td></td>
     <td></td>
-    <td className="error">{getLangMessage(48)}</td>
+    <td className="error">
+     {lang.messages.find((m) => m.code.match(String(48)))?.message}
+    </td>
     <td></td>
     <td></td>
     <td></td>
@@ -79,12 +80,12 @@ export const Patients = ({
  return (
   <div className="patients">
    <div className="header">
-    <h1>{getLangMessage(66)}</h1>
+    <h1>{lang.messages.find((m) => m.code.match(String(66)))?.message}</h1>
     <a
      className="btn light-green waves-effect waves-light right modal-trigger"
      href="#UserModal"
     >
-     {getLangMessage(67)}
+     {lang.messages.find((m) => m.code.match(String(67)))?.message}
     </a>
    </div>
    <div className="content row">
@@ -92,13 +93,13 @@ export const Patients = ({
      <thead>
       <tr>
        {/* <th>ID</th> */}
-       <th>{getLangMessage(18)}</th>
-       <th>{getLangMessage(24)}</th>
-       <th>{getLangMessage(43)}</th>
-       <th>{getLangMessage(46)}</th>
-       <th>{getLangMessage(68)}</th>
-       <th>{getLangMessage(25)}</th>
-       <th>{getLangMessage(69)}</th>
+       <th>{lang.messages.find((m) => m.code.match(String(18)))?.message}</th>
+       <th>{lang.messages.find((m) => m.code.match(String(24)))?.message}</th>
+       <th>{lang.messages.find((m) => m.code.match(String(43)))?.message}</th>
+       <th>{lang.messages.find((m) => m.code.match(String(46)))?.message}</th>
+       <th>{lang.messages.find((m) => m.code.match(String(68)))?.message}</th>
+       <th>{lang.messages.find((m) => m.code.match(String(25)))?.message}</th>
+       <th>{lang.messages.find((m) => m.code.match(String(69)))?.message}</th>
        {/* <th>Etat</th> */}
       </tr>
      </thead>
@@ -111,12 +112,12 @@ export const Patients = ({
 
 const mapStateToProps = (state: AppState) => ({
  profile: state.userProfile,
+ lang: state.lang.lang,
 });
 
 const mapDispatchToProps = {
  setTargetUserProfile,
  getAllUsersProfiles,
- getLangMessage,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

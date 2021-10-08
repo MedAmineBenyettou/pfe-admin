@@ -15,7 +15,6 @@ import {
 } from '../../actions/analyses';
 import { IAnalyseType, IGene } from '../../reducers/analyses';
 import { initMaterialize } from '../../general/initMaterialize';
-import { getLangMessage } from '../../actions/lang';
 
 export const Laboratoire = ({
  analyses,
@@ -27,7 +26,7 @@ export const Laboratoire = ({
  deleteTypeById,
  selectType,
  getAnalyseTypes,
- getLangMessage,
+ lang,
 }: PropsFromRedux) => {
  useEffect(() => {
   getGenes();
@@ -214,12 +213,18 @@ export const Laboratoire = ({
 
  return (
   <div className="laboratoire">
-   <p className="header-desc">{getLangMessage(53)}</p>
-   <h1 className="header">{getLangMessage(54)}</h1>
+   <p className="header-desc">
+    {lang.messages.find((m) => m.code.match(String(53)))?.message}
+   </p>
+   <h1 className="header">
+    {lang.messages.find((m) => m.code.match(String(54)))?.message}
+   </h1>
    <div className="content row">
     <ul className="collection with-header genes">
      <li className="collection-header row">
-      <h4 className="col s8 m10">{getLangMessage(55)}</h4>
+      <h4 className="col s8 m10">
+       {lang.messages.find((m) => m.code.match(String(55)))?.message}
+      </h4>
       <a
        className="btn-floating btn-large waves-effect waves-light right modal-trigger"
        href="#GeneModal"
@@ -232,7 +237,9 @@ export const Laboratoire = ({
     <div className="divider"></div>
     <ul className="collection with-header types">
      <li className="collection-header row">
-      <h4 className="col s8 m10">{getLangMessage(56)}</h4>
+      <h4 className="col s8 m10">
+       {lang.messages.find((m) => m.code.match(String(56)))?.message}
+      </h4>
       <a
        href="#AnalyseTypeModal"
        className="btn-floating btn-large waves-effect waves-light right modal-trigger"
@@ -247,9 +254,10 @@ export const Laboratoire = ({
    <div id="confirmDeleteGene" className="modal">
     <div className="modal-content">
      <h4 className="warning">
-      {getLangMessage(57)} "{analyses.selection.gene?.nom}"?
+      {lang.messages.find((m) => m.code.match(String(57)))?.message} "
+      {analyses.selection.gene?.nom}"?
      </h4>
-     <p>{getLangMessage(58)}</p>
+     <p>{lang.messages.find((m) => m.code.match(String(58)))?.message}</p>
     </div>
     <div className="modal-footer">
      <button
@@ -258,10 +266,10 @@ export const Laboratoire = ({
       }}
       className="modal-close waves-effect btn-flat"
      >
-      {getLangMessage(59)}
+      {lang.messages.find((m) => m.code.match(String(59)))?.message}
      </button>
      <button className="modal-close waves-effect btn-flat white black-text">
-      {getLangMessage(22)}
+      {lang.messages.find((m) => m.code.match(String(22)))?.message}
      </button>
     </div>
    </div>
@@ -269,9 +277,10 @@ export const Laboratoire = ({
    <div id="confirmDeleteType" className="modal">
     <div className="modal-content">
      <h4 className="warning">
-      {getLangMessage(60)} "{analyses.selection.type?.nom}"?
+      {lang.messages.find((m) => m.code.match(String(60)))?.message} "
+      {analyses.selection.type?.nom}"?
      </h4>
-     <p>{getLangMessage(58)}</p>
+     <p>{lang.messages.find((m) => m.code.match(String(58)))?.message}</p>
     </div>
     <div className="modal-footer">
      <button
@@ -280,10 +289,10 @@ export const Laboratoire = ({
       }}
       className="modal-close waves-effect btn-flat"
      >
-      {getLangMessage(59)}
+      {lang.messages.find((m) => m.code.match(String(59)))?.message}
      </button>
      <button className="modal-close waves-effect btn-flat white black-text">
-      {getLangMessage(22)}
+      {lang.messages.find((m) => m.code.match(String(22)))?.message}
      </button>
     </div>
    </div>
@@ -293,6 +302,7 @@ export const Laboratoire = ({
 
 const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
+ lang: state.lang.lang,
 });
 
 const mapDispatchToProps = {
@@ -304,7 +314,6 @@ const mapDispatchToProps = {
  clearSelectedType,
  deleteTypeById,
  getAnalyseTypes,
- getLangMessage,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

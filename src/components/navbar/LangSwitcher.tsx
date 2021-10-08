@@ -4,6 +4,7 @@ import { AppState } from '../../store';
 import icon from '../../assets/2479273.png';
 import { Menu, Button, MenuItem, Divider } from '@material-ui/core';
 import { setLang } from '../../actions/lang';
+import { v1 } from 'uuid';
 
 const LangSwitcher = ({ lang: { lang, langs }, setLang }: PropsFromRedux) => {
  //  useEffect(() => {
@@ -24,7 +25,7 @@ const LangSwitcher = ({ lang: { lang, langs }, setLang }: PropsFromRedux) => {
   var myL = langs.find((l) => l.lang.match(lang.dict.lang));
   if (myL) {
    t.push(
-    <MenuItem className="blue-text sidenav-close" value={myL.lang}>
+    <MenuItem key={v1()} className="blue-text sidenav-close" value={myL.lang}>
      {myL.language}
     </MenuItem>
    );
@@ -35,7 +36,7 @@ const LangSwitcher = ({ lang: { lang, langs }, setLang }: PropsFromRedux) => {
     t.push(
      <MenuItem
       className="sidenav-close"
-      key={l.lang}
+      key={v1()}
       value={l.lang}
       onClick={() => setLang(l.lang)}
      >

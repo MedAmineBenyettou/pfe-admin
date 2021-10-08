@@ -11,7 +11,6 @@ import {
  AnalyseStateForm,
  updateAnalyseById,
 } from '../../actions/analyses';
-import { getLangMessage } from '../../actions/lang';
 
 const AnalyseModal = ({
  analyses: {
@@ -23,7 +22,7 @@ const AnalyseModal = ({
  setTargetUserProfile,
  updateAnalyseById,
  addAnalyse,
- getLangMessage,
+ lang,
 }: PropsFromRedux) => {
  const [form, setForm] = useState<AnalyseStateForm>({
   description: analyse ? analyse.description : '',
@@ -116,7 +115,10 @@ const AnalyseModal = ({
       ))}
      </Select>
     );
-   else return <p>{getLangMessage(29)} :/</p>;
+   else
+    return (
+     <p>{lang.messages.find((m) => m.code.match(String(29)))?.message} :/</p>
+    );
   else return <Spinner />;
  };
 
@@ -132,7 +134,10 @@ const AnalyseModal = ({
       ))}
      </Select>
     );
-   else return <p>{getLangMessage(30)} :/</p>;
+   else
+    return (
+     <p>{lang.messages.find((m) => m.code.match(String(30)))?.message} :/</p>
+    );
   else return <Spinner />;
  };
 
@@ -144,7 +149,8 @@ const AnalyseModal = ({
     <>
      <div className="modal-content">
       <h4>
-       {analyse ? 'Modifier' : 'Ajouter'} {getLangMessage(31)}
+       {analyse ? 'Modifier' : 'Ajouter'}{' '}
+       {lang.messages.find((m) => m.code.match(String(31)))?.message}
       </h4>
       <ul className="tabs tabs-fixed-width z-depth-1">
        <li className="tab">
@@ -159,7 +165,7 @@ const AnalyseModal = ({
       <div id="lier-compte" className="col s12">
        <FormControl className="col s12">
         <InputLabel id="input_compte_client" className="col s12">
-         {getLangMessage(32)}
+         {lang.messages.find((m) => m.code.match(String(32)))?.message}
         </InputLabel>
         {displayUsersEmails()}
        </FormControl>
@@ -169,13 +175,13 @@ const AnalyseModal = ({
         className="btn btn-flat waves-effect blue"
         onClick={openUserModal}
        >
-        {getLangMessage(33)}
+        {lang.messages.find((m) => m.code.match(String(33)))?.message}
        </button>
       </div>
       <div className="main-form">
        <FormControl className="col s12">
         <InputLabel id="input_type" className="col s12">
-         {getLangMessage(34)}
+         {lang.messages.find((m) => m.code.match(String(34)))?.message}
         </InputLabel>
         {displayAnalyseTypes()}
        </FormControl>
@@ -188,7 +194,7 @@ const AnalyseModal = ({
          onChange={onChange}
         />
         <label htmlFor="analyseModal-locationDePrelevement" className="active">
-         {getLangMessage(35)}*
+         {lang.messages.find((m) => m.code.match(String(35)))?.message}*
         </label>
        </div>
        <div className="input-field col s12">
@@ -201,7 +207,7 @@ const AnalyseModal = ({
          onChange={onChange}
         />
         <label htmlFor="analyseModal-description" className="active">
-         {getLangMessage(19)}
+         {lang.messages.find((m) => m.code.match(String(19)))?.message}
         </label>
        </div>
        <div className="input-field col s12">
@@ -214,12 +220,12 @@ const AnalyseModal = ({
          onChange={onChange}
         />
         <label htmlFor="analyseModal-notes" className="active">
-         {getLangMessage(36)}
+         {lang.messages.find((m) => m.code.match(String(36)))?.message}
         </label>
        </div>
        <FormControl className="col s12">
         <InputLabel id="input_etat" className="col s12">
-         {getLangMessage(37)}
+         {lang.messages.find((m) => m.code.match(String(37)))?.message}
         </InputLabel>
         <Select
          name="etat"
@@ -227,14 +233,20 @@ const AnalyseModal = ({
          onChange={onChange}
          labelId="input_etat"
         >
-         <MenuItem value={-1}>{getLangMessage(2)}</MenuItem>
-         <MenuItem value={0}>{getLangMessage(3)}</MenuItem>
-         <MenuItem value={1}>{getLangMessage(4)}</MenuItem>
+         <MenuItem value={-1}>
+          {lang.messages.find((m) => m.code.match(String(2)))?.message}
+         </MenuItem>
+         <MenuItem value={0}>
+          {lang.messages.find((m) => m.code.match(String(3)))?.message}
+         </MenuItem>
+         <MenuItem value={1}>
+          {lang.messages.find((m) => m.code.match(String(4)))?.message}
+         </MenuItem>
         </Select>
        </FormControl>
        <div className="switch">
         <label>
-         {getLangMessage(38)}
+         {lang.messages.find((m) => m.code.match(String(38)))?.message}
          <input
           name="positive"
           type="checkbox"
@@ -247,18 +259,22 @@ const AnalyseModal = ({
       </div>
      </div>
      <div className="modal-footer">
-      <p className="red-text left">* {getLangMessage(20)}</p>
+      <p className="red-text left">
+       * {lang.messages.find((m) => m.code.match(String(20)))?.message}
+      </p>
       <button
        className="modal-close waves-effect waves-green btn-flat"
        onClick={handleClick}
       >
-       {analyse ? getLangMessage(16) : getLangMessage(17)}
+       {analyse
+        ? lang.messages.find((m) => m.code.match(String(16)))?.message
+        : lang.messages.find((m) => m.code.match(String(17)))?.message}
       </button>
       <button
        onClick={close}
        className="modal-close waves-effect btn-flat white black-text"
       >
-       {getLangMessage(22)}
+       {lang.messages.find((m) => m.code.match(String(22)))?.message}
       </button>
      </div>
     </>
@@ -270,13 +286,13 @@ const AnalyseModal = ({
 const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
  profiles: state.userProfile.userProfiles,
+ lang: state.lang.lang,
 });
 
 const mapDispatchToProps = {
  setTargetUserProfile,
  updateAnalyseById,
  addAnalyse,
- getLangMessage,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

@@ -7,9 +7,8 @@ import { CHARTBORDERCOLORS, CHARTCOLORS } from '../../../general/Common';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import moment from 'moment';
 import { shuffle } from '../../../global';
-import { getLangMessage } from '../../../actions/lang';
 
-const AnalysesActivity = ({ analyses, getLangMessage }: PropsFromRedux) => {
+const AnalysesActivity = ({ analyses, lang }: PropsFromRedux) => {
  const [chartData, setChartData] = useState({});
 
  const [temps, setTemps] = useState(-1);
@@ -39,7 +38,7 @@ const AnalysesActivity = ({ analyses, getLangMessage }: PropsFromRedux) => {
     labels: tx,
     datasets: [
      {
-      label: getLangMessage(76),
+      label: lang.messages.find((m) => m.code.match(String(76)))?.message,
       data: ty,
       backgroundColor: shuffle(CHARTCOLORS),
       borderColor: shuffle(CHARTBORDERCOLORS),
@@ -49,7 +48,7 @@ const AnalysesActivity = ({ analyses, getLangMessage }: PropsFromRedux) => {
    });
   };
   Chart();
- }, [temps, analyses.analyses.data, getLangMessage]);
+ }, [temps, analyses.analyses.data, lang]);
 
  const onChange = (e: any) => {
   setTemps(e.target.value);
@@ -59,10 +58,10 @@ const AnalysesActivity = ({ analyses, getLangMessage }: PropsFromRedux) => {
   <div className="AnalysesActivity row">
    {!analyses.loading ? (
     <>
-     <h4>{getLangMessage(77)}:</h4>
+     <h4>{lang.messages.find((m) => m.code.match(String(77)))?.message}:</h4>
      <FormControl className="col s4">
       <InputLabel id="input_temps_AnalyseTypesActivity">
-       {getLangMessage(80)} :
+       {lang.messages.find((m) => m.code.match(String(80)))?.message} :
       </InputLabel>
       <Select
        name="temps"
@@ -70,9 +69,15 @@ const AnalysesActivity = ({ analyses, getLangMessage }: PropsFromRedux) => {
        onChange={onChange}
        labelId="input_temps_AnalysesActivity"
       >
-       <MenuItem value={-1}>{getLangMessage(72)}</MenuItem>
-       <MenuItem value={0}>{getLangMessage(73)}</MenuItem>
-       <MenuItem value={1}>{getLangMessage(74)}</MenuItem>
+       <MenuItem value={-1}>
+        {lang.messages.find((m) => m.code.match(String(72)))?.message}
+       </MenuItem>
+       <MenuItem value={0}>
+        {lang.messages.find((m) => m.code.match(String(73)))?.message}
+       </MenuItem>
+       <MenuItem value={1}>
+        {lang.messages.find((m) => m.code.match(String(74)))?.message}
+       </MenuItem>
       </Select>
      </FormControl>
      <div className="col s10 offset-s1">
@@ -82,12 +87,14 @@ const AnalysesActivity = ({ analyses, getLangMessage }: PropsFromRedux) => {
        options={{
         responsive: true,
         title: {
-         text: `${getLangMessage(75)} ${
+         text: `${
+          lang.messages.find((m) => m.code.match(String(75)))?.message
+         } ${
           temps === -1
-           ? getLangMessage(72)
+           ? lang.messages.find((m) => m.code.match(String(72)))?.message
            : temps === 0
-           ? getLangMessage(73)
-           : getLangMessage(74)
+           ? lang.messages.find((m) => m.code.match(String(73)))?.message
+           : lang.messages.find((m) => m.code.match(String(74)))?.message
          }`,
          display: true,
         },
@@ -109,11 +116,10 @@ const AnalysesActivity = ({ analyses, getLangMessage }: PropsFromRedux) => {
 
 const mapStateToProps = (state: AppState) => ({
  analyses: state.analyses,
+ lang: state.lang.lang,
 });
 
-const mapDispatchToProps = { getLangMessage };
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 

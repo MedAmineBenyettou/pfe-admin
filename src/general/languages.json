@@ -112,7 +112,115 @@
    { "code": "400-0", "message": "Erreur lors du chargement de l'utilisateur" },
    { "code": "400-1", "message": "Erreur de login" },
    { "code": "400-2", "message": "Erreur lors de la modification du profil" },
-   { "code": "400-3", "message": "Language pas trouvé" }
+   { "code": "400-3", "message": "Language pas trouvé" },
+   {
+    "code": "500-0",
+    "message": "Les informations d'identification sont invalides"
+   },
+   {
+    "code": "500-1",
+    "message": "Compte desactivé"
+   },
+   {
+    "code": "500-2",
+    "message": "Un nom d'utilisateur est requis"
+   },
+   {
+    "code": "500-3",
+    "message": "Mot de passe requis"
+   },
+   {
+    "code": "500-4",
+    "message": "Mot de passe doit contenir 6 caractères ou plus"
+   },
+   {
+    "code": "500-5",
+    "message": "Un utilisateur avec le meme 'Nom d'utilisateur' existe deja"
+   },
+   {
+    "code": "500-6",
+    "message": "Utilisateur non trouvé"
+   },
+   {
+    "code": "500-7",
+    "message": "Utilisateur desactivé"
+   },
+   {
+    "code": "500-8",
+    "message": "Un nom pour le gêne est requis"
+   },
+   {
+    "code": "500-9",
+    "message": "Ce type de gêne existe deja."
+   },
+   {
+    "code": "500-10",
+    "message": "Gêne non trouvé"
+   },
+   {
+    "code": "500-11",
+    "message": "Un gêne avec le même nom éxiste dèja"
+   },
+   {
+    "code": "500-12",
+    "message": "Veuillez inclure un nom d'utilisateur"
+   },
+   {
+    "code": "500-13",
+    "message": "Veuillez saisir un mot de passe de 6 caractères ou plus"
+   },
+   {
+    "code": "500-14",
+    "message": "Nom d'utilisateur déjà utilisé"
+   },
+   {
+    "code": "500-15",
+    "message": "Le profil existe déjà..."
+   },
+   {
+    "code": "500-16",
+    "message": "Aucun utilisateur trouvé..."
+   },
+   {
+    "code": "500-17",
+    "message": "Aucun profil trouvé"
+   },
+   {
+    "code": "500-18",
+    "message": "Analyse non trouvé"
+   },
+   {
+    "code": "500-19",
+    "message": "Un nom est requis"
+   },
+   {
+    "code": "500-20",
+    "message": "Ce type d'analyse existe deja."
+   },
+   {
+    "code": "500-21",
+    "message": "Type non trouvé"
+   },
+   {
+    "code": "500-22",
+    "message": "Un type avec le même nom éxiste dèja"
+   },
+   {
+    "code": "500-23",
+    "message": "Veuillez inclure un e-mail valide"
+   },
+   {
+    "code": "500-24",
+    "message": "Il n'y a pas encore de profil pour cet utilisateur"
+   },
+   {
+    "code": "500-25",
+    "message": "Un utilisateur avec le meme 'email' existe deja"
+   },
+   {
+    "code": "500-26",
+    "message": "Email déjà utilisé par un autre utilisateur!"
+   }
   ]
  }
 ]
